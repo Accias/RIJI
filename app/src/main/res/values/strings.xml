@@ -2,4 +2,7 @@
     <string name="app_name">RIJI</string>
     <string name="edit_message">Enter a Message</string>
     <string name="button_send">Send</string>
+    <string name="table_of_years">Table of Years</string>
+    <string name="button">Button</string>
+    <string name="jan"><![CDATA[<JAN]]></string>
 </resources>
