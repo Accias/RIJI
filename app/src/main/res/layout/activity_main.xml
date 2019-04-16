@@ -33,4 +33,10 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editText"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="395dp"
+        android:layout_height="651dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="72dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

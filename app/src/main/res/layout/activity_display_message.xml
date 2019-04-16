@@ -6,15 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".DisplayMessageActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="136dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="TextView"
+    <TextureView
+        android:layout_width="411dp"
+        android:layout_height="166dp"
+        android:background="@color/colorAccent"
+        android:backgroundTint="@color/colorLightGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

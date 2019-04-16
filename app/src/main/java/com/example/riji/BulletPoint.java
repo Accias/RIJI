@@ -43,6 +43,4 @@ public class BulletPoint {
     public void setNote(String note){
         this.note=note;
     }
-
-
 }
