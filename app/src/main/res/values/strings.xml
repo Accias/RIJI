@@ -4,5 +4,8 @@
     <string name="button_send">Send</string>
     <string name="table_of_years">Table of Years</string>
     <string name="button">Button</string>
-    <string name="jan"><![CDATA[<JAN]]></string>
+    <string name="jan">JAN</string>
+    <string name="event">+ event</string>
+    <string name="event">+ event</string>
+    <string name="today">Today</string>
 </resources>
