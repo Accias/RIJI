@@ -6,42 +6,44 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    tools:context=".DayActivity"
-    android:orientation="vertical">
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="20dp"
-    android:textSize="16sp"
-    android:text=" JAN"
-    />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Tuesday, Jan 2"
-    />
+    android:orientation="vertical"
+    tools:context=".DayActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text=" JAN"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tuesday, Jan 2" />
+
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
-        >
+        android:layout_height="400dp"
+        android:layout_marginBottom="25dp">
 
     </ListView>
+
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="">
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Today"
-            />
+            android:text="Today" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Search"
-            />
+            android:text="Search" />
 
 
         <EditText
@@ -50,96 +52,96 @@
 
             />
     </LinearLayout>
-<!--
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="74dp"
-        android:background="@color/colorAccent"
-        android:backgroundTint="@color/colorAccent"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
-       <include layout="@layout/content_day" />
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:fontFamily="@font/dosis"
-            android:padding="15dp"
-            android:text="@string/jan"
-            android:textSize="30sp" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider7"
-        android:layout_width="500dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="72dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="500dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="528dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
-
-    <EditText
-        android:id="@+id/Jan1"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:fontFamily="@font/lobster_two"
-        android:inputType="textPersonName"
-        android:text="Monday, Jan 1"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorAccent"
-        android:backgroundTint="@color/colorAccent"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/button7"
+    <!--
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/dosis"
-            android:text="@string/today"
-            android:textSize="24sp" />
+            android:layout_height="74dp"
+            android:background="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
-        <SearchView
-            android:layout_width="278dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:backgroundTint="@android:color/white"
-            tools:layout_editor_absoluteX="133dp"
-            tools:layout_editor_absoluteY="678dp" />
-    </LinearLayout>
--->
+           <include layout="@layout/content_day" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/dosis"
+                android:padding="15dp"
+                android:text="@string/jan"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="500dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="72dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="500dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="528dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+        <EditText
+            android:id="@+id/Jan1"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:ems="10"
+            android:fontFamily="@font/lobster_two"
+            android:inputType="textPersonName"
+            android:text="Monday, Jan 1"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/dosis"
+                android:text="@string/today"
+                android:textSize="24sp" />
+
+            <SearchView
+                android:layout_width="278dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
+                tools:layout_editor_absoluteX="133dp"
+                tools:layout_editor_absoluteY="678dp" />
+        </LinearLayout>
+    -->
 </LinearLayout>
