@@ -9,11 +9,13 @@
     tools:context=".DayActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="74dp"
         android:background="@color/colorAccent"
         android:backgroundTint="@color/colorAccent"
+        android:barrierAllowsGoneWidgets="false"
+        android:barrierAllowsGoneWidgets="false"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/buttonjan"
+            android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
@@ -39,47 +41,72 @@
         android:layout_marginTop="72dp"
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="500dp"
         android:layout_height="1dp"
-        android:layout_marginTop="544dp"
+        android:layout_marginTop="528dp"
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <EditText
-        android:id="@+id/jan1"
-        android:layout_width="210dp"
-        android:layout_height="69dp"
+        android:id="@+id/1_1"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:ems="10"
         android:fontFamily="@font/lobster_two"
         android:inputType="textPersonName"
-        android:text="@string/monday_jan_1"
+        android:text="Monday, Jan 1"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="395dp"
-        android:layout_height="445dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="426dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/event">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/event"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="57dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorAccent"
         android:backgroundTint="@color/colorAccent"
         android:orientation="horizontal"
