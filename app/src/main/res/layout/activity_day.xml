@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    tools:context=".DayActivity">
+    tools:context=".DayActivity"
+    android:orientation="vertical">
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:textSize="16sp"
+    android:text="< JAN"
+    />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Tuesday, Jan 2"
+    />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="25dp"
+        >
+
+    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Today"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Search"
+            />
 
 
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
 
+            />
+    </LinearLayout>
+<!--
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -22,6 +63,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
+
+       <include layout="@layout/content_day" />
 
         <Button
             android:id="@+id/button6"
@@ -98,5 +141,5 @@
             tools:layout_editor_absoluteX="133dp"
             tools:layout_editor_absoluteY="678dp" />
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+-->
+</LinearLayout>
