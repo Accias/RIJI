@@ -10,29 +10,30 @@
     tools:context=".DayActivity">
 
     <Button
+        android:id="@+id/backToMonth"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text=" JAN"
+        android:layout_height="wrap_content"
+        android:text=">&gt;  JAN"
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/dayDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tuesday, Jan 2" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginBottom="25dp">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:orientation="horizontal"
-        android:gravity="">
+        android:orientation="horizontal">
 
 
         <Button
