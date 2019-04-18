@@ -11,26 +11,30 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text=" JAN"
-        android:textSize="16sp" />
+        android:fontFamily="@font/dosis"
+        android:textSize="24sp" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tuesday, Jan 2" />
+        android:text="Tuesday, Jan 2"
+        android:layout_gravity="center"
+        android:textSize= "36sp"
+        android:fontFamily="@font/lobster_two"/>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="25dp">
+        android:layout_height="455dp"
+        android:layout_marginBottom="0dp">
 
     </ListView>
 
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="">
 
@@ -38,9 +42,17 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Today" />
+            android:text="Today"
+            android:fontFamily="@font/dosis"/>
 
-        <TextView
+        <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        />
+
+      <!--  <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Search" />
@@ -49,7 +61,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="match_parent"
-
+-->
             />
     </LinearLayout>
     <!--
