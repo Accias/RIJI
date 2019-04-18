@@ -26,7 +26,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="455dp"
+        android:layout_height="440dp"
         android:layout_marginBottom="0dp">
 
     </ListView>
@@ -34,7 +34,7 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="">
 
@@ -43,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Today"
-            android:fontFamily="@font/dosis"/>
+            android:fontFamily="@font/dosis"
+            android:textSize="18sp"/>
 
         <SearchView
         android:layout_width="match_parent"
@@ -52,16 +53,7 @@
         android:backgroundTint="@android:color/white"
         />
 
-      <!--  <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Search" />
 
-
-        <EditText
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
--->
             />
     </LinearLayout>
     <!--
@@ -156,4 +148,14 @@
                 tools:layout_editor_absoluteY="678dp" />
         </LinearLayout>
     -->
+    <!--  <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Search" />
+
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+-->
 </LinearLayout>
