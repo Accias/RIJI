@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:backgroundTint="@android:color/white"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="@color/colorAccent">
+
+        <Button
+            android:id="@+id/jan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:fontFamily="@font/dosis"
+            android:text=" <JAN"
+            android:layout_gravity="center"
+            android:textSize="30dp"
+            android:backgroundTint="@color/colorAccent"/>
+        />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tuesday1_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:fontFamily="@font/lobster_two"
+        android:text="Tuesday, Jan 2"
+        android:textSize="36sp" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tuesday1_2"
+        android:layout_above="@id/botton_bar">
+
+       <!-- <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
+-->
+    </ListView>
+
+    <LinearLayout
+
+        android:id="@+id/botton_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:gravity=""
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/dosis"
+            android:text="Today"
+            android:textSize="18sp" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:backgroundTint="@android:color/white" />
+
+
+        />
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +90,15 @@
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
     android:orientation="vertical"
-    tools:context=".DayActivity">
+    tools:context=".MainActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" JAN"
         android:fontFamily="@font/dosis"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:background="@android:color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,6 +140,7 @@
 
             />
     </LinearLayout>
+    -->
     <!--
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -158,4 +243,3 @@
             android:layout_width="150dp"
             android:layout_height="match_parent"
 -->
-</LinearLayout>
