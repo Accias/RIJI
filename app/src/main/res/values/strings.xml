@@ -7,4 +7,5 @@
     <string name="jan">JAN</string>
     <string name="event">+ event</string>
     <string name="today">Today</string>
+    <string name="to_month"><![CDATA[<JAN]]></string>
 </resources>

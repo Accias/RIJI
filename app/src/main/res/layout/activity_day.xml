@@ -23,11 +23,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
-            android:text=" <JAN"
+            android:text="@string/to_month"
             android:layout_gravity="center"
-            android:textSize="30dp"
+            android:textSize="@dimen/to_month_textsize"
             android:backgroundTint="@color/colorAccent"/>
-        />
     </LinearLayout>
 
     <TextView
@@ -41,8 +40,8 @@
         android:text="Tuesday, Jan 2"
         android:textSize="36sp" />
 
-    <ListView
-        android:id="@+id/list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tuesday1_2"
@@ -52,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
 -->
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
 
