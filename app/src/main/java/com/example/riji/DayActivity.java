@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class DayActivity extends AppCompatActivity {
 
-    private final LinkedList<String> mWordList = new LinkedList<>();
+  /*  private final LinkedList<String> mWordList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
 
@@ -29,5 +29,5 @@ public class DayActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
+    }*/
 }

@@ -29,7 +29,8 @@ public interface DayDAO {
     List<Day> findDayInMonth(final int year,final int month);
 
     @Query("SELECT * FROM days WHERE year=:year&month=:month&day=:day ORDER BY id")
-    List<Day> findSpecificDay(final int year, final int month, final int day);
+     List<Day> findSpecificDay(final int year, final int month, final int day);
+
 
 
 }

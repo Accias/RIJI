@@ -6,16 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.LinkedList;
+import java.util.List;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
-    private final LinkedList<String> mWordList;
+    private final List<BulletPoint> mBulletPoints;
     private LayoutInflater mInflater;
 
     public WordListAdapter(Context context,
-                           LinkedList<String> wordList) {
+                           List<BulletPoint> bulletList) {
         mInflater = LayoutInflater.from(context);
-        this.mWordList = wordList;
+        this.mBulletPoints = bulletList;
     }
 
     @Override
@@ -28,16 +30,16 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     @Override
     public void onBindViewHolder(WordViewHolder holder, int position) {
-        String mCurrent = mWordList.get(position);
+        String mCurrent = mBulletPoints.get(position).getNote();
         holder.wordItemView.setText(mCurrent);
     }
 
     @Override
     public int getItemCount() {
-        return mWordList.size();
+        return mBulletPoints.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class WordViewHolder extends RecyclerView.ViewHolder{
         public final TextView wordItemView;
         final WordListAdapter mAdapter;
 
@@ -45,20 +47,21 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             super(itemView);
             wordItemView = itemView.findViewById(R.id.word);
             this.mAdapter = adapter;
-            itemView.setOnClickListener(this);
+           // itemView.setOnClickListener(this);
         }
 
-        @Override
+       /* @Override
         public void onClick(View v) {
+         implements View.OnClickListener
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-            // Use that to access the affected item in mWordList.
-            String element = mWordList.get(mPosition);
-            // Change the word in the mWordList.
-            mWordList.set(mPosition, "Clicked! " + element);
+            // Use that to access the affected item in mBulletPoints.
+            String element = mBulletPoints.get(mPosition).getNote();
+            // Change the word in the mBulletPoints.
+            mBulletPoints.set(mPosition, "Clicked! " + element);
             // Notify the adapter, that the data has changed so it can
             // update the RecyclerView to display the data.
             mAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 }

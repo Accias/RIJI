@@ -36,4 +36,5 @@ ext{
     buildToolsVersion = "25.0.2"
     supportLibVersion = "25.3.1"
     roomVersion = '1.0.0-beta02'
+    archLifecycleVersion = '1.1.1'
 }

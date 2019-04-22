@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,19 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/jan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/dosis"
             android:text="@string/to_month"
-            android:layout_gravity="center"
-            android:textSize="@dimen/to_month_textsize"
-            android:backgroundTint="@color/colorAccent"/>
+            android:textSize="@dimen/to_month_textsize" />
     </LinearLayout>
 
     <TextView
@@ -37,21 +36,25 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:fontFamily="@font/lobster_two"
-        android:text="Tuesday, Jan 2"
+        android:text="@string/date"
         android:textSize="36sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/addBullet"
         android:layout_below="@id/tuesday1_2"
-        android:layout_above="@id/botton_bar">
+        android:fontFamily="@font/dosis" />
 
-       <!-- <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
--->
-    </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/addBullet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/botton_bar"
+        android:fontFamily="@font/dosis"
+        android:text="+ Bullet Point"
+        android:textSize="25sp" />
 
     <LinearLayout
 
@@ -59,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
         android:gravity=""
         android:orientation="horizontal">
 
@@ -73,6 +77,7 @@
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:background="@android:color/white"
             android:backgroundTint="@android:color/white" />
 
@@ -80,8 +85,7 @@
         />
     </LinearLayout>
 
-</RelativeLayout>
-<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</RelativeLayout><!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -139,8 +143,7 @@
 
             />
     </LinearLayout>
-    -->
-    <!--
+    --><!--
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="0dp"
@@ -231,8 +234,7 @@
                 tools:layout_editor_absoluteX="133dp"
                 tools:layout_editor_absoluteY="678dp" />
         </LinearLayout>
-    -->
-    <!--  <TextView
+    --><!--  <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Search" />
