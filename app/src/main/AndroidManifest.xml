@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TableofYear"></activity>
-        <activity android:name=".DayActivity">
-
-        </activity>
+        <activity android:name=".Year"></activity>
+        <activity android:name=".Month" />
+        <activity android:name=".TableofYear" />
+        <activity android:name=".DayActivity" />
         <activity
             android:name=".DisplayMessageActivity"
             android:parentActivityName=".MainActivity">
@@ -23,13 +23,11 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data

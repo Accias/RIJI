@@ -8,7 +8,7 @@
     android:backgroundTint="@android:color/white"
     tools:context=".MainActivity">
 
-  <!--  <LinearLayout
+    <LinearLayout
 
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
@@ -23,24 +23,23 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
-            android:text=" <JAN"
+            android:text=" <2019"
             android:layout_gravity="center"
             android:textSize="30dp"
             android:backgroundTint="@color/colorAccent"/>
         />
     </LinearLayout>
--->
+
     <TextView
         android:id="@+id/tuesday1_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_bar"
         android:layout_centerHorizontal="true"
-        android:paddingTop="5dp"
         android:layout_gravity="center"
         android:fontFamily="@font/lobster_two"
-        android:text="Table of Years"
-        android:textSize="40sp" />
+        android:text="January"
+        android:textSize="36sp" />
 
     <ListView
         android:id="@+id/list_view"

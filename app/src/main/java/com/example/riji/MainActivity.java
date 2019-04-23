@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         toast.show();
                     }
                 });
+
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -86,7 +87,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void sendEvent(View view) {
+        Toast toast = Toast.makeText(MainActivity.this,"event",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    public void sendNote(View view) {
+        Toast toast = Toast.makeText(MainActivity.this,"note",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    public void sendTask(View view) {
+        Toast toast = Toast.makeText(MainActivity.this,"task",Toast.LENGTH_SHORT);
+        toast.show();
+    }
     /** Called when the user taps the Send button */
     /*public void sendMessage(View view) {
             Intent intent = new Intent(this, DisplayMessageActivity.class);

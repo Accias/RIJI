@@ -15,5 +15,30 @@
         android:hint="Bullet Point"
         android:inputType="textAutoCorrect"
         android:textColor="@android:color/background_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/events"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="O (EVENTS)"
+            android:onClick="sendEvent"
+            />
+        <Button
+            android:id="@+id/notes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="- (NOTES)"
+            android:onClick="sendNote"/>
+        <Button
+            android:id="@+id/tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="~ (TASKS)"
+            android:onClick="sendTask"/>
+    </LinearLayout>
 </LinearLayout>
 
