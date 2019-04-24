@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
-            android:text=" <2019"
+            android:text=" 2019"
             android:layout_gravity="center"
             android:textSize="30dp"
             android:backgroundTint="@color/colorAccent"/>

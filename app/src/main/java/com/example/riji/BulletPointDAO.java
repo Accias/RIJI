@@ -1,6 +1,8 @@
 package com.example.riji;
 
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,10 +21,10 @@ public interface BulletPointDAO {
     void deleteBulletPoint (BulletPoint bp);
 
     @Query("SELECT * FROM bulletpoints ORDER BY id")
-    List<BulletPoint> getAllBulletPoints();
+    LiveData<List<BulletPoint>> getAllBulletPoints();
 
     @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
-    List<BulletPoint> findBulletPointsForDay(final int day_id);
+    LiveData<List<BulletPoint>> findBulletPointsForDay(final int day_id);
 
    // @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
    // List<BulletPoint> findBulletPointsForDay(final int day_id,String word);
