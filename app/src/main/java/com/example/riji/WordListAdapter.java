@@ -8,11 +8,12 @@ import android.widget.TextView;
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
-    private final List<BulletPoint> mBulletPoints;
-    private LayoutInflater mInflater;
+    private List<BulletPoint> mBulletPoints;
+    private final LayoutInflater mInflater;
 
     public WordListAdapter(Context context,
                            List<BulletPoint> bulletList) {
@@ -20,16 +21,22 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         this.mBulletPoints = bulletList;
     }
 
+    @NonNull
     @Override
-    public WordViewHolder onCreateViewHolder(ViewGroup parent,
+    public WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.wordlist_item,
                 parent, false);
         return new WordViewHolder(mItemView, this);
     }
 
+    void setBulletPoints(List<BulletPoint> bulletPoints){
+        mBulletPoints = bulletPoints;
+        notifyDataSetChanged();
+    }
+
     @Override
-    public void onBindViewHolder(WordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
         String mCurrent = mBulletPoints.get(position).getNote();
         holder.wordItemView.setText(mCurrent);
     }

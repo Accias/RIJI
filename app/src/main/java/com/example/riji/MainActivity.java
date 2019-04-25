@@ -1,13 +1,18 @@
 package com.example.riji;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Database rijiDatabase;
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    private BulletPointViewModel mBPViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
+        mBPViewModel.getAllBulletPoints().observe(this, new Observer<List<BulletPoint>>() {
+            @Override
+            public void onChanged(@Nullable final List<BulletPoint> bulletPoints) {
+                // Update the cached copy of the words in the adapter.
+                mAdapter.setBulletPoints(bulletPoints);
+            }
+        });
+
         final Button addBullet = findViewById(R.id.addBullet);
         addBullet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -61,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setTitle("Add Bullet Point");
 
                 LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
+                @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
                 builder.setView(popupInputDialogView);
                 final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
 
@@ -69,10 +84,16 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        mString = bullet.getText().toString();
-                        Toast toast = Toast.makeText(MainActivity.this,mString,Toast.LENGTH_SHORT);
-                        toast.show();
+                        if (TextUtils.isEmpty(bullet.getText())) {
+                            dialog.dismiss();
+                            Toast toast = Toast.makeText(MainActivity.this, "Cannot store empty string.", Toast.LENGTH_LONG);
+                            toast.show();
+                        } else {
+                            dialog.dismiss();
+                            mString = bullet.getText().toString();
+                            mBPViewModel.insert(new BulletPoint(0,mString));
+                        }
+                        finish();
                     }
                 });
 
@@ -87,19 +108,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void sendEvent(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"event",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, "event", Toast.LENGTH_SHORT);
         toast.show();
     }
+
     public void sendNote(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"note",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, "note", Toast.LENGTH_SHORT);
         toast.show();
     }
+
     public void sendTask(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"task",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, "task", Toast.LENGTH_SHORT);
         toast.show();
     }
-    /** Called when the user taps the Send button */
     /*public void sendMessage(View view) {
             Intent intent = new Intent(this, DisplayMessageActivity.class);
             EditText editText = (EditText) findViewById(R.id.editText);

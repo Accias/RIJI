@@ -20,6 +20,9 @@ public interface BulletPointDAO {
     @Delete
     void deleteBulletPoint (BulletPoint bp);
 
+    @Query("DELETE FROM bulletpoints")
+    void deleteAll();
+
     @Query("SELECT * FROM bulletpoints ORDER BY id")
     LiveData<List<BulletPoint>> getAllBulletPoints();
 
