@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
-            android:text=" <2019"
+            android:text=" 2019"
             android:layout_gravity="center"
             android:textSize="30dp"
             android:backgroundTint="@color/colorAccent"/>
@@ -41,18 +41,37 @@
         android:text="January"
         android:textSize="36sp" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addBullet"
+        android:layout_below="@id/tuesday1_2"
+        android:fontFamily="@font/dosis"
+        android:paddingHorizontal="50dp" />
+
+    <Button
+        android:id="@+id/addBullet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/botton_bar"
+        android:fontFamily="@font/dosis"
+        android:text="+ Bullet Point"
+        android:textSize="25sp" />
+
+    <!--<LinearLayout
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tuesday1_2"
-        android:layout_above="@id/botton_bar">
+        android:layout_above="@id/botton_bar"
+        android:orientation="vertical">
 
-        <!-- <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
- -->
-    </ListView>
+    </LinearLayout>
+-->
 
     <LinearLayout
 

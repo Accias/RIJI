@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Database rijiDatabase;
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+     TextView symbol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
                 builder.setView(popupInputDialogView);
                 final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
+                symbol = popupInputDialogView.findViewById(R.id.symbol);
 
                 // Set up the buttons
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -88,17 +92,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void sendEvent(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"event",Toast.LENGTH_SHORT);
+
+        Toast toast = Toast.makeText(MainActivity.this,"o",Toast.LENGTH_SHORT);
         toast.show();
+        symbol.setText(" o ");
+
     }
     public void sendNote(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"note",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this,"-",Toast.LENGTH_SHORT);
         toast.show();
+        symbol.setText(" - ");
+
     }
     public void sendTask(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"task",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this,"~",Toast.LENGTH_SHORT);
         toast.show();
+        symbol.setText(" ~ ");
     }
+
+
+// ----------------------------------------------------------
+
+
     /** Called when the user taps the Send button */
     /*public void sendMessage(View view) {
             Intent intent = new Intent(this, DisplayMessageActivity.class);

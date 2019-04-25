@@ -3,42 +3,64 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/bullet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="Bullet Point"
-        android:inputType="textAutoCorrect"
-        android:textColor="@android:color/background_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
+        <TextView
+            android:id="@+id/symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/event"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/bullet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif"
+            android:hint="Bullet Point"
+            android:inputType="textAutoCorrect"
+            android:textColor="@android:color/background_dark" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ToggleButton
             android:id="@+id/events"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="O (EVENTS)"
             android:onClick="sendEvent"
-            />
-        <Button
+            android:textOff="@string/circle_events"
+            android:textOn="o (EVENTS)" />
+
+        <ToggleButton
             android:id="@+id/notes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="- (NOTES)"
-            android:onClick="sendNote"/>
-        <Button
+            android:onClick="sendNote"
+            android:textOff="@string/line_notes"
+            android:textOn="- (NOTES)" />
+
+        <ToggleButton
             android:id="@+id/tasks"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="~ (TASKS)"
-            android:onClick="sendTask"/>
+            android:onClick="sendTask"
+            android:textOff="@string/squiggle_tasks"
+            android:textOn="~ (TASKS)" />
     </LinearLayout>
+
+
 </LinearLayout>
 

@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Year">
+    android:background="@android:color/white"
+    android:backgroundTint="@android:color/white"
+    tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/TableofYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/dosis"
+            android:text=" Table of Year"
+            android:textSize="@dimen/to_month_textsize" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/two019"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:fontFamily="@font/lobster_two"
+        android:text="2019"
+        android:textSize="36sp" />
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/two019"
+       android:orientation="vertical">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:text="January">
+       </TextView>
+       <com.google.android.material.textfield.TextInputEditText
+           android:layout_width="match_parent"
+           android:layout_height="match_parent" />
+   </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/botton_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:gravity=""
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/dosis"
+            android:text="Today"
+            android:textSize="18sp" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:background="@android:color/white"
+            android:backgroundTint="@android:color/white" />
+
+
+        />
+    </LinearLayout>
+
+</RelativeLayout>
