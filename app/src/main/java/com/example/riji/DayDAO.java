@@ -20,6 +20,9 @@ public interface DayDAO {
     @Delete
     void deleteDay(Day day);
 
+    @Query("DELETE FROM days")
+    void deleteAll();
+
     @Query("SELECT * FROM days ORDER BY id")
     LiveData<List<Day>> getAllDays();
 
@@ -30,7 +33,15 @@ public interface DayDAO {
     LiveData<List<Day>> findDayInMonth(final int year,final int month);
 
     @Query("SELECT * FROM days WHERE year=:year&month=:month&day=:day ORDER BY id")
-    LiveData<List<Day>> findSpecificDay(final int year, final int month, final int day);
+    LiveData<Day> findSpecificDay(final int year, final int month, final int day);
+
+    @Query("SELECT * FROM days WHERE year=:year &month=:month &day=:day")
+    Day findSpecificDayNoLive(final int year, final int month, final int day);
+
+    @Query("SELECT id FROM days WHERE year=:year &month=:month &day=:day")
+    int getDayId(final int year, final int month, final int day);
+
+
 
 
 

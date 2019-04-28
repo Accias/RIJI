@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
@@ -35,24 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
-     TextView symbol;
+    private TextView symbol;
+    private int bulletType = 0;
+    private DayDAO mDayDao;
+    private Day day1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
         rijiDatabase = Room.databaseBuilder(getApplicationContext(), Database.class, DATABASE_NAME).build();
-      /*  new Thread(new Runnable() {
-            @Override
-            public void run() {
-               // if(DayDAO.findSpecificDay(2019, 4, 21)==null)
-              //  Movies movie =new Movies();
-                //movie.setMovieId( “2”);
-                //movie.setMovieName(“The Prestige”);
-                //movieDatabase.daoAccess () . insertOnlySingleMovie (movie);
-            }
-        }) .start();*/
-
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -63,7 +57,30 @@ public class MainActivity extends AppCompatActivity {
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //find current day class
+        mDayDao = rijiDatabase.getDayDAO();
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        //getTime() returns the current date in default time zone
+        final int day = calendar.get(Calendar.DATE);
+        //Note: +1 the month for current month
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int year = calendar.get(Calendar.YEAR);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        Date date = new Date(year,month,day);
+
+        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao,new findSpecificDayAsyncTask.AsyncResponse(){
+
+            @Override
+            public void processFinish(Day output){
+                day1=output;
+            }
+        }).execute(date);
+
+      //  Toast toast = Toast.makeText(MainActivity.this, day1.getDay(), Toast.LENGTH_LONG);
+
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
+
         mBPViewModel.getAllBulletPoints().observe(this, new Observer<List<BulletPoint>>() {
             @Override
             public void onChanged(@Nullable final List<BulletPoint> bulletPoints) {
@@ -95,9 +112,8 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             dialog.dismiss();
                             mString = bullet.getText().toString();
-                            mBPViewModel.insert(new BulletPoint(0,mString));
+                            mBPViewModel.insert(new BulletPoint(bulletType, symbol.getText() + " " + mString));
                         }
-                        finish();
                     }
                 });
 
@@ -114,22 +130,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendEvent(View view) {
-
-        Toast toast = Toast.makeText(MainActivity.this,"o",Toast.LENGTH_SHORT);
+        bulletType = 0;
+        Toast toast = Toast.makeText(MainActivity.this, "o", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" o ");
 
     }
 
     public void sendNote(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"-",Toast.LENGTH_SHORT);
+        bulletType = 1;
+        Toast toast = Toast.makeText(MainActivity.this, "-", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
 
     }
 
     public void sendTask(View view) {
-        Toast toast = Toast.makeText(MainActivity.this,"~",Toast.LENGTH_SHORT);
+        bulletType = 2;
+        Toast toast = Toast.makeText(MainActivity.this, "~", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" ~ ");
     }

@@ -3,9 +3,12 @@ package com.example.riji;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "bulletpoints",foreignKeys = @ForeignKey(entity=Day.class,parentColumns = "id",childColumns = "day_id"))
+@Entity(tableName = "bulletpoints")
+//,foreignKeys = {@ForeignKey(entity=Day.class,parentColumns = "id",childColumns = "day_id")},
+//      indices = {@Index(value = "day_id")}
 public class BulletPoint {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -17,12 +20,14 @@ public class BulletPoint {
     @ColumnInfo(name = "note")
     public String note;
 
-    @ColumnInfo(name = "day_id")
-    public long day_id;
+  //  @ColumnInfo(name = "day_id")
+ //   public long day_id;
 
     public BulletPoint(int bulletType, String note){
+        //,final long day_id
         this.bulletType=bulletType;
         this.note=note;
+      //  this.day_id=day_id;
     }
 
     public long getId(){

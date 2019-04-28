@@ -26,8 +26,8 @@ public interface BulletPointDAO {
     @Query("SELECT * FROM bulletpoints ORDER BY id")
     LiveData<List<BulletPoint>> getAllBulletPoints();
 
-    @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
-    LiveData<List<BulletPoint>> findBulletPointsForDay(final int day_id);
+   // @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
+  //  LiveData<List<BulletPoint>> findBulletPointsForDay(final int day_id);
 
    // @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
    // List<BulletPoint> findBulletPointsForDay(final int day_id,String word);
