@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.riji.Day_related.Day;
 
 public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewHolder>{
 

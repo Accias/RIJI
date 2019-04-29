@@ -2,7 +2,10 @@ package com.example.riji;
 
 import android.os.AsyncTask;
 
-public  class findSpecificDayAsyncTask extends AsyncTask<Date,Void,Day> {
+import com.example.riji.Day_related.Day;
+import com.example.riji.Day_related.DayDAO;
+
+public class findSpecificDayAsyncTask extends AsyncTask<Date,Void, Day> {
     private DayDAO mAsyncTaskDao;
     public AsyncResponse delegate = null;
 

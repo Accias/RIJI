@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.Day_related;
 
 import android.app.Application;
 

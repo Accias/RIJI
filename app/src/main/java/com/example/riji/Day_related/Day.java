@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.Day_related;
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Database;

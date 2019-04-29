@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.BulletPoint_related;
 
 import java.util.List;
 
@@ -9,6 +9,11 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+/*
+This is the data access object(DAO) of the bulletpoint class.
+It can insert, update, delete, and search for specific bulletpoints, or
+return a list of bulletpoints.
+ */
 @Dao
 public interface BulletPointDAO {
 
