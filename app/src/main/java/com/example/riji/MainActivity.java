@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity{
     private DayDAO mDayDao;
     private Day day1;
 
+    //test test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void Back()
     {
-       Button backButton = (Button) findViewById(R.id.jan);
+       Button backButton = findViewById(R.id.jan);
        backButton.setOnClickListener(new View.OnClickListener()
        {
            @Override
@@ -177,7 +178,6 @@ public class MainActivity extends AppCompatActivity{
 // ----------------------------------------------------------
 
 
-    /** Called when the user taps the Send button */
     /*public void sendMessage(View view) {
             Intent intent = new Intent(this, DisplayMessageActivity.class);
             EditText editText = (EditText) findViewById(R.id.editText);
