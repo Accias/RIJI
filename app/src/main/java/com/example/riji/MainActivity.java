@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -89,6 +90,9 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //BACK BUTTON METHOD
+        Back();
+
         final Button addBullet = findViewById(R.id.addBullet);
         addBullet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -152,6 +156,20 @@ public class MainActivity extends AppCompatActivity{
         symbol.setText(" ~ ");
     }
 
+    public void Back()
+    {
+       Button backButton = (Button) findViewById(R.id.jan);
+       backButton.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(MainActivity.this, Month.class));
+           }
+       });
+
+       }
+    }
+
 
 // ----------------------------------------------------------
 
@@ -164,4 +182,4 @@ public class MainActivity extends AppCompatActivity{
             intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
     }*/
-}
+

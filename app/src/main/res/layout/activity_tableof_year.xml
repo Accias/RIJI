@@ -40,20 +40,44 @@
         android:layout_gravity="center"
         android:fontFamily="@font/lobster_two"
         android:text="Table of Years"
-        android:textSize="40sp" />
+        android:textSize="60sp" />
 
-    <ListView
+    <LinearLayout
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tuesday1_2"
-        android:layout_above="@id/botton_bar">
+        android:layout_above="@id/botton_bar"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019"
+            android:textSize="60sp"
+            android:fontFamily="@font/dosis"
+            android:paddingHorizontal="60dp"
+            android:paddingTop="10dp"
+            android:background="@android:color/white"/>
+
+        <ImageButton
+            android:layout_width="111dp"
+            android:layout_height="98dp"
+            android:background="@mipmap/piggy"/>
 
         <!-- <com.google.android.material.textfield.TextInputLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
  -->
-    </ListView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/botton_bar"
+        android:fontFamily="@font/dosis"
+        android:text="+ Year"
+        android:textSize="25sp" />
 
     <LinearLayout
 

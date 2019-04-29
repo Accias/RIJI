@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dayReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dateButton"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:text="1."
+                android:background="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/Day1Sum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:hint="Reminder Event"
+                android:inputType="textAutoCorrect"
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
+
+
+</LinearLayout>

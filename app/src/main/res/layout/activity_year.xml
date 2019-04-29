@@ -8,14 +8,12 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent"
         android:orientation="horizontal">
-
         <Button
             android:id="@+id/TableofYear"
             android:layout_width="wrap_content"
@@ -40,22 +38,24 @@
         android:textSize="36sp" />
 
    <LinearLayout
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_below="@id/two019"
-       android:orientation="vertical">
-       <TextView
+       android:orientation="vertical"
+       android:paddingHorizontal="20dp">
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="JANUARY"
+           android:textSize="20sp"
+           android:fontFamily="@font/delius"
+           android:background="@android:color/white"/>
+       <EditText
            android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="January">
-       </TextView>
-       <com.google.android.material.textfield.TextInputEditText
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" />
+           android:layout_height="30dp" />
    </LinearLayout>
 
     <LinearLayout
-
         android:id="@+id/botton_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -63,23 +63,18 @@
         android:background="@color/colorAccent"
         android:gravity=""
         android:orientation="horizontal">
-
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/dosis"
             android:text="Today"
             android:textSize="18sp" />
-
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:background="@android:color/white"
             android:backgroundTint="@android:color/white" />
-
-
         />
     </LinearLayout>
 

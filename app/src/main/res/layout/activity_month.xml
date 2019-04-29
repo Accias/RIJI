@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tuesday1_2"
+        android:id="@+id/JAN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_bar"
@@ -45,37 +45,82 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/addBullet"
-        android:layout_below="@id/tuesday1_2"
+        android:layout_above="@id/bottom_bar"
+        android:layout_below="@id/JAN"
         android:fontFamily="@font/dosis"
         android:paddingHorizontal="50dp" />
 
-    <Button
-        android:id="@+id/addBullet"
+<!--    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/botton_bar"
-        android:fontFamily="@font/dosis"
-        android:text="+ Bullet Point"
-        android:textSize="25sp" />
-
-    <!--<LinearLayout
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tuesday1_2"
-        android:layout_above="@id/botton_bar"
+        android:layout_below="@id/JAN"
         android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:text="1."
+                android:background="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/Day1Sum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:hint="Reminder Event"
+                android:inputType="textAutoCorrect"
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:text="2."
+                android:background="@color/colorPrimaryLight"/>
+            <EditText
+                android:id="@+id/Day2Sum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:hint="Reminder Event"
+                android:inputType="textAutoCorrect"
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
     </LinearLayout>
--->
+
+    <Button
+          android:id="@+id/addBullet"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_above="@id/botton_bar"
+          android:fontFamily="@font/dosis"
+          android:text="+ Bullet Point"
+          android:textSize="" />
+
+          <LinearLayout
+          android:id="@+id/list_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tuesday1_2"
+          android:layout_above="@id/botton_bar"
+          android:orientation="vertical">
+
+          <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+  -->
 
     <LinearLayout
 
-        android:id="@+id/botton_bar"
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
