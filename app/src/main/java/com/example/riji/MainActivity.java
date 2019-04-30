@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity{
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
+
+    //set up dialogue
     private TextView symbol;
     private int bulletType = 0;
     private DayDAO mDayDao;
@@ -54,10 +56,13 @@ public class MainActivity extends AppCompatActivity{
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
+
         // Create an adapter and supply the data to be displayed.
         mAdapter = new WordListAdapter(this, mBulletPoints);
+
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,8 +70,10 @@ public class MainActivity extends AppCompatActivity{
         mDayDao = rijiDatabase.getDayDAO();
 
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
         //getTime() returns the current date in default time zone
         final int day = calendar.get(Calendar.DATE);
+
         //Note: +1 the month for current month
         final int month = calendar.get(Calendar.MONTH) + 1;
         final int year = calendar.get(Calendar.YEAR);
@@ -81,8 +88,6 @@ public class MainActivity extends AppCompatActivity{
             }
         }).execute(date);
 
-      //  Toast toast = Toast.makeText(MainActivity.this, day1.getDay(), Toast.LENGTH_LONG);
-
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
         mBPViewModel.getAllBulletPoints().observe(this, new Observer<List<BulletPoint>>() {
@@ -93,16 +98,20 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        //BACK BUTTON METHOD
-        Back();
+        //back button method
+        dayBackMonth();
 
+        //allow user to add a new bullet point
         final Button addBullet = findViewById(R.id.addBullet);
         addBullet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //employ an alert dialogue, not simply a dialogue(imagine these as pop up window)
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Add Bullet Point");
 
+                //inflate the dialogue with the layout in the xml activity_display_message
                 LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+
                 @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
                 builder.setView(popupInputDialogView);
                 final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity{
                         } else {
                             dialog.dismiss();
                             mString = bullet.getText().toString();
+                            //what shows on the screen
                             mBPViewModel.insert(new BulletPoint(bulletType, symbol.getText() + " " + mString));
                         }
                     }
@@ -136,6 +146,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    //when the user chooses the event button
     public void sendEvent(View view) {
         bulletType = 0;
         Toast toast = Toast.makeText(MainActivity.this, "o", Toast.LENGTH_SHORT);
@@ -144,6 +155,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //when the user chooses the note button
     public void sendNote(View view) {
         bulletType = 1;
         Toast toast = Toast.makeText(MainActivity.this, "-", Toast.LENGTH_SHORT);
@@ -152,6 +164,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //when the user chooses the task button
     public void sendTask(View view) {
         bulletType = 2;
         Toast toast = Toast.makeText(MainActivity.this, "~", Toast.LENGTH_SHORT);
@@ -159,19 +172,24 @@ public class MainActivity extends AppCompatActivity{
         symbol.setText(" ~ ");
     }
 
-    public void Back()
+    //how to go from one class to another class
+    public void dayBackMonth()
     {
        Button backButton = findViewById(R.id.jan);
        backButton.setOnClickListener(new View.OnClickListener()
        {
            @Override
            public void onClick(View view) {
+               //use an intent to allow the classes to interchange
                startActivity(new Intent(MainActivity.this, Month.class));
+               finish();
            }
        });
 
-       }
     }
+
+
+}
 
 
 // ----------------------------------------------------------
