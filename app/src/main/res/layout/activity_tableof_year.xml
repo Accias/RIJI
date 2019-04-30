@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,10 +30,9 @@
     </LinearLayout>
 -->
     <TextView
-        android:id="@+id/tuesday1_2"
+        android:id="@+id/toy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top_bar"
         android:layout_centerHorizontal="true"
         android:paddingTop="5dp"
         android:layout_gravity="center"
@@ -46,7 +44,7 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tuesday1_2"
+        android:layout_below="@id/toy"
         android:layout_above="@id/botton_bar"
         android:orientation="horizontal">
         <Button
@@ -62,7 +60,8 @@
         <ImageButton
             android:layout_width="111dp"
             android:layout_height="98dp"
-            android:background="@mipmap/piggy"/>
+            android:background="@mipmap/piggy"
+            android:contentDescription="piggy" />
 
         <!-- <com.google.android.material.textfield.TextInputLayout
              android:layout_width="match_parent"
@@ -86,7 +85,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:gravity=""
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="ExtraText">
 
 
         <Button

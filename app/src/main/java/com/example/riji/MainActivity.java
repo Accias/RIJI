@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity{
     private DayDAO mDayDao;
     private Day day1;
 
-    //test test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
