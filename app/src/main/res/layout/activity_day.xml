@@ -82,8 +82,6 @@
             android:background="@android:color/white"
             android:backgroundTint="@android:color/white" />
 
-
-        />
     </LinearLayout>
 
 </RelativeLayout><!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
