@@ -29,16 +29,16 @@ public interface DayDAO {
     @Query("SELECT * FROM days WHERE year=:year ORDER BY id")
     LiveData<List<Day>> findDayInYear(final int year);
 
-    @Query("SELECT * FROM days WHERE year=:year&month=:month ORDER BY id")
+    @Query("SELECT * FROM days WHERE year=:year AND month=:month ORDER BY id")
     LiveData<List<Day>> findDayInMonth(final int year,final int month);
 
-    @Query("SELECT * FROM days WHERE year=:year&month=:month&day=:day ORDER BY id")
+    @Query("SELECT * FROM days WHERE year=:year AND month=:month AND day=:day ORDER BY id")
     LiveData<Day> findSpecificDay(final int year, final int month, final int day);
 
-    @Query("SELECT * FROM days WHERE year=:year &month=:month &day=:day")
+    @Query("SELECT * FROM days WHERE year= :year AND month= :month AND day= :day")
     Day findSpecificDayNoLive(final int year, final int month, final int day);
 
-    @Query("SELECT id FROM days WHERE year=:year &month=:month &day=:day")
+    @Query("SELECT id FROM days WHERE year=:year AND month=:month AND day=:day")
     int getDayId(final int year, final int month, final int day);
 
 

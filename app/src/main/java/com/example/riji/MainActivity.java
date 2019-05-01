@@ -1,13 +1,5 @@
 package com.example.riji;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,6 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
@@ -33,11 +33,11 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
-    private static final String DATABASE_NAME = "riji_database";
+    private static final String DATABASE_NAME = "database";
     private Database rijiDatabase;
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
-        rijiDatabase = Room.databaseBuilder(getApplicationContext(), Database.class, DATABASE_NAME).build();
+        rijiDatabase = Database.getDatabase(this);
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -79,15 +79,7 @@ public class MainActivity extends AppCompatActivity{
         final int month = calendar.get(Calendar.MONTH) + 1;
         final int year = calendar.get(Calendar.YEAR);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        Date date = new Date(year,month,day);
-
-        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao,new findSpecificDayAsyncTask.AsyncResponse(){
-
-            @Override
-            public void processFinish(Day output){
-                day1=output;
-            }
-        }).execute(date);
+        final Date date = new Date(year, month, day);
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
@@ -98,6 +90,15 @@ public class MainActivity extends AppCompatActivity{
                 mAdapter.setBulletPoints(bulletPoints);
             }
         });
+
+        //load current day
+        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
+
+            @Override
+            public void processFinish(Day output) {
+                day1 = output;
+            }
+        }).execute(date);
 
         //back button method
         dayBackMonth();
@@ -174,18 +175,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //how to go from one class to another class
-    public void dayBackMonth()
-    {
-       Button backButton = findViewById(R.id.jan);
-       backButton.setOnClickListener(new View.OnClickListener()
-       {
-           @Override
-           public void onClick(View view) {
-               //use an intent to allow the classes to interchange
-               startActivity(new Intent(MainActivity.this, Month.class));
-               finish();
-           }
-       });
+    public void dayBackMonth() {
+        Button backButton = findViewById(R.id.jan);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //use an intent to allow the classes to interchange
+                startActivity(new Intent(MainActivity.this, Month.class));
+                finish();
+            }
+        });
 
     }
 

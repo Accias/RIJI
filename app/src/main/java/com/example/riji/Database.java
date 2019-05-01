@@ -93,6 +93,8 @@ public abstract class Database extends RoomDatabase {
             bp = new BulletPoint(0, "World");
             mBPDao.insertBulletPoint(bp);
 
+            day1=null;
+            day1=mDayDao.findSpecificDayNoLive(year,month,day);
             return null;
         }
     }

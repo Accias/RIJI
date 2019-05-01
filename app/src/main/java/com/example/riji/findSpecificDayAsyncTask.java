@@ -7,7 +7,7 @@ import com.example.riji.Day_related.DayDAO;
 
 public class findSpecificDayAsyncTask extends AsyncTask<Date,Void, Day> {
     private DayDAO mAsyncTaskDao;
-    public AsyncResponse delegate = null;
+    private AsyncResponse delegate = null;
 
     // you may separate this or combined to caller class.
     public interface AsyncResponse {
