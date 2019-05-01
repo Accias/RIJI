@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MonthActivity"></activity>
-        <activity android:name=".Year" />
+        <activity android:name=".YearActivity" />
         <activity android:name=".Month" />
         <activity android:name=".TableofYear" />
         <activity android:name=".DayActivity" />

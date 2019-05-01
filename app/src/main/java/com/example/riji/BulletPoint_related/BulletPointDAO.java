@@ -18,7 +18,7 @@ return a list of bulletpoints.
 public interface BulletPointDAO {
 
     @Insert
-    void insertBulletPoint (BulletPoint bp);
+    void insertBulletPoint(BulletPoint bp);
 
     @Update
     void updateBulletPoint(BulletPoint bp);

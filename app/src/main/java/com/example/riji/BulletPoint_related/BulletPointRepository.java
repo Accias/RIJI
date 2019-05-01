@@ -14,7 +14,7 @@ import java.util.List;
     It abstracts the database methods from the UI, and is also  resposible for creating a separate thread using an AsyncTask class
     to do database operations.
  */
-class BulletPointRepository {
+public class BulletPointRepository {
     //data
     private BulletPointDAO mBulletPointDao;
     private LiveData<List<BulletPoint>> mAllBulletPoints;

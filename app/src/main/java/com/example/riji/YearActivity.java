@@ -1,48 +1,39 @@
 package com.example.riji;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GestureDetectorCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.riji.Day_related.Day;
+import java.time.Year;
 
-public class Month extends AppCompatActivity{
-
-    private static final String DEBUG_TAG = "Gestures";
-    private GestureDetectorCompat mDetector;
+public class YearActivity extends AppCompatActivity {
 
     float x1, x2, y1, y2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_month);
-        monthBackYear();
+        setContentView(R.layout.activity_year);
+
+        yearBackTable();
     }
 
-    public void monthBackYear()
+    public void yearBackTable()
     {
-        Button backButton = (Button) findViewById(R.id.Twenty19);
+        Button backButton = (Button) findViewById(R.id.TableofYear);
         backButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Month.this, YearActivity.class));
+                startActivity(new Intent(YearActivity.this, TableofYear.class));
                 finish();
             }
         });
 
     }
-
     public boolean onTouchEvent(MotionEvent touchevent)
     {
         switch (touchevent.getAction())
@@ -56,18 +47,17 @@ public class Month extends AppCompatActivity{
                 y2 = touchevent.getY();
                 if(x1>x2)
                 {
-                    Intent i = new Intent(Month.this, MainActivity.class);
+                    Intent i = new Intent(YearActivity.this, Month.class);
                     startActivity(i);
                     finish();
                 }
                 if(x1<x2)
                 {
-                    Intent j = new Intent(Month.this, YearActivity.class);
+                    Intent j = new Intent(YearActivity.this, TableofYear.class);
                     startActivity(j);
                     finish();
                 }
                 break;
         }return false;
     }
-
 }
