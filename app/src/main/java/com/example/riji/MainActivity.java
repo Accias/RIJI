@@ -174,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
         symbol.setText(" ~ ");
     }
 
+    public void monthToday(View view) {
+        startActivity(new Intent(MainActivity.this, Month.class));
+        finish();
+    }
+
     //how to go from one class to another class
     public void dayBackMonth() {
         Button backButton = findViewById(R.id.jan);

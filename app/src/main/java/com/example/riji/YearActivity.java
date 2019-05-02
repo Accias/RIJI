@@ -21,6 +21,17 @@ public class YearActivity extends AppCompatActivity {
         yearBackTable();
     }
 
+    public void yearToday(View view) {
+        startActivity(new Intent(YearActivity.this, MainActivity.class));
+        finish();
+    }
+
+    public void january(View view){
+
+        startActivity(new Intent(YearActivity.this, Month.class));
+        finish();
+    }
+
     public void yearBackTable()
     {
         Button backButton = (Button) findViewById(R.id.TableofYear);

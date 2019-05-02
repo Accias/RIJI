@@ -43,6 +43,11 @@ public class Month extends AppCompatActivity{
 
     }
 
+    public void monthToday(View view) {
+        startActivity(new Intent(Month.this, MainActivity.class));
+        finish();
+    }
+
     public boolean onTouchEvent(MotionEvent touchevent)
     {
         switch (touchevent.getAction())

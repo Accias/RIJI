@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 
 public class TableofYear extends AppCompatActivity {
 
@@ -14,6 +15,17 @@ public class TableofYear extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tableof_year);
     }
+
+    public void tableToday(View view) {
+        startActivity(new Intent(TableofYear.this, MainActivity.class));
+        finish();
+    }
+
+    public void twentyNineteen(View view) {
+        startActivity(new Intent(TableofYear.this, YearActivity.class));
+        finish();
+    }
+
     public boolean onTouchEvent(MotionEvent touchevent)
     {
         switch (touchevent.getAction())

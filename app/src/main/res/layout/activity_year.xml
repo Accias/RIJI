@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".YearActivity">
 
     <LinearLayout
         android:id="@+id/top_bar"
@@ -48,6 +48,7 @@
            android:layout_height="wrap_content"
            android:text="JANUARY"
            android:textSize="20sp"
+           android:onClick="january"
            android:fontFamily="@font/delius"
            android:background="@android:color/white"/>
        <EditText
@@ -68,6 +69,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/dosis"
             android:text="Today"
+            android:onClick="yearToday"
             android:textSize="18sp" />
         <SearchView
             android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".TableofYear">
 
   <!--  <LinearLayout
 
@@ -55,12 +55,14 @@
             android:fontFamily="@font/dosis"
             android:paddingHorizontal="60dp"
             android:paddingTop="10dp"
+            android:onClick="twentyNineteen"
             android:background="@android:color/white"/>
 
         <ImageButton
             android:layout_width="111dp"
             android:layout_height="98dp"
             android:background="@mipmap/piggy"
+            android:onClick="twentyNineteen"
             android:contentDescription="piggy" />
 
         <!-- <com.google.android.material.textfield.TextInputLayout
@@ -94,6 +96,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/dosis"
             android:text="Today"
+            android:onClick="tableToday"
             android:textSize="18sp" />
 
         <SearchView
