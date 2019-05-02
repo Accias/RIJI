@@ -6,9 +6,11 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.example.riji.Day_related.Day;
+
 @Entity(tableName = "bulletpoints")
-//,foreignKeys = {@ForeignKey(entity=Day.class,parentColumns = "id",childColumns = "day_id")},
-//      indices = {@Index(value = "day_id")}
+//,foreignKeys = {@ForeignKey(entity= Day.class,parentColumns = "id",childColumns = "day_id")}
+//, indices = {@Index(value = "day_id")}
 
 /*
 This is the Room entity class that stores the data related to one bulletpoint.
@@ -27,15 +29,15 @@ public class BulletPoint {
     @ColumnInfo(name = "note")
     public String note;
 
-  //  @ColumnInfo(name = "day_id")
- //   public long day_id;
+ //  @ColumnInfo(name = "day_id")
+  //  public long day_id;
 
     //instantiating method
     public BulletPoint(int bulletType, String note){
         //,final long day_id
         this.bulletType=bulletType;
         this.note=note;
-      //  this.day_id=day_id;
+        //this.day_id=day_id;
     }
 
     //getter methods
@@ -49,6 +51,25 @@ public class BulletPoint {
     public String getNote(){
         return note;
     }
+
+    public String getSymbol(){
+        String symbol = "";
+        if(bulletType==0){
+            symbol = "○";
+        }else if(bulletType==1) {
+            symbol = "-";
+        }else if(bulletType==2){
+            symbol = "•";
+        }else if(bulletType==3){
+            symbol = ">";
+        }else if(bulletType==4){
+            symbol = "<";
+        }else if(bulletType==5){
+            symbol = "✗";
+        }
+        return symbol;
+    }
+
 
     //setter methods
     public void setBulletType(int bulletType){

@@ -15,11 +15,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
@@ -36,9 +45,8 @@ public class MainActivity extends AppCompatActivity{
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
-    private static final String DATABASE_NAME = "riji_database";
-    private Database rijiDatabase;
-    private String mString = "";
+    private static final String DATABASE_NAME = "database";
+    private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
 
@@ -47,12 +55,17 @@ public class MainActivity extends AppCompatActivity{
     private int bulletType = 0;
     private DayDAO mDayDao;
     private Day day1;
+    float x1, x2, y1, y2;
+    long id;
+    public MainActivity() {
+        mString = "";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
-        rijiDatabase = Room.databaseBuilder(getApplicationContext(), Database.class, DATABASE_NAME).build();
+        Database rijiDatabase = Database.getDatabase(this);
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -78,15 +91,7 @@ public class MainActivity extends AppCompatActivity{
         final int month = calendar.get(Calendar.MONTH) + 1;
         final int year = calendar.get(Calendar.YEAR);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        Date date = new Date(year,month,day);
-
-        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao,new findSpecificDayAsyncTask.AsyncResponse(){
-
-            @Override
-            public void processFinish(Day output){
-                day1=output;
-            }
-        }).execute(date);
+        final Date date = new Date(year, month, day);
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
@@ -97,6 +102,15 @@ public class MainActivity extends AppCompatActivity{
                 mAdapter.setBulletPoints(bulletPoints);
             }
         });
+
+        //load current day
+        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
+
+            @Override
+            public void processFinish(Day output) {
+                day1 = output;
+            }
+        }).execute(date);
 
         //back button method
         dayBackMonth();
@@ -129,7 +143,7 @@ public class MainActivity extends AppCompatActivity{
                             dialog.dismiss();
                             mString = bullet.getText().toString();
                             //what shows on the screen
-                            mBPViewModel.insert(new BulletPoint(bulletType, symbol.getText() + " " + mString));
+                            mBPViewModel.insert(new BulletPoint(bulletType, mString));
                         }
                     }
                 });
@@ -149,16 +163,16 @@ public class MainActivity extends AppCompatActivity{
     //when the user chooses the event button
     public void sendEvent(View view) {
         bulletType = 0;
-        Toast toast = Toast.makeText(MainActivity.this, "o", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " ○ ", Toast.LENGTH_SHORT);
         toast.show();
-        symbol.setText(" o ");
+        symbol.setText(" ○ ");
 
     }
 
     //when the user chooses the note button
     public void sendNote(View view) {
         bulletType = 1;
-        Toast toast = Toast.makeText(MainActivity.this, "-", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " - ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
 
@@ -167,9 +181,14 @@ public class MainActivity extends AppCompatActivity{
     //when the user chooses the task button
     public void sendTask(View view) {
         bulletType = 2;
-        Toast toast = Toast.makeText(MainActivity.this, "~", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " • ", Toast.LENGTH_SHORT);
         toast.show();
-        symbol.setText(" ~ ");
+        symbol.setText(" • ");
+    }
+
+    public void monthToday(View view) {
+        startActivity(new Intent(MainActivity.this, Month.class));
+        finish();
     }
 
     //how to go from one class to another class
@@ -186,6 +205,27 @@ public class MainActivity extends AppCompatActivity{
            }
        });
 
+    }
+
+    public boolean onTouchEvent(MotionEvent touchevent)
+    {
+        switch (touchevent.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchevent.getX();
+                y1 = touchevent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchevent.getX();
+                y2 = touchevent.getY();
+                if(x1<x2)
+                {
+                    Intent j = new Intent(MainActivity.this, Month.class);
+                    startActivity(j);
+                    finish();
+                }
+                break;
+        }return false;
     }
 
 
