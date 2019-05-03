@@ -33,11 +33,11 @@ public class BulletPoint {
     public long day_id;
 
     //instantiating method
-    public BulletPoint(int bulletType, String note){
-        //,final long day_id
+    public BulletPoint(int bulletType, String note,final long day_id){
+
         this.bulletType=bulletType;
         this.note=note;
-      //  this.day_id=day_id;
+       this.day_id=day_id;
     }
 
     //getter methods

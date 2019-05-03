@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private String mString = "";
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
+    long id;
 
     //set up dialogue
     private TextView symbol;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void processFinish(Day output) {
                 day1 = output;
+                id=day1.id;
             }
         }).execute(date);
 
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                             mString = bullet.getText().toString();
                             //what shows on the screen
-                            mBPViewModel.insert(new BulletPoint(bulletType, symbol.getText() + " " + mString));
+                            mBPViewModel.insert(new BulletPoint(bulletType, mString,id));
                         }
                     }
                 });
