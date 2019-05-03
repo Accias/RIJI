@@ -23,12 +23,14 @@ public class YearActivity extends AppCompatActivity {
 
     public void yearToday(View view) {
         startActivity(new Intent(YearActivity.this, MainActivity.class));
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     public void january(View view){
 
         startActivity(new Intent(YearActivity.this, Month.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -40,6 +42,7 @@ public class YearActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(YearActivity.this, TableofYear.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
         });
@@ -60,12 +63,14 @@ public class YearActivity extends AppCompatActivity {
                 {
                     Intent i = new Intent(YearActivity.this, Month.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 if(x1<x2)
                 {
                     Intent j = new Intent(YearActivity.this, TableofYear.class);
                     startActivity(j);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
                 }
                 break;

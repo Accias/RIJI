@@ -18,11 +18,13 @@ public class TableofYear extends AppCompatActivity {
 
     public void tableToday(View view) {
         startActivity(new Intent(TableofYear.this, MainActivity.class));
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     public void twentyNineteen(View view) {
         startActivity(new Intent(TableofYear.this, YearActivity.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
@@ -41,6 +43,7 @@ public class TableofYear extends AppCompatActivity {
                 {
                     Intent i = new Intent(TableofYear.this, YearActivity.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 break;

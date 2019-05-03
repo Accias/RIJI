@@ -37,6 +37,7 @@ public class Month extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Month.this, YearActivity.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
         });
@@ -45,6 +46,7 @@ public class Month extends AppCompatActivity{
 
     public void monthToday(View view) {
         startActivity(new Intent(Month.this, MainActivity.class));
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
@@ -63,12 +65,14 @@ public class Month extends AppCompatActivity{
                 {
                     Intent i = new Intent(Month.this, MainActivity.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 if(x1<x2)
                 {
                     Intent j = new Intent(Month.this, YearActivity.class);
                     startActivity(j);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
                 }
                 break;

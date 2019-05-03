@@ -181,22 +181,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void monthToday(View view) {
         startActivity(new Intent(MainActivity.this, Month.class));
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     //how to go from one class to another class
-    public void dayBackMonth()
-    {
-       Button backButton = findViewById(R.id.jan);
-       backButton.setOnClickListener(new View.OnClickListener()
-       {
-           @Override
-           public void onClick(View view) {
-               //use an intent to allow the classes to interchange
-               startActivity(new Intent(MainActivity.this, Month.class));
-               finish();
-           }
-       });
+    public void dayBackMonth() {
+        Button backButton = findViewById(R.id.jan);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //use an intent to allow the classes to interchange
+                startActivity(new Intent(MainActivity.this, Month.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+            }
+        });
 
     }
 
@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Intent j = new Intent(MainActivity.this, Month.class);
                     startActivity(j);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
                 }
                 break;
