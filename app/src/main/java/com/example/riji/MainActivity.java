@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
     private static final String DATABASE_NAME = "database";
-    private Database rijiDatabase;
-    private String mString = "";
+    private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
     long id;
@@ -50,11 +49,15 @@ public class MainActivity extends AppCompatActivity {
     private DayDAO mDayDao;
     private Day day1;
     float x1, x2, y1, y2;
+    public MainActivity() {
+        mString = "";
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
-        rijiDatabase = Database.getDatabase(this);
+        Database rijiDatabase = Database.getDatabase(this);
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -153,16 +156,16 @@ public class MainActivity extends AppCompatActivity {
     //when the user chooses the event button
     public void sendEvent(View view) {
         bulletType = 0;
-        Toast toast = Toast.makeText(MainActivity.this, "o", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " ○ ", Toast.LENGTH_SHORT);
         toast.show();
-        symbol.setText(" o ");
+        symbol.setText(" ○ ");
 
     }
 
     //when the user chooses the note button
     public void sendNote(View view) {
         bulletType = 1;
-        Toast toast = Toast.makeText(MainActivity.this, "-", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " - ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
 
@@ -171,9 +174,9 @@ public class MainActivity extends AppCompatActivity {
     //when the user chooses the task button
     public void sendTask(View view) {
         bulletType = 2;
-        Toast toast = Toast.makeText(MainActivity.this, "~", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(MainActivity.this, " • ", Toast.LENGTH_SHORT);
         toast.show();
-        symbol.setText(" ~ ");
+        symbol.setText(" • ");
     }
 
     public void monthToday(View view) {
@@ -182,16 +185,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //how to go from one class to another class
-    public void dayBackMonth() {
-        Button backButton = findViewById(R.id.jan);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //use an intent to allow the classes to interchange
-                startActivity(new Intent(MainActivity.this, Month.class));
-                finish();
-            }
-        });
+    public void dayBackMonth()
+    {
+       Button backButton = findViewById(R.id.jan);
+       backButton.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View view) {
+               //use an intent to allow the classes to interchange
+               startActivity(new Intent(MainActivity.this, Month.class));
+               finish();
+           }
+       });
 
     }
 

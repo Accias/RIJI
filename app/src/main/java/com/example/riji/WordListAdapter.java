@@ -39,7 +39,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
-        String mCurrent = mBulletPoints.get(position).getNote();
+        String mCurrent = mBulletPoints.get(position).getSymbol()+" "+mBulletPoints.get(position).getNote();
         holder.wordItemView.setText(mCurrent);
     }
 

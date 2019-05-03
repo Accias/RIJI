@@ -22,7 +22,7 @@ import java.util.TimeZone;
  */
 
 @androidx.room.Database(entities = {BulletPoint.class, Day.class},
-        version = 1)
+        version = 2)
 public abstract class Database extends RoomDatabase {
     //Only one instance of the database can be initialized at a time.
     private static volatile Database INSTANCE;
@@ -38,7 +38,7 @@ public abstract class Database extends RoomDatabase {
                 if (INSTANCE == null) {
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            Database.class, "database").addCallback(sRoomDatabaseCallback)
+                            Database.class, "database").addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -87,6 +87,7 @@ public abstract class Database extends RoomDatabase {
             Day day1 = new Day(day,month, year,dayOfWeek);
             mDayDao.insertDay(day1);
 
+           // long id = mDayDao.getDayId(day1.year,day1.month,day1.day);
             //insert test bulletpoints
             BulletPoint bp = new BulletPoint(0, "Hello");
             mBPDao.insertBulletPoint(bp);

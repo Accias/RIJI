@@ -52,6 +52,25 @@ public class BulletPoint {
         return note;
     }
 
+    public String getSymbol(){
+        String symbol = "";
+        if(bulletType==0){
+            symbol = "○";
+        }else if(bulletType==1) {
+            symbol = "-";
+        }else if(bulletType==2){
+            symbol = "•";
+        }else if(bulletType==3){
+            symbol = ">";
+        }else if(bulletType==4){
+            symbol = "<";
+        }else if(bulletType==5){
+            symbol = "✗";
+        }
+        return symbol;
+    }
+
+
     //setter methods
     public void setBulletType(int bulletType){
         this.bulletType=bulletType;
