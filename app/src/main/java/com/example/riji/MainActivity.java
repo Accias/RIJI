@@ -26,6 +26,7 @@ import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private int bulletType = 0;
     private Day day1;
     float x1, x2, y1, y2;
-    public MainActivity() {
+    public MainActivity()
+    {
         mString = "";
     }
 
@@ -54,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
         Database rijiDatabase = Database.getDatabase(this);
+
+        Calendar calendarDate = Calendar.getInstance();
+        String currrentDate = DateFormat.getDateInstance().format(calendarDate.getTime());
+        TextView dateview = findViewById(R.id.tuesday1_2);
+        dateview.setText(currrentDate);
 
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
