@@ -20,7 +20,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
@@ -35,9 +34,7 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
-    private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
-    private static final String DATABASE_NAME = "database";
     private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     //set up dialogue
     private TextView symbol;
     private int bulletType = 0;
-    private DayDAO mDayDao;
     private Day day1;
     float x1, x2, y1, y2;
     public MainActivity() {
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Database rijiDatabase = Database.getDatabase(this);
 
         // Get a handle to the RecyclerView.
-        mRecyclerView = findViewById(R.id.recyclerview);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
 
         // Create an adapter and supply the data to be displayed.
         mAdapter = new WordListAdapter(this, mBulletPoints);
@@ -72,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //find current day class
-        mDayDao = rijiDatabase.getDayDAO();
+        DayDAO mDayDao = rijiDatabase.getDayDAO();
 
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 
@@ -105,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }).execute(date);
 
+        //set the TextView date for the day_activity
+        //TextView dateText = findViewById(R.id.tuesday1_2);
+       // dateText.setText("Friday, May 3");
+
         //back button method
         dayBackMonth();
 
@@ -136,12 +136,10 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                             mString = bullet.getText().toString();
                             //what shows on the screen
-                            mBPViewModel.insert(new BulletPoint(bulletType, mString,id));
+                            mBPViewModel.insert(new BulletPoint(bulletType, mString, id));
                         }
                     }
-                });
-
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
