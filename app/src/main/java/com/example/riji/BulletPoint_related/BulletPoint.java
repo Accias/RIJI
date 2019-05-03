@@ -6,9 +6,11 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "bulletpoints")
-//,foreignKeys = {@ForeignKey(entity=Day.class,parentColumns = "id",childColumns = "day_id")},
-//      indices = {@Index(value = "day_id")}
+import com.example.riji.Day_related.Day;
+
+@Entity(tableName = "bulletpoints",foreignKeys = {@ForeignKey(entity= Day.class,parentColumns = "id",childColumns = "day_id")},
+     indices = {@Index(value = "day_id")})
+//
 
 /*
 This is the Room entity class that stores the data related to one bulletpoint.
@@ -27,8 +29,8 @@ public class BulletPoint {
     @ColumnInfo(name = "note")
     public String note;
 
-  //  @ColumnInfo(name = "day_id")
- //   public long day_id;
+    @ColumnInfo(name = "day_id")
+    public long day_id;
 
     //instantiating method
     public BulletPoint(int bulletType, String note){
