@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f90706b125a60f572bc56a506dbd85cd",
+    "identityHash": "0472ef9f9f2dbbb8e84015b6da895c4c",
     "entities": [
       {
         "tableName": "bulletpoints",
@@ -65,7 +65,7 @@
       },
       {
         "tableName": "days",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `month_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`month_id`) REFERENCES `months`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "day",
@@ -92,6 +92,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "month_id",
+            "columnName": "month_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
@@ -104,13 +110,34 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_days_month_id",
+            "unique": false,
+            "columnNames": [
+              "month_id"
+            ],
+            "createSql": "CREATE  INDEX `index_days_month_id` ON `${TABLE_NAME}` (`month_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "months",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "month_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f90706b125a60f572bc56a506dbd85cd\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0472ef9f9f2dbbb8e84015b6da895c4c\")"
     ]
   }
 }

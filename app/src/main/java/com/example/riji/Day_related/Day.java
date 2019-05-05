@@ -1,11 +1,15 @@
 package com.example.riji.Day_related;
+
 import androidx.room.ColumnInfo;
-import androidx.room.Dao;
-import androidx.room.Database;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "days")
+import com.example.riji.Month_related.Month;
+
+@Entity(tableName = "days", foreignKeys = {@ForeignKey(entity = Month.class, parentColumns = "id", childColumns = "month_id")},
+        indices = {@Index(value = "month_id")})
 public class Day {
 
     @ColumnInfo(name = "day")
@@ -17,50 +21,54 @@ public class Day {
     @ColumnInfo(name = "weekDate")
     public int weekDate;
 
+    @ColumnInfo(name = "month_id")
+    public long month_id;
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public long id;
 
-    public Day(int day, int month, int year, int weekDate){
-        this.day=day;
-        this.month=month;
-        this.year=year;
-        this.weekDate=weekDate;
+    public Day(int day, int month, int year, int weekDate, final long month_id) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.weekDate = weekDate;
+        this.month_id = month_id;
     }
 
-    public long getId(){
+    public long getId() {
         return id;
     }
 
-    public int getDay(){
+    public int getDay() {
         return day;
     }
 
-    public int getMonth(){
+    public int getMonth() {
         return month;
     }
 
-    public int getYear(){
+    public int getYear() {
         return year;
     }
 
-    public int getWeekDate(){
+    public int getWeekDate() {
         return weekDate;
     }
 
-    public void setDay(int day){
-        this.day=day;
+    public void setDay(int day) {
+        this.day = day;
     }
 
-    public void setMonth(int month){
-        this.month=month;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
-    public void setYear(int year){
-        this.year=year;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public void setWeekDate(int weekDate){
-        this.weekDate=weekDate;
+    public void setWeekDate(int weekDate) {
+        this.weekDate = weekDate;
     }
 }

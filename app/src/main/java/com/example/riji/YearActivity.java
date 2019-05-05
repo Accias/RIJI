@@ -8,8 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import java.time.Year;
-
 public class YearActivity extends AppCompatActivity {
 
     float x1, x2, y1, y2;
@@ -29,14 +27,14 @@ public class YearActivity extends AppCompatActivity {
 
     public void january(View view){
 
-        startActivity(new Intent(YearActivity.this, Month.class));
+        startActivity(new Intent(YearActivity.this, Month_swipe.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
     public void yearBackTable()
     {
-        Button backButton = (Button) findViewById(R.id.TableofYear);
+        Button backButton =  findViewById(R.id.TableofYear);
         backButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -61,7 +59,7 @@ public class YearActivity extends AppCompatActivity {
                 y2 = touchevent.getY();
                 if(x1>x2)
                 {
-                    Intent i = new Intent(YearActivity.this, Month.class);
+                    Intent i = new Intent(YearActivity.this, Month_swipe.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();

@@ -24,7 +24,11 @@ public class BulletPointViewModel extends AndroidViewModel {
         mAllBulletPoints = mRepository.getAllBulletPoints();
     }
 
-    public LiveData<List<BulletPoint>> getAllBulletPoints() { return mAllBulletPoints; }
+    public LiveData<List<BulletPoint>> getAllBulletPoints() {
+        return mAllBulletPoints;
+    }
 
-    public void insert(BulletPoint bp) { mRepository.insertBulletPoint(bp); }
+    public void insert(BulletPoint bp) {
+        mRepository.insertBulletPoint(bp);
+    }
 }

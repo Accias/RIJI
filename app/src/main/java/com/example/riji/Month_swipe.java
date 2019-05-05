@@ -5,17 +5,11 @@ import androidx.core.view.GestureDetectorCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.riji.Day_related.Day;
-
-public class Month extends AppCompatActivity{
+public class Month_swipe extends AppCompatActivity{
 
     private static final String DEBUG_TAG = "Gestures";
     private GestureDetectorCompat mDetector;
@@ -31,12 +25,12 @@ public class Month extends AppCompatActivity{
 
     public void monthBackYear()
     {
-        Button backButton = (Button) findViewById(R.id.Twenty19);
+        Button backButton = findViewById(R.id.Twenty19);
         backButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Month.this, YearActivity.class));
+                startActivity(new Intent(Month_swipe.this, YearActivity.class));
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
@@ -45,7 +39,7 @@ public class Month extends AppCompatActivity{
     }
 
     public void monthToday(View view) {
-        startActivity(new Intent(Month.this, MainActivity.class));
+        startActivity(new Intent(Month_swipe.this, MainActivity.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
@@ -63,14 +57,14 @@ public class Month extends AppCompatActivity{
                 y2 = touchevent.getY();
                 if(x1>x2)
                 {
-                    Intent i = new Intent(Month.this, MainActivity.class);
+                    Intent i = new Intent(Month_swipe.this, MainActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 if(x1<x2)
                 {
-                    Intent j = new Intent(Month.this, YearActivity.class);
+                    Intent j = new Intent(Month_swipe.this, YearActivity.class);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();

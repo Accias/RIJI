@@ -12,8 +12,13 @@ import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointDAO;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
+import com.example.riji.Month_related.Month;
+import com.example.riji.Month_related.MonthDAO;
+import com.example.riji.Year_related.Year;
+import com.example.riji.Year_related.YearDAO;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 /*
@@ -21,8 +26,8 @@ import java.util.TimeZone;
     is stored in the database.
  */
 
-@androidx.room.Database(entities = {BulletPoint.class, Day.class},
-        version = 1)
+@androidx.room.Database(entities = {BulletPoint.class, Day.class,Month.class,Year.class},
+        version = 2)
 public abstract class Database extends RoomDatabase {
     //Only one instance of the database can be initialized at a time.
     private static volatile Database INSTANCE;
@@ -30,6 +35,10 @@ public abstract class Database extends RoomDatabase {
     public abstract BulletPointDAO getBulletPointDAO();
 
     public abstract DayDAO getDayDAO();
+
+    public abstract MonthDAO getMonthDAO();
+
+    public abstract YearDAO getYearDAO();
 
     //creates a database if there isn't one, returns it if it is already created.
     public static Database getDatabase(final Context context) {
@@ -53,12 +62,12 @@ public abstract class Database extends RoomDatabase {
                 @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
+                    new PopulateDbAsync(INSTANCE).execute(INSTANCE);
                 }
             };
 
     //insert test data into the database
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+    private static class PopulateDbAsync extends AsyncTask<Database, Void, Void> {
 
         private final BulletPointDAO mBPDao;
         private final DayDAO mDayDao;
@@ -69,8 +78,7 @@ public abstract class Database extends RoomDatabase {
         }
 
         //database tasks must be done on a separate thread so they don't clog up the main thread and freeze the UI.
-        @Override
-        protected Void doInBackground(final Void... params) {
+        protected Void doInBackground(final Database... params) {
             //get current date
             Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
             //getTime() returns the current date in default time zone
@@ -82,25 +90,58 @@ public abstract class Database extends RoomDatabase {
 
             //wipe previous data in the database
             mBPDao.deleteAll();
-            //mDayDao.deleteAll();
 
             //initialize new Day class based on current date if there isn't one
-            if(mDayDao.findSpecificDayNoLive(year,month,day)==null)
-            {
-                Day day1 = new Day(day,month, year,dayOfWeek);
-                  mDayDao.insertDay(day1);
+            if (mDayDao.findSpecificDayNoLive(year, 1, 1) == null) {
+               genYear(params[0],year);
             }
 
-
-            long id = mDayDao.getDayId(year,month,day);
-
+            long id = mDayDao.getDayId(year, month, day);
             //insert test bulletpoints
-            BulletPoint bp = new BulletPoint(0, "Hello",id);
+            BulletPoint bp = new BulletPoint(0, "Hello", id);
             mBPDao.insertBulletPoint(bp);
-            bp = new BulletPoint(0, "World",id);
+            bp = new BulletPoint(0, "World", id);
             mBPDao.insertBulletPoint(bp);
 
             return null;
+        }
+
+    }
+
+    /*
+        Generate a new year of entities.
+     */
+    private static void genYear(Database db, int year) {
+
+        BulletPointDAO mBPDao = db.getBulletPointDAO();
+        DayDAO mDayDao = db.getDayDAO();
+        MonthDAO mMonthDao = db.getMonthDAO();
+        YearDAO mYearDao = db.getYearDAO();
+
+        //create new year :)
+        Year year1 = new Year(year);
+        mYearDao.insertYear(year1);
+        long yearId = mYearDao.getYearId(year);
+
+        for (int i = 1; i <= 12; i++) {
+            Month month = new Month(i, year, yearId);
+            mMonthDao.insertMonth(month);
+            long monthId = mMonthDao.getMonthId(year, i);
+
+            int iMonth = i - 1; // 1 (months begin with 0)
+            int iDay = 1;
+            // Create a calendar object and set year and month
+            Calendar mycal = new GregorianCalendar(year, iMonth, iDay);
+            // Get the number of days in that month
+            int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH); // 28
+
+            for (int j = 1; j <= daysInMonth; j++) {
+                mycal = new GregorianCalendar(year, iMonth, j);
+                int weekDate = mycal.get(Calendar.DAY_OF_WEEK);
+                Day day1 = new Day(j, i, year, weekDate, monthId);
+                mDayDao.insertDay(day1);
+            }
+
         }
     }
 }

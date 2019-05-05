@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey;
 
 import com.example.riji.Day_related.Day;
 
-@Entity(tableName = "bulletpoints",foreignKeys = {@ForeignKey(entity= Day.class,parentColumns = "id",childColumns = "day_id")},
-     indices = {@Index(value = "day_id")})
+@Entity(tableName = "bulletpoints", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "id", childColumns = "day_id")},
+        indices = {@Index(value = "day_id")})
 //
 
 /*
@@ -33,38 +33,39 @@ public class BulletPoint {
     public long day_id;
 
     //instantiating method
-    public BulletPoint(int bulletType, String note,final long day_id){
+    public BulletPoint(int bulletType, String note, final long day_id) {
 
-        this.bulletType=bulletType;
-        this.note=note;
-       this.day_id=day_id;
+        this.bulletType = bulletType;
+        this.note = note;
+        this.day_id = day_id;
     }
 
     //getter methods
-    public long getId(){
+    public long getId() {
         return id;
     }
-    public int getBulletType(){
+
+    public int getBulletType() {
         return bulletType;
     }
 
-    public String getNote(){
+    public String getNote() {
         return note;
     }
 
-    public String getSymbol(){
+    public String getSymbol() {
         String symbol = "";
-        if(bulletType==0){
+        if (bulletType == 0) {
             symbol = "○";
-        }else if(bulletType==1) {
+        } else if (bulletType == 1) {
             symbol = "-";
-        }else if(bulletType==2){
+        } else if (bulletType == 2) {
             symbol = "•";
-        }else if(bulletType==3){
+        } else if (bulletType == 3) {
             symbol = ">";
-        }else if(bulletType==4){
+        } else if (bulletType == 4) {
             symbol = "<";
-        }else if(bulletType==5){
+        } else if (bulletType == 5) {
             symbol = "✗";
         }
         return symbol;
@@ -72,12 +73,12 @@ public class BulletPoint {
 
 
     //setter methods
-    public void setBulletType(int bulletType){
-        this.bulletType=bulletType;
+    public void setBulletType(int bulletType) {
+        this.bulletType = bulletType;
     }
 
-    public void setNote(String note){
-        this.note=note;
+    public void setNote(String note) {
+        this.note = note;
     }
 
 

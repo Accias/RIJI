@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private int bulletType = 0;
     private Day day1;
     float x1, x2, y1, y2;
-    public MainActivity()
-    {
+
+    public MainActivity() {
         mString = "";
     }
 
@@ -104,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void processFinish(Day output) {
                 day1 = output;
-                id=day1.id;
+                id = day1.getId();
             }
         }).execute(date);
 
         //set the TextView date for the day_activity
         //TextView dateText = findViewById(R.id.tuesday1_2);
-       // dateText.setText("Friday, May 3");
+        // dateText.setText("Friday, May 3");
 
         //back button method
         dayBackMonth();
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void monthToday(View view) {
-        startActivity(new Intent(MainActivity.this, Month.class));
+        startActivity(new Intent(MainActivity.this, Month_swipe.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //use an intent to allow the classes to interchange
-                startActivity(new Intent(MainActivity.this, Month.class));
+                startActivity(new Intent(MainActivity.this, Month_swipe.class));
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
@@ -205,10 +205,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean onTouchEvent(MotionEvent touchevent)
-    {
-        switch (touchevent.getAction())
-        {
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 y1 = touchevent.getY();
@@ -216,15 +214,15 @@ public class MainActivity extends AppCompatActivity {
             case MotionEvent.ACTION_UP:
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
-                if(x1<x2)
-                {
-                    Intent j = new Intent(MainActivity.this, Month.class);
+                if (x1 < x2) {
+                    Intent j = new Intent(MainActivity.this, Month_swipe.class);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
                 }
                 break;
-        }return false;
+        }
+        return false;
     }
 
 
