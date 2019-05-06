@@ -64,6 +64,8 @@ public class TableofYear extends AppCompatActivity {
         Button newButton = new Button(this);
         //newButton.setTypeface(Typeface.createFromAsset(getAssets(), "dosis"));
 
+        Typeface dosis = Typeface.createFromAsset(getAssets(), "dosis");
+        newButton.setTypeface(dosis);
         newButton.setText("2020");
         newButton.setBackgroundColor(getResources().getColor(R.color.white));
         newButton.setTextSize(60);
