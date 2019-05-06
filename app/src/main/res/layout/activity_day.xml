@@ -46,7 +46,8 @@
         android:layout_above="@id/addBullet"
         android:layout_below="@id/tuesday1_2"
         android:fontFamily="@font/dosis"
-        android:paddingHorizontal="50dp"/>
+        android:paddingHorizontal="50dp"
+        />
 
     <Button
         android:id="@+id/addBullet"

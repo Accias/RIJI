@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+
+import static android.widget.GridLayout.HORIZONTAL;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,8 +69,12 @@ public class MainActivity extends AppCompatActivity {
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
 
+
         // Create an adapter and supply the data to be displayed.
         mAdapter = new WordListAdapter(this, mBulletPoints);
+
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecor);
 
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
