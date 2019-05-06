@@ -30,5 +30,4 @@ public class Year {
         this.year = year;
     }
 
-
 }

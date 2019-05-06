@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 symbol = popupInputDialogView.findViewById(R.id.symbol);
 
                 // Set up the buttons
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (TextUtils.isEmpty(bullet.getText())) {
@@ -151,9 +152,17 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
-                });
+                }).create();
 
-                builder.show();
+                //2. now setup to change color of the button
+                dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor( ContextCompat.getColor(MainActivity.this,R.color.black));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor( ContextCompat.getColor(MainActivity.this,R.color.black));
+                    }
+                });
+                dialog.show();
             }
         });
     }
