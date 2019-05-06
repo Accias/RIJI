@@ -7,16 +7,25 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class YearActivity extends AppCompatActivity {
 
     float x1, x2, y1, y2;
+    //Button myButton = new Button(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_year);
 
         yearBackTable();
+       // myButton.setText("Push Me");
+
+       // RelativeLayout ll = (RelativeLayout)findViewById(R.id.year);
+       // LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+       // ll.addView(myButton, lp);
     }
 
     public void yearToday(View view) {

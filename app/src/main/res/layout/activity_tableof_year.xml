@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tableYear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -46,30 +47,39 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toy"
         android:layout_above="@id/botton_bar"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2019"
-            android:textSize="60sp"
-            android:fontFamily="@font/dosis"
-            android:paddingHorizontal="60dp"
-            android:paddingTop="10dp"
-            android:onClick="twentyNineteen"
-            android:background="@android:color/white"/>
+            android:orientation="horizontal"
+            android:id="@+id/one">
+            <Button
+                android:id="@+id/firstyear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019"
+                android:textSize="60sp"
+                android:fontFamily="@font/dosis"
+                android:paddingHorizontal="60dp"
+                android:paddingTop="10dp"
+                android:onClick="twentyNineteen"
+                android:background="@android:color/white"/>
 
-        <ImageButton
-            android:layout_width="111dp"
-            android:layout_height="98dp"
-            android:background="@mipmap/piggy"
-            android:onClick="twentyNineteen"
-            android:contentDescription="piggy" />
-
-        <!-- <com.google.android.material.textfield.TextInputLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
- -->
+            <ImageButton
+                android:layout_width="111dp"
+                android:layout_height="98dp"
+                android:background="@mipmap/piggy"
+                android:onClick="twentyNineteen"
+                android:contentDescription="piggy" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/two"
+            android:orientation="horizontal">
+        </LinearLayout>
     </LinearLayout>
+
 
     <Button
         android:id="@+id/addYear"
@@ -78,7 +88,8 @@
         android:layout_above="@id/botton_bar"
         android:fontFamily="@font/dosis"
         android:text="+ Year"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:onClick="generateNewYear"/>
 
     <LinearLayout
 
