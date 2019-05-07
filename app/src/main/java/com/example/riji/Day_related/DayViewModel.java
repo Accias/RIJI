@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class DayViewModel extends AndroidViewModel {
-    private DayRepository mRepository;
+    public DayRepository mRepository;
     private LiveData<List<Day>> mAllDays;
 
     public DayViewModel(Application application) {
@@ -17,7 +17,11 @@ public class DayViewModel extends AndroidViewModel {
         mAllDays = mRepository.getAllDays();
     }
 
-    LiveData<List<Day>> getAllDays() { return mAllDays; }
+    LiveData<List<Day>> getAllDays() {
+        return mAllDays;
+    }
 
-    public void insert(Day day) { mRepository.insertDay(day); }
+    public void insert(Day day) {
+        mRepository.insertDay(day);
+    }
 }

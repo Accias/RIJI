@@ -27,6 +27,8 @@ import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
+import com.example.riji.Day_related.DayRepository;
+import com.example.riji.Day_related.DayViewModel;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -34,15 +36,16 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-import static android.widget.GridLayout.HORIZONTAL;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AfterDBOperationListener {
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private WordListAdapter mAdapter;
     private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
+    private DayViewModel mDayViewModel;
+    private DayRepository mDayRepository;
+    private DayDAO mDayDao;
     long id;
 
     //set up dialogue
@@ -83,18 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //find current day class
-        DayDAO mDayDao = rijiDatabase.getDayDAO();
-
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-
-        //getTime() returns the current date in default time zone
-        final int day = calendar.get(Calendar.DATE);
-
-        //Note: +1 the month for current month
-        final int month = calendar.get(Calendar.MONTH) + 1;
-        final int year = calendar.get(Calendar.YEAR);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        final Date date = new Date(year, month, day);
+        mDayDao = rijiDatabase.getDayDAO();
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
@@ -106,15 +98,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //load current day
-        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
-
-            @Override
-            public void processFinish(Day output) {
-                day1 = output;
-                id = day1.getId();
-            }
-        }).execute(date);
+        mDayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
+        mDayRepository = mDayViewModel.mRepository;
+        mDayRepository.setDelegate(this);
 
         //set the TextView date for the day_activity
         //TextView dateText = findViewById(R.id.tuesday1_2);
@@ -162,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
                 }).create();
 
                 //2. now setup to change color of the button
-                dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface arg0) {
-                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor( ContextCompat.getColor(MainActivity.this,R.color.black));
-                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor( ContextCompat.getColor(MainActivity.this,R.color.black));
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                     }
                 });
                 dialog.show();
@@ -242,6 +228,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void afterDBOperation(int result) {
+        if (result == 1) {
+            Toast.makeText(this, "Person successfully saved!", Toast.LENGTH_SHORT).show();
+
+            Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+            //getTime() returns the current date in default time zone
+            final int day = calendar.get(Calendar.DATE);
+
+            //Note: +1 the month for current month
+            final int month = calendar.get(Calendar.MONTH) + 1;
+            final int year = calendar.get(Calendar.YEAR);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            final Date date = new Date(year, month, day);
+
+            //load current day
+            findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
+
+                @Override
+                public void processFinish(Day output) {
+                    day1 = output;
+                    id = day1.getId();
+                }
+            }).execute(date);
+        }
+
+    }
 }
 
 
