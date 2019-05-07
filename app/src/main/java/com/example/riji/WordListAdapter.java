@@ -48,7 +48,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return mBulletPoints.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder{
+    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
         public final TextView wordItemView;
         final WordListAdapter mAdapter;
 
@@ -56,21 +56,39 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             super(itemView);
             wordItemView = itemView.findViewById(R.id.word);
             this.mAdapter = adapter;
-           // itemView.setOnClickListener(this);
+
+           /* wordItemView.setOnLongClickListener(new View.OnLongClickListener(){
+                    @Override
+                    public boolean onLongClick(View v)
+                    {
+
+                        int mPosition = getLayoutPosition();
+
+                        String element = mBulletPoints.get(mPosition).getNote();
+
+                        mBulletPoints.set(mPosition, "Clicked! " + element);
+
+                        mAdapter.notifyDataSetChanged();
+                    }
+            });*/
+
         }
 
-       /* @Override
-        public void onClick(View v) {
-         implements View.OnClickListener
-            // Get the position of the item that was clicked.
+        @Override
+        public boolean onLongClick(View v) {
+
+
             int mPosition = getLayoutPosition();
-            // Use that to access the affected item in mBulletPoints.
-            String element = mBulletPoints.get(mPosition).getNote();
-            // Change the word in the mBulletPoints.
-            mBulletPoints.set(mPosition, "Clicked! " + element);
-            // Notify the adapter, that the data has changed so it can
-            // update the RecyclerView to display the data.
+
+            BulletPoint element = mBulletPoints.get(mPosition);
+
+
+            //mBulletPoints.set(mPosition,element);
+
+
             mAdapter.notifyDataSetChanged();
-        }*/
+
+            return false;
+        }
     }
 }

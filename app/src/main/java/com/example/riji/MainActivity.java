@@ -158,7 +158,11 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                 dialog.show();
             }
         });
+
+
     }
+
+
 
     //when the user chooses the event button
     public void sendEvent(View view) {
@@ -256,16 +260,4 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
 
     }
 }
-
-
 // ----------------------------------------------------------
-
-
-    /*public void sendMessage(View view) {
-            Intent intent = new Intent(this, DisplayMessageActivity.class);
-            EditText editText = (EditText) findViewById(R.id.editText);
-            String message = editText.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-    }*/
-

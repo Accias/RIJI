@@ -96,9 +96,10 @@ public abstract class Database extends RoomDatabase {
                genYear(params[0],year);
             }
 
-            long id = mDayDao.getDayId(year, month, day);
+            Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
+            long id=day1.id;
             //insert test bulletpoints
-            BulletPoint bp = new BulletPoint(0, "Hello", id);
+          BulletPoint bp = new BulletPoint(0, "Hello", id);
             mBPDao.insertBulletPoint(bp);
             bp = new BulletPoint(0, "World", id);
             mBPDao.insertBulletPoint(bp);

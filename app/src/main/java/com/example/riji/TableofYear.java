@@ -60,9 +60,7 @@ public class TableofYear extends AppCompatActivity {
 
     public void generateNewYear(View v)
     {
-
         Button newButton = new Button(this);
-        //newButton.setTypeface(Typeface.createFromAsset(getAssets(), "dosis"));
 
         Typeface dosis = Typeface.createFromAsset(getAssets(), "dosis");
         newButton.setTypeface(dosis);
@@ -79,4 +77,6 @@ public class TableofYear extends AppCompatActivity {
         ll.addView(newImage, lp);
 
     }
+
+
 }
