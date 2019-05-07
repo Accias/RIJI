@@ -26,7 +26,7 @@ import java.util.TimeZone;
     is stored in the database.
  */
 
-@androidx.room.Database(entities = {BulletPoint.class, Day.class,Month.class,Year.class},
+@androidx.room.Database(entities = {BulletPoint.class, Day.class, Month.class, Year.class},
         version = 2)
 public abstract class Database extends RoomDatabase {
     //Only one instance of the database can be initialized at a time.
@@ -71,10 +71,14 @@ public abstract class Database extends RoomDatabase {
 
         private final BulletPointDAO mBPDao;
         private final DayDAO mDayDao;
+        private final MonthDAO mMonthDao;
+        private final YearDAO mYearDao;
 
         PopulateDbAsync(Database db) {
             mBPDao = db.getBulletPointDAO();
             mDayDao = db.getDayDAO();
+            mMonthDao = db.getMonthDAO();
+            mYearDao = db.getYearDAO();
         }
 
         //database tasks must be done on a separate thread so they don't clog up the main thread and freeze the UI.
@@ -90,10 +94,13 @@ public abstract class Database extends RoomDatabase {
 
             //wipe previous data in the database
             mBPDao.deleteAll();
+            mDayDao.deleteAll();
+            mMonthDao.deleteAll();
+            mYearDao.deleteAll();
 
             //initialize new Day class based on current date if there isn't one
             if (mDayDao.findSpecificDayNoLive(year, 1, 1) == null) {
-               genYear(params[0],year);
+                genYear(params[0], year);
             }
 
             Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
