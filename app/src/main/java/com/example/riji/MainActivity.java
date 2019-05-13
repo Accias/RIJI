@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +33,8 @@ import com.example.riji.Day_related.DayDAO;
 import com.example.riji.Day_related.DayRepository;
 import com.example.riji.Day_related.DayViewModel;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +42,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class MainActivity extends AppCompatActivity implements AfterDBOperationListener {
+public class MainActivity extends AppCompatActivity implements AfterDBOperationListener, WordListAdapter.onNoteListener
+{
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private WordListAdapter mAdapter;
     private String mString;
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         mString = "";
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +79,8 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
 
-
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new WordListAdapter(this, mBulletPoints);
+        mAdapter = new WordListAdapter(this, mBulletPoints, this);
 
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecor);
@@ -84,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
 
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new SwipeAndCallBack(mAdapter));
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         //find current day class
         mDayDao = rijiDatabase.getDayDAO();
@@ -98,13 +108,25 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
             }
         });
 
-        mDayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
-        mDayRepository = mDayViewModel.mRepository;
-        mDayRepository.setDelegate(this);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        //getTime() returns the current date in default time zone
+        final int day = calendar.get(Calendar.DATE);
 
-        //set the TextView date for the day_activity
-        //TextView dateText = findViewById(R.id.tuesday1_2);
-        // dateText.setText("Friday, May 3");
+        //Note: +1 the month for current month
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int year = calendar.get(Calendar.YEAR);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        final Date date = new Date(year, month, day);
+
+        //load current day
+        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
+
+            @Override
+            public void processFinish(Day output) {
+                day1 = output;
+                id = day1.getId();
+            }
+        }).execute(date);
 
         //back button method
         dayBackMonth();
@@ -160,6 +182,54 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         });
 
 
+        //allow user to add a new bullet point
+       /*  final RecyclerView jan;
+        jan = this.findViewById(R.id.recyclerview);
+        jan.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                //employ an alert dialogue, not simply a dialogue(imagine these as pop up window)
+               // int itemPosition = jan.getChildLayoutPosition();
+               // String item = mList.get(itemPosition);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Confirm Deletion");
+                builder.setMessage("Are you sure you want to delete this bullet point?");
+
+                //inflate the dialogue with the layout in the xml activity_display_message
+                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+
+                @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.wordlist_item, null);
+                builder.setView(popupInputDialogView);
+
+                // Set up the buttons
+                final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast toast = Toast.makeText(MainActivity.this, "deleted", Toast.LENGTH_SHORT);
+                        toast.show();
+                        dialog.cancel();
+                    }
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast toast = Toast.makeText(MainActivity.this, "not deleted", Toast.LENGTH_SHORT);
+                        toast.show();
+                        dialog.cancel();
+                    }
+                }).create();
+
+                //2. now setup to change color of the button
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                    }
+                });
+                dialog.show();
+                return false;
+            }
+        });*/
     }
 
 
@@ -215,6 +285,7 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
+                Log.d("num", Float.toString(x1));
                 y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
@@ -232,32 +303,64 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
     }
 
 
+
+
     @Override
     public void afterDBOperation(int result) {
         if (result == 1) {
             Toast.makeText(this, "Person successfully saved!", Toast.LENGTH_SHORT).show();
 
-            Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-            //getTime() returns the current date in default time zone
-            final int day = calendar.get(Calendar.DATE);
 
-            //Note: +1 the month for current month
-            final int month = calendar.get(Calendar.MONTH) + 1;
-            final int year = calendar.get(Calendar.YEAR);
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            final Date date = new Date(year, month, day);
-
-            //load current day
-            findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
-
-                @Override
-                public void processFinish(Day output) {
-                    day1 = output;
-                    id = day1.getId();
-                }
-            }).execute(date);
         }
 
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        //mBulletPoints.get(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this bullet point?");
+
+        //inflate the dialogue with the layout in the xml activity_display_message
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+
+        @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.wordlist_item, null);
+        builder.setView(popupInputDialogView);
+
+        // Set up the buttons
+        final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast toast = Toast.makeText(MainActivity.this, "deleted", Toast.LENGTH_SHORT);
+                toast.show();
+                dialog.cancel();
+            }
+        }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast toast = Toast.makeText(MainActivity.this, "not deleted", Toast.LENGTH_SHORT);
+                toast.show();
+                dialog.cancel();
+            }
+        }).create();
+
+        //2. now setup to change color of the button
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+            }
+        });
+        dialog.show();
+        //BulletPoint element = mBulletPoints.get(mPosition);
+
+        //mBulletPoints.set(mPosition,element);
+
+
+        // Intent intent = new Intent(this, NewActivity.java);
     }
 }
 // ----------------------------------------------------------

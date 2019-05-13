@@ -1,5 +1,6 @@
 package com.example.riji;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,13 @@ import com.example.riji.BulletPoint_related.BulletPoint;
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
     private List<BulletPoint> mBulletPoints;
     private final LayoutInflater mInflater;
+    private onNoteListener monNoteListener;
 
     public WordListAdapter(Context context,
-                           List<BulletPoint> bulletList) {
+                           List<BulletPoint> bulletList, onNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mBulletPoints = bulletList;
+        this.monNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -29,7 +32,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.wordlist_item,
                 parent, false);
-        return new WordViewHolder(mItemView, this);
+        return new WordViewHolder(mItemView, this, monNoteListener);
     }
 
     void setBulletPoints(List<BulletPoint> bulletPoints){
@@ -50,45 +53,26 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
         public final TextView wordItemView;
-        final WordListAdapter mAdapter;
+        public final WordListAdapter mAdapter;
 
-        public WordViewHolder(View itemView, WordListAdapter adapter) {
+        onNoteListener onNoteListener;
+        public WordViewHolder(View itemView, WordListAdapter adapter, onNoteListener onNoteListener) {
             super(itemView);
-            wordItemView = itemView.findViewById(R.id.word);
             this.mAdapter = adapter;
-
-           /* wordItemView.setOnLongClickListener(new View.OnLongClickListener(){
-                    @Override
-                    public boolean onLongClick(View v)
-                    {
-
-                        int mPosition = getLayoutPosition();
-
-                        String element = mBulletPoints.get(mPosition).getNote();
-
-                        mBulletPoints.set(mPosition, "Clicked! " + element);
-
-                        mAdapter.notifyDataSetChanged();
-                    }
-            });*/
-
+            wordItemView = itemView.findViewById(R.id.word);
+            this.onNoteListener = onNoteListener;
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public boolean onLongClick(View v) {
-
-
-            int mPosition = getLayoutPosition();
-
-            BulletPoint element = mBulletPoints.get(mPosition);
-
-
-            //mBulletPoints.set(mPosition,element);
-
-
-            mAdapter.notifyDataSetChanged();
-
+            onNoteListener.onNoteClick(getAdapterPosition());
             return false;
         }
+    }
+
+    public interface onNoteListener{
+        void onNoteClick (int position);
+
     }
 }

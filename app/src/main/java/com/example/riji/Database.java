@@ -94,9 +94,9 @@ public abstract class Database extends RoomDatabase {
 
             //wipe previous data in the database
             mBPDao.deleteAll();
-            mDayDao.deleteAll();
-            mMonthDao.deleteAll();
-            mYearDao.deleteAll();
+           // mDayDao.deleteAll();
+           // mMonthDao.deleteAll();
+           // mYearDao.deleteAll();
 
             //initialize new Day class based on current date if there isn't one
             if (mDayDao.findSpecificDayNoLive(year, 1, 1) == null) {
