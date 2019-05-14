@@ -180,95 +180,41 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                 dialog.show();
             }
         });
-
-
-        //allow user to add a new bullet point
-       /*  final RecyclerView jan;
-        jan = this.findViewById(R.id.recyclerview);
-        jan.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View v) {
-                //employ an alert dialogue, not simply a dialogue(imagine these as pop up window)
-               // int itemPosition = jan.getChildLayoutPosition();
-               // String item = mList.get(itemPosition);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Confirm Deletion");
-                builder.setMessage("Are you sure you want to delete this bullet point?");
-
-                //inflate the dialogue with the layout in the xml activity_display_message
-                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-
-                @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.wordlist_item, null);
-                builder.setView(popupInputDialogView);
-
-                // Set up the buttons
-                final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast toast = Toast.makeText(MainActivity.this, "deleted", Toast.LENGTH_SHORT);
-                        toast.show();
-                        dialog.cancel();
-                    }
-                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast toast = Toast.makeText(MainActivity.this, "not deleted", Toast.LENGTH_SHORT);
-                        toast.show();
-                        dialog.cancel();
-                    }
-                }).create();
-
-                //2. now setup to change color of the button
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface arg0) {
-                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
-                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
-                    }
-                });
-                dialog.show();
-                return false;
-            }
-        });*/
     }
 
-
-
     //when the user chooses the event button
-    public void sendEvent(View view) {
-        bulletType = 0;
+    public void sendEvent(View view)
+    {   bulletType = 0;
         Toast toast = Toast.makeText(MainActivity.this, " ○ ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" ○ ");
-
     }
 
     //when the user chooses the note button
-    public void sendNote(View view) {
-        bulletType = 1;
+    public void sendNote(View view)
+    {   bulletType = 1;
         Toast toast = Toast.makeText(MainActivity.this, " - ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
-
     }
 
     //when the user chooses the task button
-    public void sendTask(View view) {
-        bulletType = 2;
+    public void sendTask(View view)
+    {   bulletType = 2;
         Toast toast = Toast.makeText(MainActivity.this, " • ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" • ");
     }
 
-    public void monthToday(View view) {
-        startActivity(new Intent(MainActivity.this, Month_swipe.class));
+    public void monthToday(View view)
+    {   startActivity(new Intent(MainActivity.this, Month_swipe.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     //how to go from one class to another class
-    public void dayBackMonth() {
-        Button backButton = findViewById(R.id.jan);
+    public void dayBackMonth()
+    { Button backButton = findViewById(R.id.jan);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,11 +224,10 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                 finish();
             }
         });
-
     }
 
-    public boolean onTouchEvent(MotionEvent touchevent) {
-        switch (touchevent.getAction()) {
+    public boolean onTouchEvent(MotionEvent touchevent)
+    {   switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 Log.d("num", Float.toString(x1));
@@ -296,30 +241,21 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
-                }
-                break;
-        }
-        return false;
+                }break;
+        }return false;
     }
 
-
-
-
     @Override
-    public void afterDBOperation(int result) {
-        if (result == 1) {
+    public void afterDBOperation(int result)
+    {   if (result == 1)
+        {
             Toast.makeText(this, "Person successfully saved!", Toast.LENGTH_SHORT).show();
-
-
         }
-
     }
 
     @Override
-    public void onNoteClick(int position) {
-        //mBulletPoints.get(position);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public void onNoteClick(int position)
+    {   AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this bullet point?");
 
@@ -355,12 +291,6 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
             }
         });
         dialog.show();
-        //BulletPoint element = mBulletPoints.get(mPosition);
-
-        //mBulletPoints.set(mPosition,element);
-
-
-        // Intent intent = new Intent(this, NewActivity.java);
     }
 }
 // ----------------------------------------------------------
