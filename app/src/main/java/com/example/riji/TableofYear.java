@@ -2,6 +2,7 @@ package com.example.riji;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -14,11 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Type;
+
 import static android.graphics.Typeface.create;
 
 public class TableofYear extends AppCompatActivity {
 
     float x1, x2, y1, y2;
+    Typeface dosis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +67,9 @@ public class TableofYear extends AppCompatActivity {
     {
         Button newButton = new Button(this);
 
-        //Typeface dosis = Typeface.createFromAsset(getAssets(), "dosis");
-        //newButton.setTypeface(dosis);
+        Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
+
+        newButton.setTypeface(dosisRegular);
         newButton.setText("2020");
         newButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         newButton.setTextSize(60);

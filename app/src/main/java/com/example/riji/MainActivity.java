@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -100,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
-
 
         // Create an adapter and supply the data to be displayed.
         mAdapter = new WordListAdapter(this, mBulletPoints, this);
@@ -230,40 +230,38 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     }
 
     //when the user chooses the event button
-    public void sendEvent(View view) {
-        bulletType = 0;
+    public void sendEvent(View view)
+    {   bulletType = 0;
         Toast toast = Toast.makeText(MainActivity.this, " ○ ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" ○ ");
-
     }
 
     //when the user chooses the note button
-    public void sendNote(View view) {
-        bulletType = 1;
+    public void sendNote(View view)
+    {   bulletType = 1;
         Toast toast = Toast.makeText(MainActivity.this, " - ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
-
     }
 
     //when the user chooses the task button
-    public void sendTask(View view) {
-        bulletType = 2;
+    public void sendTask(View view)
+    {   bulletType = 2;
         Toast toast = Toast.makeText(MainActivity.this, " • ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" • ");
     }
 
-    public void monthToday(View view) {
-        startActivity(new Intent(MainActivity.this, Month_swipe.class));
+    public void monthToday(View view)
+    {   startActivity(new Intent(MainActivity.this, Month_swipe.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     //how to go from one class to another class
-    public void dayBackMonth() {
-        Button backButton = findViewById(R.id.jan);
+    public void dayBackMonth()
+    { Button backButton = findViewById(R.id.jan);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,8 +274,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     }
 
-    public boolean onTouchEvent(MotionEvent touchevent) {
-        switch (touchevent.getAction()) {
+    public boolean onTouchEvent(MotionEvent touchevent)
+    {   switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 y1 = touchevent.getY();
@@ -299,11 +297,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
-                }
-                break;
-        }
-        return false;
+                }break;
+        }return false;
     }
+
 
 
     @Override
@@ -330,6 +327,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public void onNoteClick(int position)
+    {   AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this bullet point?");
 
@@ -338,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
         @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.wordlist_item, null);
         builder.setView(popupInputDialogView);
-
 
         // Set up the buttons
         final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -367,12 +365,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             }
         });
         dialog.show();
-        //BulletPoint element = mBulletPoints.get(mPosition);
-
-        //mBulletPoints.set(mPosition,element);
-
-
-        // Intent intent = new Intent(this, NewActivity.java);
     }
 }
 
