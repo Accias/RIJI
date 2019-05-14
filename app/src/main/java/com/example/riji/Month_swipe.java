@@ -2,6 +2,8 @@ package com.example.riji;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +11,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.riji.Day_related.Day;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Month_swipe extends AppCompatActivity{
 
     private static final String DEBUG_TAG = "Gestures";
     private GestureDetectorCompat mDetector;
+
+    private final List<Day> mDays = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private DayListAdapter mAdapter;
 
     float x1, x2, y1, y2;
 
@@ -21,6 +32,15 @@ public class Month_swipe extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month);
         monthBackYear();
+
+        // Get a handle to the RecyclerView.
+        mRecyclerView = findViewById(R.id.recyclerview);
+        // Create an adapter and supply the data to be displayed.
+        mAdapter = new DayListAdapter(this, mDays);
+        // Connect the adapter with the RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+        // Give the RecyclerView a default layout manager.
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void monthBackYear()

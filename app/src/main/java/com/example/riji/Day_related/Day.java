@@ -21,6 +21,9 @@ public class Day {
     @ColumnInfo(name = "weekDate")
     public int weekDate;
 
+    @ColumnInfo(name = "note")
+    public String note;
+
     @ColumnInfo(name = "month_id")
     public long month_id;
 
@@ -56,6 +59,10 @@ public class Day {
         return weekDate;
     }
 
+    public String getNote() {
+        return note;
+    }
+
     public void setDay(int day) {
         this.day = day;
     }
@@ -70,5 +77,9 @@ public class Day {
 
     public void setWeekDate(int weekDate) {
         this.weekDate = weekDate;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

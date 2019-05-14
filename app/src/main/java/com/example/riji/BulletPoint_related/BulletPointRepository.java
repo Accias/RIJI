@@ -20,7 +20,7 @@ public class BulletPointRepository {
     private LiveData<List<BulletPoint>> mAllBulletPoints;
 
     //instantiating method
-    BulletPointRepository(Application application) {
+    public BulletPointRepository(Application application) {
         Database db = Database.getDatabase(application);
         mBulletPointDao = db.getBulletPointDAO();
         mAllBulletPoints = mBulletPointDao.getAllBulletPoints();
@@ -30,9 +30,18 @@ public class BulletPointRepository {
         return mAllBulletPoints;
     }
 
+    LiveData<List<BulletPoint>> getSpecificDayBulletPoints(int day) {
+        return mBulletPointDao.findBulletPointsForDay(day);
+    }
+
     void insertBulletPoint(BulletPoint bullet) {
         new insertAsyncTask(mBulletPointDao).execute(bullet);
     }
+
+    public void deleteBulletPoint(BulletPoint bullet){
+        new deleteAsyncTask(mBulletPointDao).execute(bullet);
+    }
+
 
     //insert bulletpoint using Asynctask
     private static class insertAsyncTask extends AsyncTask<BulletPoint, Void, Void> {
@@ -46,6 +55,22 @@ public class BulletPointRepository {
         @Override
         protected Void doInBackground(final BulletPoint... params) {
             mAsyncTaskDao.insertBulletPoint(params[0]);
+            return null;
+        }
+    }
+
+    //delete bulletpoint using Asynctask
+    private static class deleteAsyncTask extends AsyncTask<BulletPoint, Void, Void> {
+
+        private BulletPointDAO mAsyncTaskDao;
+
+        deleteAsyncTask(BulletPointDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final BulletPoint... params) {
+            mAsyncTaskDao.deleteBulletPoint(params[0]);
             return null;
         }
     }
