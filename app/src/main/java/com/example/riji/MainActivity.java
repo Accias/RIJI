@@ -91,9 +91,8 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeAndCallBack(mAdapter));
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeAndCallBack(mAdapter));
+        //itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         //find current day class
         mDayDao = rijiDatabase.getDayDAO();
@@ -183,38 +182,38 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
     }
 
     //when the user chooses the event button
-    public void sendEvent(View view)
-    {   bulletType = 0;
+    public void sendEvent(View view) {
+        bulletType = 0;
         Toast toast = Toast.makeText(MainActivity.this, " ○ ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" ○ ");
     }
 
     //when the user chooses the note button
-    public void sendNote(View view)
-    {   bulletType = 1;
+    public void sendNote(View view) {
+        bulletType = 1;
         Toast toast = Toast.makeText(MainActivity.this, " - ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" - ");
     }
 
     //when the user chooses the task button
-    public void sendTask(View view)
-    {   bulletType = 2;
+    public void sendTask(View view) {
+        bulletType = 2;
         Toast toast = Toast.makeText(MainActivity.this, " • ", Toast.LENGTH_SHORT);
         toast.show();
         symbol.setText(" • ");
     }
 
-    public void monthToday(View view)
-    {   startActivity(new Intent(MainActivity.this, Month_swipe.class));
+    public void monthToday(View view) {
+        startActivity(new Intent(MainActivity.this, Month_swipe.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
     //how to go from one class to another class
-    public void dayBackMonth()
-    { Button backButton = findViewById(R.id.jan);
+    public void dayBackMonth() {
+        Button backButton = findViewById(R.id.jan);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         });
     }
 
-    public boolean onTouchEvent(MotionEvent touchevent)
-    {   switch (touchevent.getAction()) {
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 Log.d("num", Float.toString(x1));
@@ -246,16 +245,16 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
     }
 
     @Override
-    public void afterDBOperation(int result)
-    {   if (result == 1)
+    public void afterDBOperation(int result) {
+        if (result == 1)
         {
             Toast.makeText(this, "Person successfully saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onNoteClick(int position)
-    {   AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public void onNoteClick(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this bullet point?");
 

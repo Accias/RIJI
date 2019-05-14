@@ -21,7 +21,6 @@ import static android.graphics.Typeface.create;
 public class TableofYear extends AppCompatActivity {
 
     float x1, x2, y1, y2;
-    Typeface dosis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,24 +63,20 @@ public class TableofYear extends AppCompatActivity {
 
     public void generateNewYear(View v)
     {
+        //the number button
         Button newButton = new Button(this);
-
         Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
-
         newButton.setTypeface(dosisRegular);
         newButton.setText("2020");
         newButton.setBackgroundColor(getResources().getColor(R.color.white));
         newButton.setTextSize(60);
-
         LinearLayout ll = findViewById(R.id.two);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.addView(newButton, lp);
 
+        //the image button
         ImageButton newImage = new ImageButton(this);
         //newImage.setImageIcon("mouse");
         ll.addView(newImage, lp);
-
     }
-
-
 }
