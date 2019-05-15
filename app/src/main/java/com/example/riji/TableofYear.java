@@ -1,6 +1,7 @@
 package com.example.riji;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
@@ -68,7 +69,7 @@ public class TableofYear extends AppCompatActivity {
         Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
         newButton.setTypeface(dosisRegular);
         newButton.setText("2020");
-        newButton.setBackgroundColor(getResources().getColor(R.color.white));
+        newButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         newButton.setTextSize(60);
         LinearLayout ll = findViewById(R.id.two);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

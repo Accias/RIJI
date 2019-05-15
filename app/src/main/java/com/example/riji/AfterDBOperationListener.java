@@ -1,5 +1,7 @@
 package com.example.riji;
 
+import com.example.riji.Day_related.Day;
+
 public interface AfterDBOperationListener {
-    void afterDBOperation(int result);
+    void afterDBOperation(Day result);
 }

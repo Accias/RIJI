@@ -1,26 +1,28 @@
 package com.example.riji;
 
-import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
+import com.example.riji.BulletPoint_related.BulletPointRepository;
+
+import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
     private List<BulletPoint> mBulletPoints;
     private final LayoutInflater mInflater;
     private onNoteListener monNoteListener;
+    private BulletPointRepository mBPRepository;
 
-    public WordListAdapter(Context context,
-                           List<BulletPoint> bulletList, onNoteListener onNoteListener) {
+    WordListAdapter(Context context,
+                    List<BulletPoint> bulletList, onNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mBulletPoints = bulletList;
         this.monNoteListener = onNoteListener;
@@ -35,14 +37,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return new WordViewHolder(mItemView, this, monNoteListener);
     }
 
-    void setBulletPoints(List<BulletPoint> bulletPoints){
+    void setBulletPoints(List<BulletPoint> bulletPoints) {
         mBulletPoints = bulletPoints;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
-        String mCurrent = mBulletPoints.get(position).getSymbol()+" "+mBulletPoints.get(position).getNote();
+        String mCurrent = mBulletPoints.get(position).getSymbol() + " " + mBulletPoints.get(position).getNote();
         holder.wordItemView.setText(mCurrent);
     }
 
@@ -51,12 +53,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return mBulletPoints.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
-        public final TextView wordItemView;
-        public final WordListAdapter mAdapter;
+    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+        final TextView wordItemView;
+        final WordListAdapter mAdapter;
 
         onNoteListener onNoteListener;
-        public WordViewHolder(View itemView, WordListAdapter adapter, onNoteListener onNoteListener) {
+
+        WordViewHolder(View itemView, WordListAdapter adapter, onNoteListener onNoteListener) {
             super(itemView);
             this.mAdapter = adapter;
             wordItemView = itemView.findViewById(R.id.word);
@@ -71,8 +74,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         }
     }
 
-    public interface onNoteListener{
-        void onNoteClick (int position);
+    void deleteBP(int position, Application application) {
+        mBPRepository = new BulletPointRepository(application);
+        mBPRepository.deleteBulletPoint(mBulletPoints.get(position));
+    }
+
+
+    public interface onNoteListener {
+        void onNoteClick(int position);
 
     }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "0f5d91c1d311f48f6b893c2401c5f288",
+    "identityHash": "05db9385c9fe411a9e745f99d073edf2",
     "entities": [
       {
         "tableName": "bulletpoints",
@@ -65,7 +65,7 @@
       },
       {
         "tableName": "days",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `month_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`month_id`) REFERENCES `months`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `note` TEXT, `month_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`month_id`) REFERENCES `months`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "day",
@@ -90,6 +90,12 @@
             "columnName": "weekDate",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "month_id",
@@ -228,7 +234,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0f5d91c1d311f48f6b893c2401c5f288\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"05db9385c9fe411a9e745f99d073edf2\")"
     ]
   }
 }

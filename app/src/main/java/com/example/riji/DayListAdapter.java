@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Day_related.Day;
@@ -19,29 +20,30 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     private final List<Day> mDays;
     private LayoutInflater mInflater;
 
-    public DayListAdapter(Context context,
-                           List<Day> dayList) {
+    DayListAdapter(Context context,
+                   List<Day> dayList) {
         mInflater = LayoutInflater.from(context);
         this.mDays = dayList;
 
     }
 
+    @NonNull
     @Override
-    public DayListAdapter.DayViewHolder onCreateViewHolder(ViewGroup parent,
-                                                             int viewType) {
+    public DayListAdapter.DayViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                           int viewType) {
         View mItemView = mInflater.inflate(R.layout.daylist_item,
                 parent, false);
         return new DayListAdapter.DayViewHolder((LinearLayout)mItemView, this);
     }
 
     @Override
-    public void onBindViewHolder(DayListAdapter.DayViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DayListAdapter.DayViewHolder holder, int position) {
 
         //implement get string method in Day class
-      //  String mCurrent = mDays.get(position).getNote();
-       // String mDate = mDays.get(position).getDay();
-        //holder.editText.setText(mCurrent);
-       // holder.button.setText(mDate);
+         String mCurrent = mDays.get(position).getNote();
+        String mDate = mDays.get(position).getDay()+"";
+        holder.editText.setText(mCurrent);
+        holder.button.setText(mDate);
     }
 
     @Override
@@ -51,12 +53,12 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
 
     class DayViewHolder extends RecyclerView.ViewHolder{
         public final Button button;
-        public final EditText editText;
+        final EditText editText;
        // public final LinearLayout layout;
         final DayListAdapter mAdapter;
        // public final ArrayList<Button> buttons;
 
-        public DayViewHolder(LinearLayout itemView, DayListAdapter adapter) {
+        DayViewHolder(LinearLayout itemView, DayListAdapter adapter) {
             super(itemView);
          //   layout = itemView.findViewById(R.id.lay);
             button = itemView.findViewById(R.id.dateButton);
@@ -66,7 +68,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
 
           //  for(int i = 0; i < 10; i++){
 
-                ;
+
          //       //optional: add your buttons to any layout if you want to see them in your screen
          //       RecyclerView.add(button);
          //   }

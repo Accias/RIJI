@@ -5,18 +5,22 @@ import android.os.AsyncTask;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
 
+import java.lang.ref.WeakReference;
+
 public class findSpecificDayAsyncTask extends AsyncTask<Date, Void, Day> {
     private DayDAO mAsyncTaskDao;
     private AsyncResponse delegate;
+    private WeakReference<AfterDBOperationListener> asyncDelegate;
 
     // you may separate this or combined to caller class.
     public interface AsyncResponse {
         void processFinish(Day output);
     }
 
-    findSpecificDayAsyncTask(DayDAO dao, AsyncResponse delegate) {
+    findSpecificDayAsyncTask(DayDAO dao,AfterDBOperationListener afterDBOperationListener, AsyncResponse delegate) {
         mAsyncTaskDao = dao;
         this.delegate = delegate;
+        asyncDelegate = new WeakReference<>(afterDBOperationListener);
     }
 
     @Override
@@ -29,6 +33,9 @@ public class findSpecificDayAsyncTask extends AsyncTask<Date, Void, Day> {
 
     @Override
     protected void onPostExecute(Day day) {
+        final AfterDBOperationListener delegate1 = asyncDelegate.get();
+        if (delegate1 != null)
+            delegate1.afterDBOperation(day);
         delegate.processFinish(day);
     }
 

@@ -1,13 +1,13 @@
 package com.example.riji.Day_related;
 
-import java.util.List;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import java.util.List;
 
 @Dao
 public interface DayDAO {
@@ -30,7 +30,7 @@ public interface DayDAO {
     LiveData<List<Day>> findDayInYear(final int year);
 
     @Query("SELECT * FROM days WHERE year=:year AND month=:month ORDER BY id")
-    LiveData<List<Day>> findDayInMonth(final int year,final int month);
+    LiveData<List<Day>> findDayInMonth(final int year, final int month);
 
     @Query("SELECT * FROM days WHERE year=:year AND month=:month AND day=:day ORDER BY id")
     LiveData<Day> findSpecificDay(final int year, final int month, final int day);
@@ -40,9 +40,6 @@ public interface DayDAO {
 
     @Query("SELECT id FROM days WHERE year=:year AND month=:month AND day=:day")
     int getDayId(final int year, final int month, final int day);
-
-
-
 
 
 }

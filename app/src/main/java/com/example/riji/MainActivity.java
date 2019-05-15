@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -27,13 +29,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
+import com.example.riji.BulletPoint_related.BulletPointDAO;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
-import com.example.riji.Day_related.DayRepository;
 import com.example.riji.Day_related.DayViewModel;
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -42,17 +42,32 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class MainActivity extends AppCompatActivity implements AfterDBOperationListener, WordListAdapter.onNoteListener
-{
+public class MainActivity extends AppCompatActivity implements MyWorkerThread.Callback, WordListAdapter.onNoteListener {
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private WordListAdapter mAdapter;
     private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
     private DayViewModel mDayViewModel;
-    private DayRepository mDayRepository;
     private DayDAO mDayDao;
+    private BulletPointDAO mBPDao;
     long id;
+    //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
+    //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+
+    private Handler mUiHandler = new Handler();
+    private MyWorkerThread mWorkerThread;
+
+    //get current time
+    Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+    //getTime() returns the current date in default time zone
+    final int day = calendar.get(Calendar.DATE);
+
+    //Note: +1 the month for current month
+    final int month = calendar.get(Calendar.MONTH) + 1;
+    final int year = calendar.get(Calendar.YEAR);
+    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+    final Date date = new Date(year, month, day);
 
     //set up dialogue
     private TextView symbol;
@@ -64,17 +79,26 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         mString = "";
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
         Database rijiDatabase = Database.getDatabase(this);
 
-        Calendar calendarDate = Calendar.getInstance();
-        String currrentDate = DateFormat.getDateInstance().format(calendarDate.getTime());
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        String currrentDate = DateFormat.getDateInstance().format(calendar.getTime());
         TextView dateview = findViewById(R.id.tuesday1_2);
         dateview.setText(currrentDate);
+
+        //getTime() returns the current date in default time zone
+        final int day = calendar.get(Calendar.DATE);
+        //Note: +1 the month for current month
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int year = calendar.get(Calendar.YEAR);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        final Date date = new Date(year, month, day);
+
+        mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
@@ -96,39 +120,58 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
 
         //find current day class
         mDayDao = rijiDatabase.getDayDAO();
+        mBPDao = rijiDatabase.getBulletPointDAO();
+
+        mWorkerThread = new MyWorkerThread(new Handler(), this, mDayDao, mBPDao);
+        mWorkerThread.start();
+        mWorkerThread.prepareHandlerDay();
+        mWorkerThread.queueDay(year, month, day);
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
-        mBPViewModel.getAllBulletPoints().observe(this, new Observer<List<BulletPoint>>() {
+        /* = new MyWorkerThread("myWorkerThread");
+        Runnable task = new Runnable() {
+            Day theDay;
+
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                theDay = mDayDao.findSpecificDayNoLive(year, month, day);
+                mUiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this,
+                                "Background task is completed",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+            }
+        };
+        mWorkerThread.start();
+        mWorkerThread.prepareHandler();
+        mWorkerThread.postTask(task);*/
+
+        //mDayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
+        /*mDayViewModel.getSpecificDay(year,month,day).observe(this, new Observer<Day>() {
+            @Override
+            public void onChanged(@Nullable final Day day2) {
+               day1=day2;
+            }
+        });*/
+        //threadPoolExecutor.execute(getRunnable(i));
+
+        //back button method
+        dayBackMonth();
+
+        /*mBPViewModel.getSpecificDayBulletPoints(day1.day).observe(this, new Observer<List<BulletPoint>>() {
             @Override
             public void onChanged(@Nullable final List<BulletPoint> bulletPoints) {
                 // Update the cached copy of the words in the adapter.
                 mAdapter.setBulletPoints(bulletPoints);
             }
-        });
+        });*/
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        //getTime() returns the current date in default time zone
-        final int day = calendar.get(Calendar.DATE);
-
-        //Note: +1 the month for current month
-        final int month = calendar.get(Calendar.MONTH) + 1;
-        final int year = calendar.get(Calendar.YEAR);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        final Date date = new Date(year, month, day);
-
-        //load current day
-        findSpecificDayAsyncTask asyncTask = (findSpecificDayAsyncTask) new findSpecificDayAsyncTask(mDayDao, new findSpecificDayAsyncTask.AsyncResponse() {
-
-            @Override
-            public void processFinish(Day output) {
-                day1 = output;
-                id = day1.getId();
-            }
-        }).execute(date);
-
-        //back button method
-        dayBackMonth();
 
         //allow user to add a new bullet point
         final Button addBullet = findViewById(R.id.addBullet);
@@ -179,6 +222,12 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                 dialog.show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        mWorkerThread.quit();
+        super.onDestroy();
     }
 
     //when the user chooses the event button
@@ -236,6 +285,15 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if (x1 < x2) {
+                    //insert year and month data to be transfered to MonthActivity class
+                    Intent intent = new Intent(MainActivity.this, Month_swipe.class);
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", year);
+                    bund.putInt("month", month);
+                    intent.putExtras(bund);
+                    startActivity(intent);
+
+                    //switch activities
                     Intent j = new Intent(MainActivity.this, Month_swipe.class);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -244,17 +302,34 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         }return false;
     }
 
+
+
     @Override
-    public void afterDBOperation(int result) {
-        if (result == 1)
-        {
-            Toast.makeText(this, "Person successfully saved!", Toast.LENGTH_SHORT).show();
-        }
+    public void onDayFound(Day day, long day_id) {
+        day1 = day;
+        id = day_id;
+        mWorkerThread.prepareHandlerBP();
+        mWorkerThread.queueBP(id);
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onBPFound(LiveData<List<BulletPoint>> bullets) {
+        bullets.observe(this, new Observer<List<BulletPoint>>() {
+            @Override
+            public void onChanged(@Nullable final List<BulletPoint> bulletPoints) {
+                // Update the cached copy of the words in the adapter.
+                mAdapter.setBulletPoints(bulletPoints);
+            }
+        });
+    }
+
+    @Override
+    public void onNoteClick(final int position) {
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public void onNoteClick(int position)
+    {   AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this bullet point?");
 
@@ -268,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
         final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                mAdapter.deleteBP(position, mBPViewModel.getApplication());
                 Toast toast = Toast.makeText(MainActivity.this, "deleted", Toast.LENGTH_SHORT);
                 toast.show();
                 dialog.cancel();
@@ -293,3 +369,13 @@ public class MainActivity extends AppCompatActivity implements AfterDBOperationL
     }
 }
 // ----------------------------------------------------------
+
+
+    /*public void sendMessage(View view) {
+            Intent intent = new Intent(this, DisplayMessageActivity.class);
+            EditText editText = (EditText) findViewById(R.id.editText);
+            String message = editText.getText().toString();
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+    }*/
+

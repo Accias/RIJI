@@ -5,16 +5,13 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.riji.AfterDBOperationListener;
 import com.example.riji.Database;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class DayRepository {
+class DayRepository {
     private DayDAO mDayDao;
     private LiveData<List<Day>> mAllDays;
-    private AfterDBOperationListener delegate;
 
     DayRepository(Application application) {
         Database db = Database.getDatabase(application);
@@ -26,35 +23,28 @@ public class DayRepository {
         return mAllDays;
     }
 
-    public void setDelegate(AfterDBOperationListener delegate) {
-        this.delegate = delegate;
+    LiveData<Day> getSpecificDay(int year, int month, int day){
+        return mDayDao.findSpecificDay(year,month,day);
     }
+
+
 
     void insertDay(Day day) {
-        new DayRepository.insertAsyncTask(mDayDao, delegate).execute(day);
+        new DayRepository.insertAsyncTask(mDayDao).execute(day);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Day, Void, Integer> {
+    private static class insertAsyncTask extends AsyncTask<Day, Void, Void> {
 
         private DayDAO mAsyncTaskDao;
-        private WeakReference<AfterDBOperationListener> asyncDelegate;
 
-        insertAsyncTask(DayDAO dao, AfterDBOperationListener afterDBOperationListener) {
+        insertAsyncTask(DayDAO dao) {
             mAsyncTaskDao = dao;
-            asyncDelegate = new WeakReference<>(afterDBOperationListener);
         }
 
         @Override
-        protected Integer doInBackground(final Day... params) {
+        protected Void doInBackground(final Day... params) {
             mAsyncTaskDao.insertDay(params[0]);
-            return 1;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            final AfterDBOperationListener delegate = asyncDelegate.get();
-            if (delegate != null)
-                delegate.afterDBOperation(result);
+            return null;
         }
     }
 }

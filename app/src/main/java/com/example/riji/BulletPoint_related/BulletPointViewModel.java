@@ -17,6 +17,7 @@ public class BulletPointViewModel extends AndroidViewModel {
     //data
     private BulletPointRepository mRepository;
     private LiveData<List<BulletPoint>> mAllBulletPoints;
+    Application application;
 
     public BulletPointViewModel(Application application) {
         super(application);
@@ -27,6 +28,8 @@ public class BulletPointViewModel extends AndroidViewModel {
     public LiveData<List<BulletPoint>> getAllBulletPoints() {
         return mAllBulletPoints;
     }
+
+    public LiveData<List<BulletPoint>> getSpecificDayBulletPoints(int day){return mRepository.getSpecificDayBulletPoints(day);}
 
     public void insert(BulletPoint bp) {
         mRepository.insertBulletPoint(bp);
