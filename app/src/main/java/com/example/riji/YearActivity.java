@@ -36,7 +36,7 @@ public class YearActivity extends AppCompatActivity {
 
     public void january(View view){
 
-        startActivity(new Intent(YearActivity.this, Month_swipe.class));
+        startActivity(new Intent(YearActivity.this, MonthActivity.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
@@ -68,7 +68,7 @@ public class YearActivity extends AppCompatActivity {
                 y2 = touchevent.getY();
                 if(x1>x2)
                 {
-                    Intent i = new Intent(YearActivity.this, Month_swipe.class);
+                    Intent i = new Intent(YearActivity.this, MonthActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
