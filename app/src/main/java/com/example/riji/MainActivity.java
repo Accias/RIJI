@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,31 +46,23 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     private String mString;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
-    private DayViewModel mDayViewModel;
-    private DayDAO mDayDao;
-    private BulletPointDAO mBPDao;
     long id;
     //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
     //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 
-    private Handler mUiHandler = new Handler();
     private MyWorkerThread mWorkerThread;
 
     //get current time
     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
     //getTime() returns the current date in default time zone
-    final int day = calendar.get(Calendar.DATE);
-
+    int day = calendar.get(Calendar.DATE);
     //Note: +1 the month for current month
-    final int month = calendar.get(Calendar.MONTH) + 1;
-    final int year = calendar.get(Calendar.YEAR);
-    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-    final Date date = new Date(year, month, day);
+    int month = calendar.get(Calendar.MONTH) + 1;
+    int year = calendar.get(Calendar.YEAR);
 
     //set up dialogue
     private TextView symbol;
     private int bulletType = 0;
-    private Day day1;
     float x1, x2, y1, y2;
 
     public MainActivity() {
@@ -84,19 +74,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
         Database rijiDatabase = Database.getDatabase(this);
-
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        String currrentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        TextView dateview = findViewById(R.id.tuesday1_2);
-        dateview.setText(currrentDate);
-
-        //getTime() returns the current date in default time zone
-        final int day = calendar.get(Calendar.DATE);
-        //Note: +1 the month for current month
-        final int month = calendar.get(Calendar.MONTH) + 1;
-        final int year = calendar.get(Calendar.YEAR);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        final Date date = new Date(year, month, day);
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
@@ -118,60 +95,21 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeAndCallBack(mAdapter));
         //itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        //find current day class
-        mDayDao = rijiDatabase.getDayDAO();
-        mBPDao = rijiDatabase.getBulletPointDAO();
+        Bundle bund = getIntent().getExtras();
+        //get the current year and month
+        if (bund != null) {
+            year = bund.getInt("year");
+            month = bund.getInt("month");
+            day = bund.getInt("day");
+        }
 
-        mWorkerThread = new MyWorkerThread(new Handler(), this, mDayDao, mBPDao);
+        mWorkerThread = new MyWorkerThread(new Handler(), this, this);
         mWorkerThread.start();
         mWorkerThread.prepareHandlerDay();
         mWorkerThread.queueDay(year, month, day);
 
-        mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
-
-        /* = new MyWorkerThread("myWorkerThread");
-        Runnable task = new Runnable() {
-            Day theDay;
-
-            @Override
-            public void run() {
-                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                theDay = mDayDao.findSpecificDayNoLive(year, month, day);
-                mUiHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MainActivity.this,
-                                "Background task is completed",
-                                Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-            }
-        };
-        mWorkerThread.start();
-        mWorkerThread.prepareHandler();
-        mWorkerThread.postTask(task);*/
-
-        //mDayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
-        /*mDayViewModel.getSpecificDay(year,month,day).observe(this, new Observer<Day>() {
-            @Override
-            public void onChanged(@Nullable final Day day2) {
-               day1=day2;
-            }
-        });*/
-        //threadPoolExecutor.execute(getRunnable(i));
-
         //back button method
         dayBackMonth();
-
-        /*mBPViewModel.getSpecificDayBulletPoints(day1.day).observe(this, new Observer<List<BulletPoint>>() {
-            @Override
-            public void onChanged(@Nullable final List<BulletPoint> bulletPoints) {
-                // Update the cached copy of the words in the adapter.
-                mAdapter.setBulletPoints(bulletPoints);
-            }
-        });*/
-
 
         //allow user to add a new bullet point
         final Button addBullet = findViewById(R.id.addBullet);
@@ -255,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     }
 
     public void monthToday(View view) {
-        startActivity(new Intent(MainActivity.this, Month_swipe.class));
+        startActivity(new Intent(MainActivity.this, MonthActivity.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
@@ -266,19 +204,25 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //insert year and month data to be transfered to MonthActivity class
+                Bundle bund = new Bundle();
+                bund.putInt("year", year);
+                bund.putInt("month", month);
+                Intent intent = new Intent(MainActivity.this, MonthActivity.class);
+                intent.putExtras(bund);
                 //use an intent to allow the classes to interchange
-                startActivity(new Intent(MainActivity.this, Month_swipe.class));
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
         });
+
     }
 
     public boolean onTouchEvent(MotionEvent touchevent) {
         switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
-                Log.d("num", Float.toString(x1));
                 y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
@@ -286,27 +230,25 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 y2 = touchevent.getY();
                 if (x1 < x2) {
                     //insert year and month data to be transfered to MonthActivity class
-                    Intent intent = new Intent(MainActivity.this, Month_swipe.class);
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
-                    intent.putExtras(bund);
-                    startActivity(intent);
 
                     //switch activities
-                    Intent j = new Intent(MainActivity.this, Month_swipe.class);
+                    Intent j = new Intent(MainActivity.this, MonthActivity.class);
+                    j.putExtras(bund);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
-                }break;
-        }return false;
+                }
+                break;
+        }
+        return false;
     }
-
 
 
     @Override
     public void onDayFound(Day day, long day_id) {
-        day1 = day;
         id = day_id;
         mWorkerThread.prepareHandlerBP();
         mWorkerThread.queueBP(id);
@@ -323,13 +265,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         });
     }
 
+
     @Override
     public void onNoteClick(final int position) {
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-    public void onNoteClick(int position)
-    {   AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Confirm Deletion");
         builder.setMessage("Are you sure you want to delete this bullet point?");
 
@@ -368,14 +307,5 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         dialog.show();
     }
 }
-// ----------------------------------------------------------
 
-
-    /*public void sendMessage(View view) {
-            Intent intent = new Intent(this, DisplayMessageActivity.class);
-            EditText editText = (EditText) findViewById(R.id.editText);
-            String message = editText.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-    }*/
 

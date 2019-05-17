@@ -94,9 +94,9 @@ public abstract class Database extends RoomDatabase {
 
             //wipe previous data in the database
             mBPDao.deleteAll();
-           // mDayDao.deleteAll();
-           // mMonthDao.deleteAll();
-           // mYearDao.deleteAll();
+            // mDayDao.deleteAll();
+            // mMonthDao.deleteAll();
+            // mYearDao.deleteAll();
 
             //initialize new Day class based on current date if there isn't one
             if (mDayDao.findSpecificDayNoLive(year, 1, 1) == null) {
@@ -104,7 +104,10 @@ public abstract class Database extends RoomDatabase {
             }
 
 
-            long id=mDayDao.getDayId(year,month,day);
+            long id = mDayDao.getDayId(year, month, day);
+            Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
+            day1.setNote("hello world");
+            mDayDao.updateDay(day1);
             //insert test bulletpoints
             BulletPoint bp = new BulletPoint(0, "Hello", id);
             mBPDao.insertBulletPoint(bp);
