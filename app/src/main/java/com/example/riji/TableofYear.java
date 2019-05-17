@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,12 +73,18 @@ public class TableofYear extends AppCompatActivity {
         newButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         newButton.setTextSize(60);
         LinearLayout ll = findViewById(R.id.two);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(newButton, lp);
+        ll.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        //findViewById(R.id.two);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams ls = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
 
         //the image button
         ImageButton newImage = new ImageButton(this);
-        //newImage.setImageIcon("mouse");
-        ll.addView(newImage, lp);
+        newImage.setBackgroundResource(R.mipmap.mousy);
+        newImage.setPadding(60, 0,60, 0 );
+        ll.addView(newButton, lp); ll.addView(newImage, ls);
+
     }
 }

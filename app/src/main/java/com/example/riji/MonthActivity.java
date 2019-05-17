@@ -34,6 +34,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
     private long month_id;
     Integer year, month;
 
+
     private WorkerThreadMonth mWorkerThread;
 
     float x1, x2, y1, y2;
