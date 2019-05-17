@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
     long id;
+    Day day1;
     //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
     //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 
@@ -103,10 +104,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             day = bund.getInt("day");
         }
 
-        TextView today = findViewById(R.id.tuesday1_2);
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        today.setText(currentDate);
+        //TextView today = findViewById(R.id.tuesday1_2);
+        //Calendar calendar = Calendar.getInstance();
+        //String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        //today.setText(currentDate);
 
         mWorkerThread = new MyWorkerThread(new Handler(), this, this);
         mWorkerThread.start();
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
         //back button method
         dayBackMonth();
-
+        backButton();
         //allow user to add a new bullet point
         final Button addBullet = findViewById(R.id.addBullet);
         addBullet.setOnClickListener(new View.OnClickListener() {
@@ -254,9 +255,126 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     @Override
     public void onDayFound(Day day, long day_id) {
+        day1=day;
         id = day_id;
+        int weekdate=day.getWeekDate();
+        TextView date = findViewById(R.id.tuesday1_2);
+        switch (month)
+        {
+            case 1:
+                date.setText(weekday(weekdate) + ", January "+ this.day);
+                break;
+            case 2:
+                date.setText(weekday(weekdate) + ", Feburary "+ this.day);
+                break;
+            case 3:
+                date.setText(weekday(weekdate) + ", March "+this.day);
+                break;
+            case 4:
+                date.setText(weekday(weekdate) + ", April "+ this.day);
+                break;
+            case 5:
+                date.setText(weekday(weekdate) + ", May "+ this.day);
+                break;
+            case 6:
+                date.setText(weekday(weekdate) + ", June "+ this.day);
+                break;
+            case 7:
+                date.setText(weekday(weekdate) + ", July "+ this.day);
+                break;
+            case 8:
+                date.setText(weekday(weekdate) + ", August "+ this.day);
+                break;
+            case 9:
+                date.setText(weekday(weekdate) + ", September "+ this.day);
+                break;
+            case 10:
+                date.setText(weekday(weekdate) + ", October "+ this.day);
+                break;
+            case 11:
+                date.setText(weekday(weekdate) + ", November "+ this.day);
+                break;
+            case 12:
+                date.setText(weekday(weekdate) + ", December "+ this.day);
+                break;
+        }
+
         mWorkerThread.prepareHandlerBP();
         mWorkerThread.queueBP(id);
+    }
+
+    public String weekday(int day)
+    {
+        String name = new String();
+        switch (day)
+        {
+            case 1:
+                 name ="Sunday";
+                break;
+            case 2:
+                name = "Monday";
+                break;
+            case 3:
+                name = "Tuesday";
+                break;
+            case 4:
+                name = "Wednesday";
+                break;
+            case 5:
+                name = "Thursday";
+                break;
+            case 6:
+                name = "Friday";
+                break;
+            case 7:
+                name = "Saturday";
+                break;
+        }return name;
+    }
+
+    public void backButton()
+    {
+        Button back = findViewById(R.id.jan);
+        switch(month)
+        {
+            case 1:
+                back.setText("JAN");
+                break;
+            case 2:
+                back.setText("FEV");
+                break;
+            case 3:
+                back.setText("MAR");
+                break;
+            case 4:
+                back.setText("ARI");
+                break;
+            case 5:
+                back.setText("MAY");
+                break;
+            case 6:
+                back.setText("JUN");
+                break;
+            case 7:
+                back.setText("JUL");
+                break;
+            case 8:
+                back.setText("AUG");
+                break;
+            case 9:
+                back.setText("SEP");
+                break;
+            case 10:
+                back.setText("OCT");
+                break;
+            case 11:
+                back.setText("NOV");
+                break;
+            case 12:
+                back.setText("DEC");
+                break;
+
+        }
     }
 
     @Override

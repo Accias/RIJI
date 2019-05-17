@@ -24,7 +24,7 @@
             android:background="@android:color/white"
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/dosis"
-            android:text="@string/to_month"
+            android:text="JAN"
             android:textSize="@dimen/to_month_textsize" />
     </LinearLayout>
 

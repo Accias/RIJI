@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:hint="Reminder Event"
+            android:hint="      Reminder Event  "
+            android:textColorHint="@color/colorPrimary"
             android:inputType="textAutoCorrect"
             android:textColor="@android:color/background_dark" />
         </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,48 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
 
         year = bund.getInt("year");
         month = bund.getInt("month");
+
+        TextView theMonth = findViewById(R.id.JAN);
+        switch (month)
+        {
+            case 1:
+                theMonth.setText("January");
+                break;
+            case 2:
+                theMonth.setText("Feburary");
+                break;
+            case 3:
+                theMonth.setText("March");
+                break;
+            case 4:
+                theMonth.setText("April");
+                break;
+            case 5:
+                theMonth.setText("May");
+                break;
+            case 6:
+                theMonth.setText("June");
+                break;
+            case 7:
+                theMonth.setText("July");
+                break;
+            case 8:
+                theMonth.setText("August");
+                break;
+            case 9:
+                theMonth.setText("September");
+                break;
+            case 10:
+                theMonth.setText("October");
+                break;
+            case 11:
+                theMonth.setText("November");
+                break;
+            case 12:
+                theMonth.setText("December");
+                break;
+
+        }
 
         mWorkerThread = new WorkerThreadMonth(new Handler(), this, this);
         mWorkerThread.start();
