@@ -1,12 +1,10 @@
 package com.example.riji;
 
-import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +12,7 @@ import com.example.riji.Month_related.Month;
 
 import java.util.List;
 
-public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.WordViewHolder> {
+public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.MonthViewHolder> {
     private List<Month> mMonth;
     private final LayoutInflater mInflater;
     private onNoteListener monNoteListener;
@@ -26,20 +24,34 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Word
 
     @NonNull
     @Override
-    public WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+    public MonthViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
-        View mItemView = mInflater.inflate(R.layout.monthlistadapter,
+        View mItemView = mInflater.inflate(R.layout.monthlist_item,
                 parent, false);
-        return new WordViewHolder(mItemView, this, monNoteListener);
+        return new MonthViewHolder(mItemView, this, monNoteListener);
     }
 
     void setMonth(List<Month> month) {
         mMonth = month;
         notifyDataSetChanged();
     }
+   /* @Override
+    public void onBindViewHolder(@NonNull DayListAdapter.DayViewHolder holder, int position) {
+        //implement get string method in Day class
+        String mCurrent = mDays.get(position).getNote();
+        String mDate = mDays.get(position).getDay() + "";
+        holder.editText.setText(mCurrent);
+        holder.button.setText(mDate);
+
+        // update MyCustomEditTextListener every time we bind a new item
+        // so that it knows what item in mDataset to update
+        holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
+        holder.editText.setText(mDays.get(holder.getAdapterPosition()).getNote());
+
+    }*/
 
     @Override
-    public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MonthViewHolder holder, int position) {
         int mCurrent =  mMonth.get(position).getMonth();
         holder.buttonView.setText(months(mCurrent));
     }
@@ -93,13 +105,13 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Word
         return mMonth.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    class MonthViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final Button buttonView;
         final MonthListAdapter mAdapter;
 
         onNoteListener onNoteListener;
 
-        WordViewHolder(View itemView, MonthListAdapter adapter, onNoteListener onNoteListener) {
+        MonthViewHolder(View itemView, MonthListAdapter adapter, onNoteListener onNoteListener) {
             super(itemView);
             this.mAdapter = adapter;
             buttonView = itemView.findViewById(R.id.buttonMonth);

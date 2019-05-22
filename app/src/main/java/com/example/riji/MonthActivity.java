@@ -119,7 +119,6 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                 finish();
             }
         });
-
     }
 
     public void monthToday(View view) {
