@@ -47,7 +47,6 @@ public class SwipeAndCallBack extends ItemTouchHelper.SimpleCallback {
         } else { // view is unSwiped
             background.setBounds(0, 0, 0, 0);
         }
-
         background.draw(c);
     }
 }

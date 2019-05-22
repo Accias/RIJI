@@ -1,6 +1,10 @@
 package com.example.riji;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +14,19 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.riji.BulletPoint_related.BulletPoint;
+import com.example.riji.BulletPoint_related.BulletPointViewModel;
+import com.example.riji.Day_related.Day;
+import com.example.riji.Month_related.Month;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class YearActivity extends AppCompatActivity {
 
+    private final List<Month> mMonth = new ArrayList<>();
+    private MonthListAdapter mAdapter;
+    private String mString;
     float x1, x2, y1, y2;
     //Button myButton = new Button(this);
 
@@ -21,11 +36,19 @@ public class YearActivity extends AppCompatActivity {
         setContentView(R.layout.activity_year);
 
         yearBackTable();
-       // myButton.setText("Push Me");
 
-       // RelativeLayout ll = (RelativeLayout)findViewById(R.id.year);
-       // LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-       // ll.addView(myButton, lp);
+        // Get a handle to the RecyclerView.
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
+
+        // Create an adapter and supply the data to be displayed.
+        mAdapter = new MonthListAdapter(this, mMonth);
+
+        // Connect the adapter with the RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+
+        // Give the RecyclerView a default layout manager.
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     public void yearToday(View view) {
