@@ -3,6 +3,9 @@ package com.example.riji;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -16,17 +19,38 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.riji.Month_related.Month;
+import com.example.riji.Year_related.Year;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.graphics.Typeface.create;
 
 public class TableofYear extends AppCompatActivity {
 
     float x1, x2, y1, y2;
+    private final List<Year> mYear = new ArrayList<>();
+    private YearListAdapter mAdapter;
+    private String mString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tableof_year);
+
+        // Get a handle to the RecyclerView.
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
+
+        // Create an adapter and supply the data to be displayed.
+        mAdapter = new YearListAdapter(this, mYear);
+
+        // Connect the adapter with the RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+
+        // Give the RecyclerView a default layout manager.
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     public void tableToday(View view) {
