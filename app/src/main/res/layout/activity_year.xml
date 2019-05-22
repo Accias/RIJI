@@ -39,24 +39,14 @@
         android:text="2019"
         android:textSize="36sp" />
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_below="@id/two019"
-       android:orientation="vertical"
-       android:paddingHorizontal="20dp">
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="JANUARY"
-           android:textSize="20sp"
-           android:onClick="january"
-           android:fontFamily="@font/delius"
-           android:background="@android:color/white"/>
-       <EditText
-           android:layout_width="match_parent"
-           android:layout_height="30dp" />
-   </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/botton_bar"
+        android:layout_below="@id/two019"
+        android:fontFamily="@font/dosis"
+        android:paddingHorizontal="50dp" />
 
     <LinearLayout
         android:id="@+id/botton_bar"

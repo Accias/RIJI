@@ -37,7 +37,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return new WordViewHolder(mItemView, this, monNoteListener);
     }
 
-    void setBulletPoints(List<BulletPoint> bulletPoints) {
+    public void setBulletPoints(List<BulletPoint> bulletPoints) {
         mBulletPoints = bulletPoints;
         notifyDataSetChanged();
     }
@@ -74,7 +74,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         }
     }
 
-    void deleteBP(int position, Application application) {
+    public void deleteBP(int position, Application application) {
         mBPRepository = new BulletPointRepository(application);
         mBPRepository.deleteBulletPoint(mBulletPoints.get(position));
     }

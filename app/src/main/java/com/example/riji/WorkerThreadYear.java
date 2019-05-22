@@ -8,72 +8,51 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.riji.BulletPoint_related.BulletPoint;
-import com.example.riji.BulletPoint_related.BulletPointDAO;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
+import com.example.riji.Month_related.Month;
+import com.example.riji.Month_related.MonthDAO;
+import com.example.riji.Year_related.Year;
+import com.example.riji.Year_related.YearDAO;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//MyWorkerThread.java
-public class MyWorkerThread extends HandlerThread {
+class WorkerThreadYear extends HandlerThread {
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
     private static final String TAG = MyWorkerThread.class.getSimpleName();
-    private Callback mCallback;
-    private DayDAO mDayDao;
-    private BulletPointDAO mBPDao;
+    private WorkerThreadYear.Callback mCallback;
+    private YearDAO mYearDao;
+    private MonthDAO mMonthDao;
 
     public interface Callback {
-        void onDayFound(Day day, long day_id);
-
-        void onBPFound(LiveData<List<BulletPoint>> bullets);
+        void onMonthsFound(LiveData<List<Month>> months);
+        void onYearFound(Year year,int year_id);
     }
 
-    MyWorkerThread(Handler responseHandler, Callback callback, Context context) {
+    WorkerThreadYear(Handler responseHandler, WorkerThreadYear.Callback callback, Context context) {
         super(TAG);
         mResponseHandler = responseHandler;
         mCallback = callback;
-        this.mDayDao = Database.getDatabase(context).getDayDAO();
-        this.mBPDao = Database.getDatabase(context).getBulletPointDAO();
+        this.mYearDao = Database.getDatabase(context).getYearDAO();
+        this.mMonthDao = Database.getDatabase(context).getMonthDAO();
     }
 
-    public void queueDay(int year, int month, int day) {
-        Log.i(TAG, "year: " + year + " month: " + month + " day: " + day + " added to the day queue");
-        mWorkerHandler.obtainMessage(year, month, day)
+
+    void queueMonths(int year) {
+        Log.i(TAG, "year: " + year + " added to the month queue");
+        mWorkerHandler.obtainMessage(year)
                 .sendToTarget();
     }
 
-    public void queueBP(long day_id) {
-        Log.i(TAG, "day_id: " + day_id + " added to the BP queue");
-        mWorkerHandler.obtainMessage((int) day_id)
+    void queueYear(int year) {
+        Log.i(TAG, "year: " + year + " added to the year queue");
+        mWorkerHandler.obtainMessage(year)
                 .sendToTarget();
     }
 
-    public void prepareHandlerBP() {
-        mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message msg) {
-                try {
-                    TimeUnit.MICROSECONDS.sleep(2);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                int day_id = msg.what;
-
-                handleBPRequest(day_id);
-                try {
-                    msg.recycle(); //it can work in some situations
-                } catch (IllegalStateException e) {
-                    mWorkerHandler.removeMessages(msg.what); //if recycle doesnt work we do it manually
-                }
-                return true;
-            }
-        });
-    }
-
-    public void prepareHandlerDay() {
+    void prepareHandlerMonths() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -83,9 +62,7 @@ public class MyWorkerThread extends HandlerThread {
                     e.printStackTrace();
                 }
                 int year = msg.what;
-                int month = msg.arg1;
-                int day = msg.arg2;
-                handleDayRequest(year, month, day);
+                handleMonthsRequest(year);
                 try {
                     msg.recycle(); //it can work in some situations
                 } catch (IllegalStateException e) {
@@ -96,27 +73,47 @@ public class MyWorkerThread extends HandlerThread {
         });
     }
 
-    private void handleDayRequest(final int year, final int month, final int day) {
-
-        final Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
-        final long day_id = mDayDao.getDayId(year, month, day);
-        mResponseHandler.post(new Runnable() {
+    void prepareHandlerYear(){
+        mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
-            public void run() {
-                mCallback.onDayFound(day1, day_id);
+            public boolean handleMessage(Message msg) {
+                try {
+                    TimeUnit.MICROSECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int year = msg.what;
+                handleYearRequest(year);
+                try {
+                    msg.recycle(); //it can work in some situations
+                } catch (IllegalStateException e) {
+                    mWorkerHandler.removeMessages(msg.what); //if recycle doesnt work we do it manually
+                }
+                return true;
             }
         });
     }
 
-    private void handleBPRequest(final int day_id) {
-        final LiveData<List<BulletPoint>> bullets = mBPDao.findBulletPointsForDay(day_id);
+    private void handleYearRequest(final int year) {
+
+        final Year year1 = mYearDao.findSpecificYearNoLive(year);
+        final int year_id=mYearDao.getYearId(year);
         mResponseHandler.post(new Runnable() {
             @Override
             public void run() {
-                mCallback.onBPFound(bullets);
+                mCallback.onYearFound(year1,year_id);
             }
         });
     }
 
+    private void handleMonthsRequest(final int year) {
 
+        final LiveData<List<Month>> months = mMonthDao.findMonthInYear(year);
+        mResponseHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mCallback.onMonthsFound(months);
+            }
+        });
+    }
 }

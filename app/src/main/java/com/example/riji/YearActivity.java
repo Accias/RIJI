@@ -1,6 +1,9 @@
 package com.example.riji;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,16 +22,27 @@ import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Month_related.Month;
+import com.example.riji.Year_related.Year;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
-public class YearActivity extends AppCompatActivity {
+public class YearActivity extends AppCompatActivity implements WorkerThreadYear.Callback{
 
     private final List<Month> mMonth = new ArrayList<>();
     private MonthListAdapter mAdapter;
     private String mString;
     float x1, x2, y1, y2;
+    private WorkerThreadYear mWorkerThread;
+    private int year_id;
+    private Year year1;
+
+    //get current time
+    Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+    //getTime() returns the current date in default time zone
+    int year = calendar.get(Calendar.YEAR);
     //Button myButton = new Button(this);
 
     @Override
@@ -48,6 +63,17 @@ public class YearActivity extends AppCompatActivity {
 
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Bundle bund = getIntent().getExtras();
+        //get the current year and month
+        if (bund != null) {
+            year = bund.getInt("year");
+        }
+
+        mWorkerThread = new WorkerThreadYear(new Handler(), this, this);
+        mWorkerThread.start();
+        mWorkerThread.prepareHandlerMonths();
+        mWorkerThread.queueMonths(year);
 
     }
 
@@ -105,5 +131,24 @@ public class YearActivity extends AppCompatActivity {
                 }
                 break;
         }return false;
+    }
+
+    @Override
+    public void onMonthsFound(LiveData<List<Month>> months) {
+        months.observe(this, new Observer<List<Month>>() {
+            @Override
+            public void onChanged(@Nullable List<Month> months) {
+                // Update the cached copy of days
+                mAdapter.setMonth(months);
+            }
+        });
+    }
+
+    @Override
+    public void onYearFound(Year year,int year_id) {
+      //  year1 = year;
+      //  this.year_id = year_id;
+      //  mWorkerThread.prepareHandlerMonths();
+      //  mWorkerThread.queueMonths(year1.getYear());
     }
 }

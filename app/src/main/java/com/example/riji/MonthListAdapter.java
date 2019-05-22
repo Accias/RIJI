@@ -19,8 +19,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Word
     private final LayoutInflater mInflater;
     private onNoteListener monNoteListener;
 
-    MonthListAdapter(Context context,
-                    List<Month> monthlist) {
+    MonthListAdapter(Context context, List<Month> monthlist) {
         mInflater = LayoutInflater.from(context);
         this.mMonth = monthlist;
     }
