@@ -1,9 +1,12 @@
 package com.example.riji;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Day_related.Day;
+import com.example.riji.Day_related.DayRepository;
 
 import java.util.List;
 
@@ -23,11 +27,13 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     private List<Day> mDays;
     private LayoutInflater mInflater;
     private Context mMonthActivity;
+    private DayRepository mDayRepository;
 
-    DayListAdapter(Context context, List<Day> dayList) {
+    DayListAdapter(Context context, List<Day> dayList, Application application) {
         mInflater = LayoutInflater.from(context);
         this.mDays = dayList;
         mMonthActivity = context;
+        mDayRepository = new DayRepository(application);
     }
 
     @NonNull
@@ -36,17 +42,22 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
                                                            int viewType) {
         View mItemView = mInflater.inflate(R.layout.daylist_item,
                 parent, false);
-        return new DayListAdapter.DayViewHolder((LinearLayout) mItemView, this);
+        return new DayListAdapter.DayViewHolder((LinearLayout) mItemView, this, new MyCustomEditTextListener());
     }
 
     @Override
     public void onBindViewHolder(@NonNull DayListAdapter.DayViewHolder holder, int position) {
-
         //implement get string method in Day class
         String mCurrent = mDays.get(position).getNote();
         String mDate = mDays.get(position).getDay() + "";
         holder.editText.setText(mCurrent);
         holder.button.setText(mDate);
+
+        // update MyCustomEditTextListener every time we bind a new item
+        // so that it knows what item in mDataset to update
+        holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
+        holder.editText.setText(mDays.get(holder.getAdapterPosition()).getNote());
+
     }
 
     @Override
@@ -62,25 +73,19 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final Button button;
         final EditText editText;
-        // public final LinearLayout layout;
         final DayListAdapter mAdapter;
-        // public final ArrayList<Button> buttons;
+        public MyCustomEditTextListener myCustomEditTextListener;
 
-        DayViewHolder(LinearLayout itemView, DayListAdapter adapter) {
+        DayViewHolder(LinearLayout itemView, DayListAdapter adapter, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
             //   layout = itemView.findViewById(R.id.lay);
             button = itemView.findViewById(R.id.dateButton);
             editText = itemView.findViewById(R.id.Day1Sum);
             this.mAdapter = adapter;
-            //   buttons = new ArrayList<>();
+            this.myCustomEditTextListener = myCustomEditTextListener;
 
-            //  for(int i = 0; i < 10; i++){
-
-
-            //       //optional: add your buttons to any layout if you want to see them in your screen
-            //       RecyclerView.add(button);
-            //   }
             button.setOnClickListener(this);
+            editText.addTextChangedListener(myCustomEditTextListener);
         }
 
         @Override
@@ -106,6 +111,38 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
                 ((Activity) mMonthActivity).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 ((Activity) mMonthActivity).finish();
             }
+        }
+
+    }
+
+    // we make TextWatcher to be aware of the position it currently works with
+    // this way, once a new item is attached in onBindViewHolder, it will
+    // update current position MyCustomEditTextListener, reference to which is kept by ViewHolder
+    private class MyCustomEditTextListener implements TextWatcher {
+        private int position;
+
+        public void updatePosition(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // no op
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            String note = charSequence.toString();
+            Day day1 = mDays.get(position);
+            day1.setNote(note);
+            mDays.set(position, day1);
+            mDayRepository.updateDay(day1);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            // no op
         }
     }
 }

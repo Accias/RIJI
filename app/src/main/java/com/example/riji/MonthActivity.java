@@ -49,7 +49,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new DayListAdapter(this, mDays);
+        mAdapter = new DayListAdapter(this, mDays,this.getApplication());
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
@@ -160,7 +160,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         days.observe(this, new Observer<List<Day>>() {
             @Override
             public void onChanged(@Nullable List<Day> days) {
-                // Update the cached copy of the words in the adapter.
+                // Update the cached copy of days
                 mAdapter.setDays(days);
             }
         });

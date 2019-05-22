@@ -104,11 +104,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             day = bund.getInt("day");
         }
 
-        //TextView today = findViewById(R.id.tuesday1_2);
-        //Calendar calendar = Calendar.getInstance();
-        //String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        //today.setText(currentDate);
-
         mWorkerThread = new MyWorkerThread(new Handler(), this, this);
         mWorkerThread.start();
         mWorkerThread.prepareHandlerDay();
