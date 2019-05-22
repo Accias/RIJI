@@ -8,25 +8,38 @@
     android:backgroundTint="@android:color/white"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/date"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:text="1."
             android:background="@color/colorAccent"/>
         <EditText
             android:id="@+id/Day1Sum"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/date"
+            android:layout_toLeftOf="@id/save"
             android:fontFamily="sans-serif"
-            android:hint="      Reminder Event  "
+            android:hint="      Reminder Event"
             android:textColorHint="@color/colorPrimary"
             android:inputType="textAutoCorrect"
             android:textColor="@android:color/background_dark" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Save"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/dosis"/>
+
+        </RelativeLayout>
 </RelativeLayout>

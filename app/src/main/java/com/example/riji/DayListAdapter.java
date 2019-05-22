@@ -12,7 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,12 +29,14 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     private LayoutInflater mInflater;
     private Context mMonthActivity;
     private DayRepository mDayRepository;
+    private DayListAdapter.onNoteListener monNoteListener;
 
-    DayListAdapter(Context context, List<Day> dayList, Application application) {
+    DayListAdapter(Context context, List<Day> dayList, Application application, DayListAdapter.onNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mDays = dayList;
         mMonthActivity = context;
         mDayRepository = new DayRepository(application);
+        this.monNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -42,7 +45,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
                                                            int viewType) {
         View mItemView = mInflater.inflate(R.layout.daylist_item,
                 parent, false);
-        return new DayListAdapter.DayViewHolder((LinearLayout) mItemView, this, new MyCustomEditTextListener());
+        return new DayListAdapter.DayViewHolder((RelativeLayout) mItemView, this, new MyCustomEditTextListener(), monNoteListener);
     }
 
     @Override
@@ -73,24 +76,30 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final Button button;
         final EditText editText;
+        public final Button saveButton;
         final DayListAdapter mAdapter;
         public MyCustomEditTextListener myCustomEditTextListener;
 
-        DayViewHolder(LinearLayout itemView, DayListAdapter adapter, MyCustomEditTextListener myCustomEditTextListener) {
+        DayListAdapter.onNoteListener onNoteListener;
+
+        DayViewHolder(RelativeLayout itemView, DayListAdapter adapter, MyCustomEditTextListener myCustomEditTextListener, DayListAdapter.onNoteListener onNoteListener) {
             super(itemView);
             //   layout = itemView.findViewById(R.id.lay);
-            button = itemView.findViewById(R.id.dateButton);
+            saveButton =itemView.findViewById(R.id.save);
+            button = itemView.findViewById(R.id.date);
             editText = itemView.findViewById(R.id.Day1Sum);
             this.mAdapter = adapter;
             this.myCustomEditTextListener = myCustomEditTextListener;
-
+            this.onNoteListener = onNoteListener;
             button.setOnClickListener(this);
+            //saveButton.setOnClickListener(this);
             editText.addTextChangedListener(myCustomEditTextListener);
         }
 
         @Override
         public void onClick(View v) {
-            //
+
+            onNoteListener.onNoteClick(getAdapterPosition());
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
             // Use that to access the affected item in mDays.
@@ -144,5 +153,10 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
         public void afterTextChanged(Editable editable) {
             // no op
         }
+    }
+
+    public interface onNoteListener {
+        void onNoteClick(int position);
+
     }
 }

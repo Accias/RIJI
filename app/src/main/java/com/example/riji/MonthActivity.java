@@ -23,7 +23,7 @@ import com.example.riji.Month_related.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonthActivity extends AppCompatActivity implements WorkerThreadMonth.Callback {
+public class MonthActivity extends AppCompatActivity implements WorkerThreadMonth.Callback, DayListAdapter.onNoteListener {
 
     private static final String DEBUG_TAG = "Gestures";
     private GestureDetectorCompat mDetector;
@@ -49,7 +49,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new DayListAdapter(this, mDays,this.getApplication());
+        mAdapter = new DayListAdapter(this, mDays,this.getApplication(), this);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
@@ -171,5 +171,10 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         this.month_id = month_id;
         mWorkerThread.prepareHandlerDay();
         mWorkerThread.queueDay(year, this.month);
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+
     }
 }
