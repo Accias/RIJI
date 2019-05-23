@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lay"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-    <RelativeLayout
-        android:id="@+id/lay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/date"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="1."
-            android:background="@color/colorAccent"/>
-        <EditText
-            android:id="@+id/Day1Sum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/date"
-            android:layout_toLeftOf="@id/save"
-            android:fontFamily="sans-serif"
-            android:hint="Reminder"
-            android:textColorHint="@color/colorPrimary"
-            android:inputType="textAutoCorrect"
-            android:textColor="@android:color/background_dark" />
-        <Button
-            android:id="@+id/save"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="Save"
-            android:background="@color/colorAccent"
-            android:fontFamily="@font/dosis"/>
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp"
+    tools:context=".MainActivity"
+    >
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/date"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorAccent"
+        android:text="1." />
+
+    <EditText
+        android:id="@+id/Day1Sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/save"
+        android:layout_toEndOf="@id/date"
+        android:fontFamily="sans-serif"
+        android:hint="Reminder"
+        android:inputType="textNoSuggestions"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorAccent"
+        android:fontFamily="@font/dosis"
+        android:text="Save" />
+
 </RelativeLayout>

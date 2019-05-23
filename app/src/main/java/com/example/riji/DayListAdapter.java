@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,22 +46,30 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
                                                            int viewType) {
         View mItemView = mInflater.inflate(R.layout.daylist_item,
                 parent, false);
-        return new DayListAdapter.DayViewHolder((RelativeLayout) mItemView, this, new MyCustomEditTextListener(), monNoteListener);
+        return new DayListAdapter.DayViewHolder((RelativeLayout) mItemView, this, monNoteListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DayListAdapter.DayViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final DayListAdapter.DayViewHolder holder, int position) {
         //implement get string method in Day class
         String mCurrent = mDays.get(position).getNote();
         String mDate = mDays.get(position).getDay() + "";
         holder.editText.setText(mCurrent);
         holder.button.setText(mDate);
 
-        // update MyCustomEditTextListener every time we bind a new item
-        // so that it knows what item in mDataset to update
-        holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
-        holder.editText.setText(mDays.get(holder.getAdapterPosition()).getNote());
-
+        holder.saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String note = holder.editText.getText().toString();
+                int position= holder.getLayoutPosition();
+                Day day1 = mDays.get(position);
+                if(!note.equals("") &&!note.equals(day1.getNote())){
+                    day1.setNote(note);
+                    mDays.set(position,day1);
+                    mDayRepository.updateDay(day1);
+                }
+            }
+        });
     }
 
     @Override
@@ -76,24 +85,21 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final Button button;
         final EditText editText;
-        public final Button saveButton;
+        final Button saveButton;
         final DayListAdapter mAdapter;
-        public MyCustomEditTextListener myCustomEditTextListener;
 
         DayListAdapter.onNoteListener onNoteListener;
 
-        DayViewHolder(RelativeLayout itemView, DayListAdapter adapter, MyCustomEditTextListener myCustomEditTextListener, DayListAdapter.onNoteListener onNoteListener) {
+        DayViewHolder(RelativeLayout itemView, DayListAdapter adapter, DayListAdapter.onNoteListener onNoteListener) {
             super(itemView);
             //   layout = itemView.findViewById(R.id.lay);
             saveButton =itemView.findViewById(R.id.save);
             button = itemView.findViewById(R.id.date);
             editText = itemView.findViewById(R.id.Day1Sum);
             this.mAdapter = adapter;
-            this.myCustomEditTextListener = myCustomEditTextListener;
             this.onNoteListener = onNoteListener;
             button.setOnClickListener(this);
             //saveButton.setOnClickListener(this);
-            editText.addTextChangedListener(myCustomEditTextListener);
         }
 
         @Override
@@ -124,39 +130,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
 
     }
 
-    // we make TextWatcher to be aware of the position it currently works with
-    // this way, once a new item is attached in onBindViewHolder, it will
-    // update current position MyCustomEditTextListener, reference to which is kept by ViewHolder
-    private class MyCustomEditTextListener implements TextWatcher {
-        private int position;
-
-        public void updatePosition(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            // no op
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-            String note = charSequence.toString();
-            Day day1 = mDays.get(position);
-            day1.setNote(note);
-            mDays.set(position, day1);
-            mDayRepository.updateDay(day1);
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            // no op
-        }
-    }
-
     public interface onNoteListener {
         void onNoteClick(int position);
-
     }
 }
