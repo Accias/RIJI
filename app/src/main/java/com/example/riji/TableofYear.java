@@ -7,18 +7,26 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Month_related.Month;
 import com.example.riji.Year_related.Year;
 
@@ -51,6 +59,54 @@ public class TableofYear extends AppCompatActivity {
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        /*final Button addBullet = findViewById(R.id.addYear);
+        addBullet.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //employ an alert dialogue, not simply a dialogue(imagine these as pop up window)
+                //AlertDialog.Builder builder = new AlertDialog.Builder(TableofYear.this);
+                //builder.setTitle("Add Bullet Point");
+
+                //inflate the dialogue with the layout in the xml activity_display_message
+                LayoutInflater layoutInflater = LayoutInflater.from(TableofYear.this);
+
+                @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
+                builder.setView(popupInputDialogView);
+                final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
+                symbol = popupInputDialogView.findViewById(R.id.symbol);
+
+                // Set up the buttons
+                final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (TextUtils.isEmpty(bullet.getText())) {
+                            dialog.dismiss();
+                            Toast toast = Toast.makeText(MainActivity.this, "Cannot store empty string.", Toast.LENGTH_LONG);
+                            toast.show();
+                        } else {
+                            dialog.dismiss();
+                            mString = bullet.getText().toString();
+                            //what shows on the screen
+                            mBPViewModel.insert(new BulletPoint(bulletType, mString, id));
+                        }
+                    }
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create();
+
+                //2. now setup to change color of the button
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                    }
+                });
+                dialog.show();
+            }
+        });*/
     }
 
     public void tableToday(View view) {
@@ -87,7 +143,9 @@ public class TableofYear extends AppCompatActivity {
         }return false;
     }
 
-    public void generateNewYear(View v)
+
+
+    /*public void generateNewYear(View v)
     {
         //the number button
         Button newButton = new Button(this);
@@ -110,5 +168,5 @@ public class TableofYear extends AppCompatActivity {
         newImage.setPadding(60, 0,60, 0 );
         ll.addView(newButton, lp); ll.addView(newImage, ls);
 
-    }
+    }*/
 }

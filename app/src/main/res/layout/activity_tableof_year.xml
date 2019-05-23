@@ -42,43 +42,34 @@
         android:textSize="60sp" />
 
     <LinearLayout
-        android:id="@+id/list_view"
+        android:layout_width="50dp"
+        android:id="@+id/left"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toy"
+        android:layout_above="@id/addYear"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:id="@+id/right"
+        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toy"
+        android:layout_above="@id/addYear"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_toRightOf="@id/left"
+        android:layout_toLeftOf="@id/right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toy"
-        android:layout_above="@id/botton_bar"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/one">
-            <Button
-                android:id="@+id/firstyear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2019"
-                android:textSize="60sp"
-                android:fontFamily="@font/dosis"
-                android:paddingHorizontal="60dp"
-                android:paddingTop="10dp"
-                android:onClick="twentyNineteen"
-                android:background="@android:color/white"/>
-
-            <ImageButton
-                android:layout_width="111dp"
-                android:layout_height="98dp"
-                android:background="@mipmap/piggy"
-                android:onClick="twentyNineteen"
-                android:contentDescription="piggy" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/two"
-            android:orientation="horizontal">
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_above="@id/addYear"
+        android:fontFamily="@font/dosis"
+        />
 
 
     <Button
