@@ -1,26 +1,26 @@
-package com.example.riji;
+package com.example.riji.Adapters;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayRepository;
+import com.example.riji.MainActivity;
+import com.example.riji.MonthActivity;
+import com.example.riji.R;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     private DayRepository mDayRepository;
     private DayListAdapter.onNoteListener monNoteListener;
 
-    DayListAdapter(Context context, List<Day> dayList, Application application, DayListAdapter.onNoteListener onNoteListener) {
+    public DayListAdapter(Context context, List<Day> dayList, Application application, DayListAdapter.onNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mDays = dayList;
         mMonthActivity = context;
@@ -52,7 +52,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
     @Override
     public void onBindViewHolder(@NonNull final DayListAdapter.DayViewHolder holder, int position) {
         //implement get string method in Day class
-        String mCurrent = mDays.get(position).getNote();
+        final String mCurrent = mDays.get(position).getNote();
         String mDate = mDays.get(position).getDay() + "";
         holder.editText.setText(mCurrent);
         holder.button.setText(mDate);
@@ -67,6 +67,8 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
                     day1.setNote(note);
                     mDays.set(position,day1);
                     mDayRepository.updateDay(day1);
+                    Toast toast = Toast.makeText(mMonthActivity, "Saved.", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -77,7 +79,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
         return mDays.size();
     }
 
-    void setDays(List<Day> days) {
+   public void setDays(List<Day> days) {
         mDays = days;
         notifyDataSetChanged();
     }

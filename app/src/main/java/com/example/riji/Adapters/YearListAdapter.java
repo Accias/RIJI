@@ -1,16 +1,15 @@
-package com.example.riji;
+package com.example.riji.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.riji.Month_related.Month;
+import com.example.riji.R;
 import com.example.riji.Year_related.Year;
 
 import java.util.List;
@@ -20,8 +19,8 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
     private final LayoutInflater mInflater;
     private onNoteListener monNoteListener;
 
-    YearListAdapter(Context context,
-                     List<Year> yearlist) {
+    public YearListAdapter(Context context,
+                           List<Year> yearlist) {
         mInflater = LayoutInflater.from(context);
         this.mYear = yearlist;
     }

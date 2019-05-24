@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.Adapters.YearListAdapter;
 import com.example.riji.Year_related.Year;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class TableofYear extends AppCompatActivity {
                 threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        rijiDatabase.newYear(rijiDatabase);
+                        Database.newYear(rijiDatabase);
                     }
                 });
             }

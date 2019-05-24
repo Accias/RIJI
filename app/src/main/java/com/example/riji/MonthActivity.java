@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
@@ -17,7 +16,9 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.Adapters.DayListAdapter;
 import com.example.riji.Day_related.Day;
+import com.example.riji.HandlerThreads.WorkerThreadMonth;
 import com.example.riji.Month_related.Month;
 
 import java.util.ArrayList;

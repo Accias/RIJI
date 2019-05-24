@@ -25,9 +25,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.Adapters.WordListAdapter;
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.Day_related.Day;
+import com.example.riji.HandlerThreads.MyWorkerThread;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //get current time
+        calendar = Calendar.getInstance(TimeZone.getDefault());
+        //getTime() returns the current date in default time zone
+        day = calendar.get(Calendar.DATE);
+        //Note: +1 the month for current month
+        month = calendar.get(Calendar.MONTH) + 1;
+        year = calendar.get(Calendar.YEAR);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
         Database rijiDatabase = Database.getDatabase(this);
@@ -245,61 +256,60 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     @Override
     public void onDayFound(Day day, long day_id) {
-        day1=day;
-        id = day_id;
-        int weekdate=day.getWeekDate();
-        TextView date = findViewById(R.id.tuesday1_2);
-        switch (month)
-        {
-            case 1:
-                date.setText(weekday(weekdate) + ", January "+ this.day);
-                break;
-            case 2:
-                date.setText(weekday(weekdate) + ", Feburary "+ this.day);
-                break;
-            case 3:
-                date.setText(weekday(weekdate) + ", March "+this.day);
-                break;
-            case 4:
-                date.setText(weekday(weekdate) + ", April "+ this.day);
-                break;
-            case 5:
-                date.setText(weekday(weekdate) + ", May "+ this.day);
-                break;
-            case 6:
-                date.setText(weekday(weekdate) + ", June "+ this.day);
-                break;
-            case 7:
-                date.setText(weekday(weekdate) + ", July "+ this.day);
-                break;
-            case 8:
-                date.setText(weekday(weekdate) + ", August "+ this.day);
-                break;
-            case 9:
-                date.setText(weekday(weekdate) + ", September "+ this.day);
-                break;
-            case 10:
-                date.setText(weekday(weekdate) + ", October "+ this.day);
-                break;
-            case 11:
-                date.setText(weekday(weekdate) + ", November "+ this.day);
-                break;
-            case 12:
-                date.setText(weekday(weekdate) + ", December "+ this.day);
-                break;
-        }
+        if (day != null) {
+            day1 = day;
+            id = day_id;
+            int weekdate = day.getWeekDate();
+            TextView date = findViewById(R.id.tuesday1_2);
+            switch (month) {
+                case 1:
+                    date.setText(weekday(weekdate) + ", January " + this.day);
+                    break;
+                case 2:
+                    date.setText(weekday(weekdate) + ", Feburary " + this.day);
+                    break;
+                case 3:
+                    date.setText(weekday(weekdate) + ", March " + this.day);
+                    break;
+                case 4:
+                    date.setText(weekday(weekdate) + ", April " + this.day);
+                    break;
+                case 5:
+                    date.setText(weekday(weekdate) + ", May " + this.day);
+                    break;
+                case 6:
+                    date.setText(weekday(weekdate) + ", June " + this.day);
+                    break;
+                case 7:
+                    date.setText(weekday(weekdate) + ", July " + this.day);
+                    break;
+                case 8:
+                    date.setText(weekday(weekdate) + ", August " + this.day);
+                    break;
+                case 9:
+                    date.setText(weekday(weekdate) + ", September " + this.day);
+                    break;
+                case 10:
+                    date.setText(weekday(weekdate) + ", October " + this.day);
+                    break;
+                case 11:
+                    date.setText(weekday(weekdate) + ", November " + this.day);
+                    break;
+                case 12:
+                    date.setText(weekday(weekdate) + ", December " + this.day);
+                    break;
+            }
 
-        mWorkerThread.prepareHandlerBP();
-        mWorkerThread.queueBP(id);
+            mWorkerThread.prepareHandlerBP();
+            mWorkerThread.queueBP(id);
+        }
     }
 
-    public String weekday(int day)
-    {
-        String name = new String();
-        switch (day)
-        {
+    public String weekday(int day) {
+        String name = "";
+        switch (day) {
             case 1:
-                 name ="Sunday";
+                name = "Sunday";
                 break;
             case 2:
                 name = "Monday";
@@ -319,14 +329,13 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case 7:
                 name = "Saturday";
                 break;
-        }return name;
+        }
+        return name;
     }
 
-    public void backButton()
-    {
+    public void backButton() {
         Button back = findViewById(R.id.jan);
-        switch(month)
-        {
+        switch (month) {
             case 1:
                 back.setText("JAN");
                 break;
@@ -376,6 +385,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 mAdapter.setBulletPoints(bulletPoints);
             }
         });
+        mWorkerThread.quitSafely();
     }
 
 

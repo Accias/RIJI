@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.HandlerThreads;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.riji.Database;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
 import com.example.riji.Month_related.Month;
@@ -16,7 +17,7 @@ import com.example.riji.Month_related.MonthDAO;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class WorkerThreadMonth extends HandlerThread {
+public class WorkerThreadMonth extends HandlerThread {
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
     private static final String TAG = MyWorkerThread.class.getSimpleName();
@@ -30,7 +31,7 @@ class WorkerThreadMonth extends HandlerThread {
         void onMonthFound(Month month, long month_id);
     }
 
-    WorkerThreadMonth(Handler responseHandler, WorkerThreadMonth.Callback callback, Context context) {
+    public WorkerThreadMonth(Handler responseHandler, WorkerThreadMonth.Callback callback, Context context) {
         super(TAG);
         mResponseHandler = responseHandler;
         mCallback = callback;
@@ -38,19 +39,19 @@ class WorkerThreadMonth extends HandlerThread {
         this.mMonthDao = Database.getDatabase(context).getMonthDAO();
     }
 
-    void queueDay(int year, int month) {
+    public void queueDay(int year, int month) {
         Log.i(TAG, "year: " + year + " month: " + month + " added to the day queue");
         mWorkerHandler.obtainMessage(year, month)
                 .sendToTarget();
     }
 
-    void queueMonth(int year, int month) {
+    public void queueMonth(int year, int month) {
         Log.i(TAG, "year: " + year + " month: " + month + " added to the month queue");
         mWorkerHandler.obtainMessage(year, month)
                 .sendToTarget();
     }
 
-    void prepareHandlerDay() {
+    public void prepareHandlerDay() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -72,7 +73,7 @@ class WorkerThreadMonth extends HandlerThread {
         });
     }
 
-    void prepareHandlerMonth() {
+    public void prepareHandlerMonth() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
