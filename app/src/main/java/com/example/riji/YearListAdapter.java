@@ -15,7 +15,7 @@ import com.example.riji.Year_related.Year;
 
 import java.util.List;
 
-public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordViewHolder> {
+public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearViewHolder> {
     private List<Year> mYear;
     private final LayoutInflater mInflater;
     private onNoteListener monNoteListener;
@@ -28,11 +28,11 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
 
     @NonNull
     @Override
-    public WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+    public YearViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.yearlist_item,
                 parent, false);
-        return new WordViewHolder(mItemView, this, monNoteListener);
+        return new YearListAdapter.YearViewHolder(mItemView, this, monNoteListener);
     }
 
     void setYear(List<Year> year) {
@@ -41,9 +41,10 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull YearViewHolder holder, int position) {
         int mCurrent = mYear.get(position).getYear();
         holder.buttonView.setText(mCurrent);
+
     }
 
     @Override
@@ -51,13 +52,13 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
         return mYear.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    class YearViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final Button buttonView;
         final YearListAdapter mAdapter;
 
         onNoteListener onNoteListener;
 
-        WordViewHolder(View itemView, YearListAdapter adapter, onNoteListener onNoteListener) {
+        YearViewHolder(View itemView, YearListAdapter adapter, onNoteListener onNoteListener) {
             super(itemView);
             this.mAdapter = adapter;
             buttonView = itemView.findViewById(R.id.firstyear);

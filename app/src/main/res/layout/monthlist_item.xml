@@ -7,18 +7,32 @@
         android:id="@+id/mon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonMonth"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:fontFamily="@font/delius"
-            android:onClick="january"
-            android:text="JANUARY"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/buttonMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:fontFamily="@font/delius"
+                android:layout_alignParentLeft="true"
+                android:onClick="january"
+                android:text="JANUARY"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="50sp"
+                android:layout_height="30sp"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@color/cardview_dark_background"
+                android:fontFamily="@font/dosis"
+                android:text="SAVE"
+                />
+        </RelativeLayout>
 
         <EditText
             android:layout_width="match_parent"
