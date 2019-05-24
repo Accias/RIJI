@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/mon"
@@ -8,17 +9,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="20dp">
+
         <Button
             android:id="@+id/buttonMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="JANUARY"
-            android:textSize="20sp"
-            android:onClick="january"
+            android:background="@android:color/white"
             android:fontFamily="@font/delius"
-            android:background="@android:color/white"/>
+            android:onClick="january"
+            android:text="JANUARY"
+            android:textSize="20sp" />
+
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            android:gravity="top|left"
+            android:hint="Notes"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="5"
+            android:minLines="2"
+            android:scrollbars="vertical"
+            android:textCursorDrawable="@null" />
     </LinearLayout>
 </RelativeLayout>

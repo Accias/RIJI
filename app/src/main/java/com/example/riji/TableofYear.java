@@ -1,40 +1,22 @@
 package com.example.riji;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.riji.BulletPoint_related.BulletPoint;
-import com.example.riji.Month_related.Month;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.riji.Year_related.Year;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.graphics.Typeface.create;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class TableofYear extends AppCompatActivity {
 
@@ -42,10 +24,13 @@ public class TableofYear extends AppCompatActivity {
     private final List<Year> mYear = new ArrayList<>();
     private YearListAdapter mAdapter;
     private String mString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tableof_year);
+
+        final Database rijiDatabase = Database.getDatabase(this);
 
         // Get a handle to the RecyclerView.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
@@ -59,54 +44,19 @@ public class TableofYear extends AppCompatActivity {
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        /*final Button addBullet = findViewById(R.id.addYear);
-        addBullet.setOnClickListener(new View.OnClickListener() {
+        final Button addYear = findViewById(R.id.addYear);
+        addYear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //employ an alert dialogue, not simply a dialogue(imagine these as pop up window)
-                //AlertDialog.Builder builder = new AlertDialog.Builder(TableofYear.this);
-                //builder.setTitle("Add Bullet Point");
-
-                //inflate the dialogue with the layout in the xml activity_display_message
-                LayoutInflater layoutInflater = LayoutInflater.from(TableofYear.this);
-
-                @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
-                builder.setView(popupInputDialogView);
-                final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
-                symbol = popupInputDialogView.findViewById(R.id.symbol);
-
-                // Set up the buttons
-                final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
+                        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+                threadPoolExecutor.execute(new Runnable() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (TextUtils.isEmpty(bullet.getText())) {
-                            dialog.dismiss();
-                            Toast toast = Toast.makeText(MainActivity.this, "Cannot store empty string.", Toast.LENGTH_LONG);
-                            toast.show();
-                        } else {
-                            dialog.dismiss();
-                            mString = bullet.getText().toString();
-                            //what shows on the screen
-                            mBPViewModel.insert(new BulletPoint(bulletType, mString, id));
-                        }
-                    }
-                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create();
-
-                //2. now setup to change color of the button
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface arg0) {
-                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
-                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
+                    public void run() {
+                        rijiDatabase.newYear(rijiDatabase);
                     }
                 });
-                dialog.show();
             }
-        });*/
+        });
     }
 
     public void tableToday(View view) {
@@ -121,10 +71,8 @@ public class TableofYear extends AppCompatActivity {
         finish();
     }
 
-    public boolean onTouchEvent(MotionEvent touchevent)
-    {
-        switch (touchevent.getAction())
-        {
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 y1 = touchevent.getY();
@@ -132,15 +80,15 @@ public class TableofYear extends AppCompatActivity {
             case MotionEvent.ACTION_UP:
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
-                if(x1>x2)
-                {
+                if (x1 > x2) {
                     Intent i = new Intent(TableofYear.this, YearActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 break;
-        }return false;
+        }
+        return false;
     }
 
 

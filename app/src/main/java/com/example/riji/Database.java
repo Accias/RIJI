@@ -19,6 +19,7 @@ import com.example.riji.Year_related.YearDAO;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 
 /*
@@ -119,10 +120,21 @@ public abstract class Database extends RoomDatabase {
 
     }
 
+    static void newYear(Database db){
+        YearDAO mYearDao = db.getYearDAO();
+        List<Year> years=mYearDao.getAllYearsNoLive();
+        Year lastYear=years.get(years.size()-1);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.set(lastYear.getYear(),1,1);
+        calendar.add(Calendar.YEAR,1);
+        int year = calendar.get(Calendar.YEAR);
+        genYear(db,year);
+    }
+
     /*
         Generate a new year of entities.
      */
-    private static void genYear(Database db, int year) {
+     static void genYear(Database db, int year) {
 
         BulletPointDAO mBPDao = db.getBulletPointDAO();
         DayDAO mDayDao = db.getDayDAO();

@@ -26,6 +26,9 @@ public interface YearDAO {
     @Query("SELECT * FROM years ORDER BY id")
     LiveData<List<Year>> getAllYears();
 
+    @Query("SELECT * FROM years ORDER BY id")
+    List<Year> getAllYearsNoLive();
+
     @Query("SELECT * FROM years WHERE year=:year ORDER BY id")
     LiveData<Year> findSpecificYear(final int year);
 

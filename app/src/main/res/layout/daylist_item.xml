@@ -4,12 +4,12 @@
     android:id="@+id/lay"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
     android:orientation="horizontal"
-    android:paddingHorizontal="20dp"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/date"
@@ -26,10 +26,16 @@
         android:layout_toStartOf="@id/save"
         android:layout_toEndOf="@id/date"
         android:fontFamily="sans-serif"
-        android:hint="Reminder"
-        android:inputType="textNoSuggestions"
+        android:gravity="top|left"
+        android:hint="Notes"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="5"
+        android:minLines="1"
+        android:scrollbars="vertical"
         android:textColor="@android:color/background_dark"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColorHint="@color/colorPrimary"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/save"

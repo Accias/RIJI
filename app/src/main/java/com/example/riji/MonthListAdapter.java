@@ -20,7 +20,6 @@ import java.util.List;
 public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.MonthViewHolder> {
     private List<Month> mMonth;
     private final LayoutInflater mInflater;
-    private onNoteListener monNoteListener;
     private Context mYearActivity;
 
     MonthListAdapter(Context context, List<Month> monthlist) {
@@ -35,7 +34,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.monthlist_item,
                 parent, false);
-        return new MonthViewHolder(mItemView, this, monNoteListener);
+        return new MonthViewHolder(mItemView, this);
     }
 
     void setMonth(List<Month> month) {
@@ -116,13 +115,10 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
         final Button buttonView;
         final MonthListAdapter mAdapter;
 
-        onNoteListener onNoteListener;
-
-        MonthViewHolder(View itemView, MonthListAdapter adapter, onNoteListener onNoteListener) {
+        MonthViewHolder(View itemView, MonthListAdapter adapter) {
             super(itemView);
             this.mAdapter = adapter;
             buttonView = itemView.findViewById(R.id.buttonMonth);
-            this.onNoteListener = onNoteListener;
             buttonView.setOnClickListener(this);
         }
 
@@ -139,22 +135,17 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
             int year1 = mMonth.get(mPosition).getYear();
             //insert year and month data to be transfered to MonthActivity class
             Bundle bund = new Bundle();
-            bund.putInt("year", month1);
-            bund.putInt("month", year1);
+            bund.putInt("year", year1);
+            bund.putInt("month", month1);
 
             //switch activities
-            Intent j = new Intent(mYearActivity, TableofYear.class);
+            Intent j = new Intent(mYearActivity, MonthActivity.class);
             j.putExtras(bund);
             mYearActivity.startActivity(j);
             if (mYearActivity instanceof YearActivity) {
                 ((Activity) mYearActivity).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 ((Activity) mYearActivity).finish();
             }
-            onNoteListener.onNoteClick(getAdapterPosition());
         }
-    }
-
-    public interface onNoteListener {
-        void onNoteClick(int position);
     }
 }
