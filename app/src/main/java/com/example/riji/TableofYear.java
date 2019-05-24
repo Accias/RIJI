@@ -2,15 +2,20 @@ package com.example.riji;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Adapters.YearListAdapter;
+import com.example.riji.HandlerThreads.WorkerThreadTableOfYears;
 import com.example.riji.Year_related.Year;
 
 import java.util.ArrayList;
@@ -19,12 +24,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class TableofYear extends AppCompatActivity {
+public class TableofYear extends AppCompatActivity implements WorkerThreadTableOfYears.Callback {
 
     float x1, x2, y1, y2;
     private final List<Year> mYear = new ArrayList<>();
     private YearListAdapter mAdapter;
     private String mString;
+    private WorkerThreadTableOfYears mWorkerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +54,21 @@ public class TableofYear extends AppCompatActivity {
         final Button addYear = findViewById(R.id.addYear);
         addYear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
+               /* ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
                         TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
                 threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         Database.newYear(rijiDatabase);
                     }
-                });
+                });*/
             }
         });
+
+        mWorkerThread = new WorkerThreadTableOfYears(new Handler(), this, this);
+        mWorkerThread.start();
+        mWorkerThread.prepareHandlerYears();
+        mWorkerThread.queueYears();
     }
 
     public void tableToday(View view) {
@@ -66,11 +77,11 @@ public class TableofYear extends AppCompatActivity {
         finish();
     }
 
-    public void twentyNineteen(View view) {
+    /*public void twentyNineteen(View view) {
         startActivity(new Intent(TableofYear.this, YearActivity.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
-    }
+    }*/
 
     public boolean onTouchEvent(MotionEvent touchevent) {
         switch (touchevent.getAction()) {
@@ -90,6 +101,18 @@ public class TableofYear extends AppCompatActivity {
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void onYearsFound(LiveData<List<Year>> years) {
+        years.observe(this, new Observer<List<Year>>() {
+            @Override
+            public void onChanged(@Nullable List<Year> years) {
+                // Update the cached copy of days
+                mAdapter.setYears(years);
+            }
+        });
+
     }
 
 

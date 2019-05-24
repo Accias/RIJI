@@ -34,14 +34,14 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
         return new YearListAdapter.YearViewHolder(mItemView, this, monNoteListener);
     }
 
-    void setYear(List<Year> year) {
+    public void setYears(List<Year> year) {
         mYear = year;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull YearViewHolder holder, int position) {
-        int mCurrent = mYear.get(position).getYear();
+        String mCurrent =Integer.toString( mYear.get(position).getYear());
         holder.buttonView.setText(mCurrent);
     }
 

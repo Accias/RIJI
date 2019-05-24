@@ -8,7 +8,9 @@ import androidx.room.PrimaryKey;
 
 import com.example.riji.Year_related.Year;
 
-@Entity(tableName = "months", foreignKeys = {@ForeignKey(entity = Year.class, parentColumns = "id", childColumns = "year_id")},
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "months", foreignKeys = {@ForeignKey(entity = Year.class, parentColumns = "id", childColumns = "year_id",onDelete = CASCADE)},
         indices = {@Index(value = "year_id")})
 public class Month {
 
