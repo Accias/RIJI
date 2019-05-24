@@ -123,7 +123,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
             j.putExtras(bund);
             mMonthActivity.startActivity(j);
             if (mMonthActivity instanceof MonthActivity) {
-                ((Activity) mMonthActivity).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                ((Activity) mMonthActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 ((Activity) mMonthActivity).finish();
             }
         }

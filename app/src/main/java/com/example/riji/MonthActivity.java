@@ -137,7 +137,14 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if (x1 > x2) {
+                    //insert year and month data to be transfered to MonthActivity class
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", year);
+                    bund.putInt("month", month);
+                    bund.putInt("day",1);
+
                     Intent i = new Intent(MonthActivity.this, MainActivity.class);
+                    i.putExtras(bund);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
