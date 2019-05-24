@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.Adapters;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointRepository;
+import com.example.riji.R;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     private onNoteListener monNoteListener;
     private BulletPointRepository mBPRepository;
 
-    WordListAdapter(Context context,
-                    List<BulletPoint> bulletList, onNoteListener onNoteListener) {
+    public WordListAdapter(Context context,
+                           List<BulletPoint> bulletList, onNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mBulletPoints = bulletList;
         this.monNoteListener = onNoteListener;

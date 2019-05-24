@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +12,10 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.riji.Day_related.Day;
+import com.example.riji.MonthActivity;
 import com.example.riji.Month_related.Month;
+import com.example.riji.R;
+import com.example.riji.YearActivity;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     private final LayoutInflater mInflater;
     private Context mYearActivity;
 
-    MonthListAdapter(Context context, List<Month> monthlist) {
+    public MonthListAdapter(Context context, List<Month> monthlist) {
         mInflater = LayoutInflater.from(context);
         this.mMonth = monthlist;
         mYearActivity = context;
@@ -37,7 +39,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
         return new MonthViewHolder(mItemView, this);
     }
 
-    void setMonth(List<Month> month) {
+    public void setMonth(List<Month> month) {
         mMonth = month;
         notifyDataSetChanged();
     }
@@ -64,7 +66,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
 
     public String months(int day)
     {
-        String name = new String();
+        String name = "";
         switch (day)
         {
             case 1:

@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +13,9 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.example.riji.BulletPoint_related.BulletPoint;
-import com.example.riji.BulletPoint_related.BulletPointViewModel;
-import com.example.riji.Day_related.Day;
+import com.example.riji.Adapters.MonthListAdapter;
+import com.example.riji.HandlerThreads.WorkerThreadYear;
 import com.example.riji.Month_related.Month;
 import com.example.riji.Year_related.Year;
 

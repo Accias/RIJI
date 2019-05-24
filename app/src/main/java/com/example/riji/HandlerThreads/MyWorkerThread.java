@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.HandlerThreads;
 
 import android.content.Context;
 import android.os.Handler;
@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.BulletPoint_related.BulletPointDAO;
+import com.example.riji.Database;
 import com.example.riji.Day_related.Day;
 import com.example.riji.Day_related.DayDAO;
 
@@ -31,7 +32,7 @@ public class MyWorkerThread extends HandlerThread {
         void onBPFound(LiveData<List<BulletPoint>> bullets);
     }
 
-    MyWorkerThread(Handler responseHandler, Callback callback, Context context) {
+    public MyWorkerThread(Handler responseHandler, Callback callback, Context context) {
         super(TAG);
         mResponseHandler = responseHandler;
         mCallback = callback;

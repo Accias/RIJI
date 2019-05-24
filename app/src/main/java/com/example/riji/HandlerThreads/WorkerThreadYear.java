@@ -1,4 +1,4 @@
-package com.example.riji;
+package com.example.riji.HandlerThreads;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,8 +8,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.riji.Day_related.Day;
-import com.example.riji.Day_related.DayDAO;
+import com.example.riji.Database;
 import com.example.riji.Month_related.Month;
 import com.example.riji.Month_related.MonthDAO;
 import com.example.riji.Year_related.Year;
@@ -18,7 +17,7 @@ import com.example.riji.Year_related.YearDAO;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class WorkerThreadYear extends HandlerThread {
+public class WorkerThreadYear extends HandlerThread {
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
     private static final String TAG = MyWorkerThread.class.getSimpleName();
@@ -31,7 +30,7 @@ class WorkerThreadYear extends HandlerThread {
         void onYearFound(Year year,int year_id);
     }
 
-    WorkerThreadYear(Handler responseHandler, WorkerThreadYear.Callback callback, Context context) {
+    public WorkerThreadYear(Handler responseHandler, WorkerThreadYear.Callback callback, Context context) {
         super(TAG);
         mResponseHandler = responseHandler;
         mCallback = callback;
@@ -40,19 +39,19 @@ class WorkerThreadYear extends HandlerThread {
     }
 
 
-    void queueMonths(int year) {
+    public void queueMonths(int year) {
         Log.i(TAG, "year: " + year + " added to the month queue");
         mWorkerHandler.obtainMessage(year)
                 .sendToTarget();
     }
 
-    void queueYear(int year) {
+    public void queueYear(int year) {
         Log.i(TAG, "year: " + year + " added to the year queue");
         mWorkerHandler.obtainMessage(year)
                 .sendToTarget();
     }
 
-    void prepareHandlerMonths() {
+    public void prepareHandlerMonths() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {

@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+//useless
 public class SwipeAndCallBack extends ItemTouchHelper.SimpleCallback {
 
     private final ColorDrawable background = new ColorDrawable(Color.GREEN);
