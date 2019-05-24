@@ -1,8 +1,8 @@
 package com.example.riji;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Search extends AppCompatActivity {
 

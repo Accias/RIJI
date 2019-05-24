@@ -15,8 +15,8 @@ import com.example.riji.Year_related.Year;
 import java.util.List;
 
 public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordViewHolder> {
-    private List<Year> mYear;
     private final LayoutInflater mInflater;
+    private List<Year> mYear;
     private onNoteListener monNoteListener;
 
     public YearListAdapter(Context context,
@@ -50,6 +50,10 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
         return mYear.size();
     }
 
+    public interface onNoteListener {
+        void onNoteClick(int position);
+    }
+
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final Button buttonView;
         final YearListAdapter mAdapter;
@@ -69,9 +73,5 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.WordVi
             onNoteListener.onNoteClick(getAdapterPosition());
             return false;
         }
-    }
-
-    public interface onNoteListener {
-        void onNoteClick(int position);
     }
 }

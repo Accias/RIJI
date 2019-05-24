@@ -107,7 +107,7 @@ public abstract class Database extends RoomDatabase {
 
             long id = mDayDao.getDayId(year, month, day);
             Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
-           // day1.setNote("hello world");
+            // day1.setNote("hello world");
             mDayDao.updateDay(day1);
             //insert test bulletpoints
             BulletPoint bp = new BulletPoint(0, "Hello", id);
@@ -120,21 +120,21 @@ public abstract class Database extends RoomDatabase {
 
     }
 
-    static void newYear(Database db){
+    static void newYear(Database db) {
         YearDAO mYearDao = db.getYearDAO();
-        List<Year> years=mYearDao.getAllYearsNoLive();
-        Year lastYear=years.get(years.size()-1);
+        List<Year> years = mYearDao.getAllYearsNoLive();
+        Year lastYear = years.get(years.size() - 1);
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        calendar.set(lastYear.getYear(),1,1);
-        calendar.add(Calendar.YEAR,1);
+        calendar.set(lastYear.getYear(), 1, 1);
+        calendar.add(Calendar.YEAR, 1);
         int year = calendar.get(Calendar.YEAR);
-        genYear(db,year);
+        genYear(db, year);
     }
 
     /*
         Generate a new year of entities.
      */
-     static void genYear(Database db, int year) {
+    private static void genYear(Database db, int year) {
 
         BulletPointDAO mBPDao = db.getBulletPointDAO();
         DayDAO mDayDao = db.getDayDAO();

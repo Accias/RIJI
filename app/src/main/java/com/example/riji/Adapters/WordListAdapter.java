@@ -17,8 +17,8 @@ import com.example.riji.R;
 import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
-    private List<BulletPoint> mBulletPoints;
     private final LayoutInflater mInflater;
+    private List<BulletPoint> mBulletPoints;
     private onNoteListener monNoteListener;
     private BulletPointRepository mBPRepository;
 
@@ -54,6 +54,16 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         return mBulletPoints.size();
     }
 
+    public void deleteBP(int position, Application application) {
+        mBPRepository = new BulletPointRepository(application);
+        mBPRepository.deleteBulletPoint(mBulletPoints.get(position));
+    }
+
+    public interface onNoteListener {
+        void onNoteClick(int position);
+
+    }
+
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final TextView wordItemView;
         final WordListAdapter mAdapter;
@@ -73,16 +83,5 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             onNoteListener.onNoteClick(getAdapterPosition());
             return false;
         }
-    }
-
-    public void deleteBP(int position, Application application) {
-        mBPRepository = new BulletPointRepository(application);
-        mBPRepository.deleteBulletPoint(mBulletPoints.get(position));
-    }
-
-
-    public interface onNoteListener {
-        void onNoteClick(int position);
-
     }
 }

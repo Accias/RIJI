@@ -18,17 +18,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WorkerThreadYear extends HandlerThread {
+    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
-    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private WorkerThreadYear.Callback mCallback;
     private YearDAO mYearDao;
     private MonthDAO mMonthDao;
-
-    public interface Callback {
-        void onMonthsFound(LiveData<List<Month>> months);
-        void onYearFound(Year year,int year_id);
-    }
 
     public WorkerThreadYear(Handler responseHandler, WorkerThreadYear.Callback callback, Context context) {
         super(TAG);
@@ -37,7 +32,6 @@ public class WorkerThreadYear extends HandlerThread {
         this.mYearDao = Database.getDatabase(context).getYearDAO();
         this.mMonthDao = Database.getDatabase(context).getMonthDAO();
     }
-
 
     public void queueMonths(int year) {
         Log.i(TAG, "year: " + year + " added to the month queue");
@@ -72,7 +66,7 @@ public class WorkerThreadYear extends HandlerThread {
         });
     }
 
-    void prepareHandlerYear(){
+    void prepareHandlerYear() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
@@ -96,11 +90,11 @@ public class WorkerThreadYear extends HandlerThread {
     private void handleYearRequest(final int year) {
 
         final Year year1 = mYearDao.findSpecificYearNoLive(year);
-        final int year_id=mYearDao.getYearId(year);
+        final int year_id = mYearDao.getYearId(year);
         mResponseHandler.post(new Runnable() {
             @Override
             public void run() {
-                mCallback.onYearFound(year1,year_id);
+                mCallback.onYearFound(year1, year_id);
             }
         });
     }
@@ -114,5 +108,11 @@ public class WorkerThreadYear extends HandlerThread {
                 mCallback.onMonthsFound(months);
             }
         });
+    }
+
+    public interface Callback {
+        void onMonthsFound(LiveData<List<Month>> months);
+
+        void onYearFound(Year year, int year_id);
     }
 }

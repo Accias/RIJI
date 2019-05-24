@@ -41,13 +41,12 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
     private WordListAdapter mAdapter;
     private String mString;
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private BulletPointViewModel mBPViewModel;
     long id;
     Day day1;
     //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
     //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-
+    //Handler thread for database queries
     private MyWorkerThread mWorkerThread;
 
     //get current time
@@ -70,17 +69,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //get current time
-        calendar = Calendar.getInstance(TimeZone.getDefault());
-        //getTime() returns the current date in default time zone
-        day = calendar.get(Calendar.DATE);
-        //Note: +1 the month for current month
-        month = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
-        Database rijiDatabase = Database.getDatabase(this);
 
         mBPViewModel = ViewModelProviders.of(this).get(BulletPointViewModel.class);
 
@@ -99,17 +89,16 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeAndCallBack(mAdapter));
-        //itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
+        //get the current year and month from the bundle passed by the intent
         Bundle bund = getIntent().getExtras();
-        //get the current year and month
+        //only set the variables if the bundle is not null, to prevent errors on startup when no bundle is passed.
         if (bund != null) {
             year = bund.getInt("year");
             month = bund.getInt("month");
             day = bund.getInt("day");
         }
 
+        //start querying Day
         mWorkerThread = new MyWorkerThread(new Handler(), this, this);
         mWorkerThread.start();
         mWorkerThread.prepareHandlerDay();
@@ -118,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         //back button method
         dayBackMonth();
         backButton();
+
         //allow user to add a new bullet point
         final Button addBullet = findViewById(R.id.addBullet);
         addBullet.setOnClickListener(new View.OnClickListener() {
@@ -128,27 +118,31 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
                 //inflate the dialogue with the layout in the xml activity_display_message
                 LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-
                 @SuppressLint("InflateParams") View popupInputDialogView = layoutInflater.inflate(R.layout.activity_display_message, null);
                 builder.setView(popupInputDialogView);
+                //get the edittext
                 final EditText bullet = popupInputDialogView.findViewById(R.id.bullet);
+                //get the bulletpoint symbol textview
                 symbol = popupInputDialogView.findViewById(R.id.symbol);
 
                 // Set up the buttons
+                //positive button
                 final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //if the edittext is empty, don't store the string
                         if (TextUtils.isEmpty(bullet.getText())) {
                             dialog.dismiss();
                             Toast toast = Toast.makeText(MainActivity.this, "Cannot store empty string.", Toast.LENGTH_LONG);
                             toast.show();
                         } else {
                             dialog.dismiss();
+                            //store the bulletpoint
                             mString = bullet.getText().toString();
-                            //what shows on the screen
                             mBPViewModel.insert(new BulletPoint(bulletType, mString, id));
                         }
                     }
+                    //negative button
                 }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -169,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         });
     }
 
+    //when activity is destroyed, quit handlerthread
     @Override
     protected void onDestroy() {
         mWorkerThread.quit();
@@ -199,13 +194,14 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         symbol.setText(" • ");
     }
 
-    public void monthToday(View view) {
+    //when user presses today button
+    public void today(View view) {
         startActivity(new Intent(MainActivity.this, MonthActivity.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
 
-    //how to go from one class to another class
+    //when user presses button to go to month activity
     public void dayBackMonth() {
         Button backButton = findViewById(R.id.jan);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -217,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 bund.putInt("month", month);
                 Intent intent = new Intent(MainActivity.this, MonthActivity.class);
                 intent.putExtras(bund);
+
                 //use an intent to allow the classes to interchange
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -226,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     }
 
+    //when user swipes
     public boolean onTouchEvent(MotionEvent touchevent) {
         switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -254,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     }
 
 
+    //when handlerthread query returns day
     @Override
     public void onDayFound(Day day, long day_id) {
         if (day != null) {
@@ -300,11 +299,13 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     break;
             }
 
+            //query the bulletpoints linked to the day class
             mWorkerThread.prepareHandlerBP();
             mWorkerThread.queueBP(id);
         }
     }
 
+    //switch weekday string
     public String weekday(int day) {
         String name = "";
         switch (day) {
@@ -333,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         return name;
     }
 
+    //switch backButton string
     public void backButton() {
         Button back = findViewById(R.id.jan);
         switch (month) {
@@ -376,6 +378,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         }
     }
 
+    //when handlerthread query returns bulletpoints
     @Override
     public void onBPFound(LiveData<List<BulletPoint>> bullets) {
         bullets.observe(this, new Observer<List<BulletPoint>>() {
@@ -385,10 +388,9 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 mAdapter.setBulletPoints(bulletPoints);
             }
         });
-        mWorkerThread.quitSafely();
     }
 
-
+    //delete bulletpoint
     @Override
     public void onNoteClick(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

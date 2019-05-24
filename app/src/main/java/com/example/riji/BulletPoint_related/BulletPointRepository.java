@@ -38,7 +38,7 @@ public class BulletPointRepository {
         new insertAsyncTask(mBulletPointDao).execute(bullet);
     }
 
-    public void deleteBulletPoint(BulletPoint bullet){
+    public void deleteBulletPoint(BulletPoint bullet) {
         new deleteAsyncTask(mBulletPointDao).execute(bullet);
     }
 

@@ -61,11 +61,11 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
             @Override
             public void onClick(View view) {
                 String note = holder.editText.getText().toString();
-                int position= holder.getLayoutPosition();
+                int position = holder.getLayoutPosition();
                 Day day1 = mDays.get(position);
-                if(!note.equals("") &&!note.equals(day1.getNote())){
+                if (!note.equals("") && !note.equals(day1.getNote())) {
                     day1.setNote(note);
-                    mDays.set(position,day1);
+                    mDays.set(position, day1);
                     mDayRepository.updateDay(day1);
                     Toast toast = Toast.makeText(mMonthActivity, "Saved.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -79,9 +79,13 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
         return mDays.size();
     }
 
-   public void setDays(List<Day> days) {
+    public void setDays(List<Day> days) {
         mDays = days;
         notifyDataSetChanged();
+    }
+
+    public interface onNoteListener {
+        void onNoteClick(int position);
     }
 
     class DayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -95,7 +99,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
         DayViewHolder(RelativeLayout itemView, DayListAdapter adapter, DayListAdapter.onNoteListener onNoteListener) {
             super(itemView);
             //   layout = itemView.findViewById(R.id.lay);
-            saveButton =itemView.findViewById(R.id.save);
+            saveButton = itemView.findViewById(R.id.save);
             button = itemView.findViewById(R.id.date);
             editText = itemView.findViewById(R.id.Day1Sum);
             this.mAdapter = adapter;
@@ -111,8 +115,6 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
             // Use that to access the affected item in mDays.
-            // Button button = (Button) v;
-            //  String date= (String) button.getText();
             Day day1 = mDays.get(mPosition);
             //insert year and month data to be transfered to MonthActivity class
             Bundle bund = new Bundle();
@@ -130,9 +132,5 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewH
             }
         }
 
-    }
-
-    public interface onNoteListener {
-        void onNoteClick(int position);
     }
 }

@@ -42,28 +42,28 @@ public class Month {
         return month;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public long getYear_id() {
-        return year_id;
-    }
-
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public int getYear() {
+        return year;
     }
 
     public void setYear(int year) {
         this.year = year;
     }
 
+    public String getNote() {
+        return note;
+    }
+
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public long getYear_id() {
+        return year_id;
     }
 
 }

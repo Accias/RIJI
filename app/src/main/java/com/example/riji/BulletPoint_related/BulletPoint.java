@@ -7,6 +7,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.example.riji.Day_related.Day;
+
 @Entity(tableName = "bulletpoints", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "id", childColumns = "day_id")},
         indices = {@Index(value = "day_id")})
 //
@@ -48,8 +49,17 @@ public class BulletPoint {
         return bulletType;
     }
 
+    //setter methods
+    public void setBulletType(int bulletType) {
+        this.bulletType = bulletType;
+    }
+
     public String getNote() {
         return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getSymbol() {
@@ -66,16 +76,8 @@ public class BulletPoint {
             symbol = "<";
         } else if (bulletType == 5) {
             symbol = "✗";
-        }return symbol;
-    }
-
-    //setter methods
-    public void setBulletType(int bulletType) {
-        this.bulletType = bulletType;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+        }
+        return symbol;
     }
 
 }

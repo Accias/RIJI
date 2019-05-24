@@ -1,18 +1,18 @@
 package com.example.riji;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Adapters.MonthListAdapter;
 import com.example.riji.HandlerThreads.WorkerThreadYear;
@@ -24,20 +24,19 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class YearActivity extends AppCompatActivity implements WorkerThreadYear.Callback{
+public class YearActivity extends AppCompatActivity implements WorkerThreadYear.Callback {
 
     private final List<Month> mMonth = new ArrayList<>();
-    private MonthListAdapter mAdapter;
-    private String mString;
     float x1, x2, y1, y2;
-    private WorkerThreadYear mWorkerThread;
-    private int year_id;
-    private Year year1;
-
     //get current time
     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
     //getTime() returns the current date in default time zone
     int year = calendar.get(Calendar.YEAR);
+    private MonthListAdapter mAdapter;
+    private String mString;
+    private WorkerThreadYear mWorkerThread;
+    private int year_id;
+    private Year year1;
     //Button myButton = new Button(this);
 
     @Override
@@ -78,18 +77,16 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         finish();
     }
 
-    public void january(View view){
+    public void january(View view) {
 
         startActivity(new Intent(YearActivity.this, MonthActivity.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         finish();
     }
 
-    public void yearBackTable()
-    {
-        Button backButton =  findViewById(R.id.TableofYear);
-        backButton.setOnClickListener(new View.OnClickListener()
-        {
+    public void yearBackTable() {
+        Button backButton = findViewById(R.id.TableofYear);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(YearActivity.this, TableofYear.class));
@@ -99,10 +96,9 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         });
 
     }
-    public boolean onTouchEvent(MotionEvent touchevent)
-    {
-        switch (touchevent.getAction())
-        {
+
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
                 y1 = touchevent.getY();
@@ -110,22 +106,27 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
             case MotionEvent.ACTION_UP:
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
-                if(x1>x2)
-                {
+                if (x1 > x2) {
                     Intent i = new Intent(YearActivity.this, MonthActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
-                if(x1<x2)
-                {
+                if (x1 < x2) {
                     Intent j = new Intent(YearActivity.this, TableofYear.class);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
                 }
                 break;
-        }return false;
+        }
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mWorkerThread.quit();
+        super.onDestroy();
     }
 
     @Override
@@ -140,10 +141,10 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
     }
 
     @Override
-    public void onYearFound(Year year,int year_id) {
-      //  year1 = year;
-      //  this.year_id = year_id;
-      //  mWorkerThread.prepareHandlerMonths();
-      //  mWorkerThread.queueMonths(year1.getYear());
+    public void onYearFound(Year year, int year_id) {
+        //  year1 = year;
+        //  this.year_id = year_id;
+        //  mWorkerThread.prepareHandlerMonths();
+        //  mWorkerThread.queueMonths(year1.getYear());
     }
 }

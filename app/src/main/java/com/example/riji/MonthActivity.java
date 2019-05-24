@@ -22,7 +22,9 @@ import com.example.riji.HandlerThreads.WorkerThreadMonth;
 import com.example.riji.Month_related.Month;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MonthActivity extends AppCompatActivity implements WorkerThreadMonth.Callback, DayListAdapter.onNoteListener {
 
@@ -34,7 +36,14 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
     private DayListAdapter mAdapter;
     private Month month1;
     private long month_id;
-    Integer year, month;
+
+    //get current time
+    Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+    //getTime() returns the current date in default time zone
+    int day = calendar.get(Calendar.DATE);
+    //Note: +1 the month for current month
+    int month = calendar.get(Calendar.MONTH) + 1;
+    int year = calendar.get(Calendar.YEAR);
 
 
     private WorkerThreadMonth mWorkerThread;
@@ -50,7 +59,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new DayListAdapter(this, mDays,this.getApplication(), this);
+        mAdapter = new DayListAdapter(this, mDays, this.getApplication(), this);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
@@ -59,12 +68,13 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         Bundle bund = getIntent().getExtras();
         //get the current year and month
 
-        year = bund.getInt("year");
-        month = bund.getInt("month");
+        if (bund != null) {
+            year = bund.getInt("year");
+            month = bund.getInt("month");
+        }
 
         TextView theMonth = findViewById(R.id.JAN);
-        switch (month)
-        {
+        switch (month) {
             case 1:
                 theMonth.setText("January");
                 break;
@@ -142,7 +152,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
-                    bund.putInt("day",1);
+                    bund.putInt("day", 1);
 
                     Intent i = new Intent(MonthActivity.this, MainActivity.class);
                     i.putExtras(bund);
@@ -159,6 +169,12 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                 break;
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mWorkerThread.quit();
+        super.onDestroy();
     }
 
     //bug here, list is null

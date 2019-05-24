@@ -19,18 +19,12 @@ import java.util.concurrent.TimeUnit;
 
 //MyWorkerThread.java
 public class MyWorkerThread extends HandlerThread {
+    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
-    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Callback mCallback;
     private DayDAO mDayDao;
     private BulletPointDAO mBPDao;
-
-    public interface Callback {
-        void onDayFound(Day day, long day_id);
-
-        void onBPFound(LiveData<List<BulletPoint>> bullets);
-    }
 
     public MyWorkerThread(Handler responseHandler, Callback callback, Context context) {
         super(TAG);
@@ -117,6 +111,12 @@ public class MyWorkerThread extends HandlerThread {
                 mCallback.onBPFound(bullets);
             }
         });
+    }
+
+    public interface Callback {
+        void onDayFound(Day day, long day_id);
+
+        void onBPFound(LiveData<List<BulletPoint>> bullets);
     }
 
 

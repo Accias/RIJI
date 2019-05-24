@@ -20,8 +20,8 @@ import com.example.riji.YearActivity;
 import java.util.List;
 
 public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.MonthViewHolder> {
-    private List<Month> mMonth;
     private final LayoutInflater mInflater;
+    private List<Month> mMonth;
     private Context mYearActivity;
 
     public MonthListAdapter(Context context, List<Month> monthlist) {
@@ -33,7 +33,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     @NonNull
     @Override
     public MonthViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
-                                             int viewType) {
+                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.monthlist_item,
                 parent, false);
         return new MonthViewHolder(mItemView, this);
@@ -43,34 +43,18 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
         mMonth = month;
         notifyDataSetChanged();
     }
-   /* @Override
-    public void onBindViewHolder(@NonNull DayListAdapter.DayViewHolder holder, int position) {
-        //implement get string method in Day class
-        String mCurrent = mDays.get(position).getNote();
-        String mDate = mDays.get(position).getDay() + "";
-        holder.editText.setText(mCurrent);
-        holder.button.setText(mDate);
-
-        // update MyCustomEditTextListener every time we bind a new item
-        // so that it knows what item in mDataset to update
-        holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
-        holder.editText.setText(mDays.get(holder.getAdapterPosition()).getNote());
-
-    }*/
 
     @Override
     public void onBindViewHolder(@NonNull MonthViewHolder holder, int position) {
-        int mCurrent =  mMonth.get(position).getMonth();
+        int mCurrent = mMonth.get(position).getMonth();
         holder.buttonView.setText(months(mCurrent));
     }
 
-    public String months(int day)
-    {
+    public String months(int day) {
         String name = "";
-        switch (day)
-        {
+        switch (day) {
             case 1:
-                name ="January";
+                name = "January";
                 break;
             case 2:
                 name = "Feburary";
@@ -105,7 +89,8 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
             case 12:
                 name = "December";
                 break;
-        }return name;
+        }
+        return name;
     }
 
     @Override
@@ -127,12 +112,9 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
         @Override
         public void onClick(View v) {
 
-            //onNoteListener.onNoteClick(getAdapterPosition());
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
             // Use that to access the affected item in mDays.
-            // Button button = (Button) v;
-            //  String date= (String) button.getText();
             int month1 = mMonth.get(mPosition).getMonth();
             int year1 = mMonth.get(mPosition).getYear();
             //insert year and month data to be transfered to MonthActivity class

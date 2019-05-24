@@ -18,18 +18,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WorkerThreadMonth extends HandlerThread {
+    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Handler mWorkerHandler;
     private Handler mResponseHandler;
-    private static final String TAG = MyWorkerThread.class.getSimpleName();
     private WorkerThreadMonth.Callback mCallback;
     private DayDAO mDayDao;
     private MonthDAO mMonthDao;
-
-    public interface Callback {
-        void onDayFound(LiveData<List<Day>> days);
-
-        void onMonthFound(Month month, long month_id);
-    }
 
     public WorkerThreadMonth(Handler responseHandler, WorkerThreadMonth.Callback callback, Context context) {
         super(TAG);
@@ -116,5 +110,11 @@ public class WorkerThreadMonth extends HandlerThread {
                 mCallback.onMonthFound(month1, month_id);
             }
         });
+    }
+
+    public interface Callback {
+        void onDayFound(LiveData<List<Day>> days);
+
+        void onMonthFound(Month month, long month_id);
     }
 }

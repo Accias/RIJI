@@ -23,11 +23,11 @@ public class DayRepository {
         return mAllDays;
     }
 
-    LiveData<Day> getSpecificDay(int year, int month, int day){
-        return mDayDao.findSpecificDay(year,month,day);
+    LiveData<Day> getSpecificDay(int year, int month, int day) {
+        return mDayDao.findSpecificDay(year, month, day);
     }
 
-    public void updateDay(Day day){
+    public void updateDay(Day day) {
         new DayRepository.updateAsyncTask(mDayDao).execute(day);
     }
 
