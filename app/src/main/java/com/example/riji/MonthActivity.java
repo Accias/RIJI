@@ -132,7 +132,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         });
     }
 
-    public void monthToday(View view) {
+    public void today(View view) {
         startActivity(new Intent(MonthActivity.this, MainActivity.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "05db9385c9fe411a9e745f99d073edf2",
+    "identityHash": "43f7f7ed7530405e98b2c98380ae0b81",
     "entities": [
       {
         "tableName": "bulletpoints",
@@ -142,7 +142,7 @@
       },
       {
         "tableName": "months",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `note` TEXT, `year_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`year_id`) REFERENCES `years`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `note` TEXT, `year_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`year_id`) REFERENCES `years`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "month",
@@ -194,7 +194,7 @@
         "foreignKeys": [
           {
             "table": "years",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "year_id"
@@ -234,7 +234,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"05db9385c9fe411a9e745f99d073edf2\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"43f7f7ed7530405e98b2c98380ae0b81\")"
     ]
   }
 }

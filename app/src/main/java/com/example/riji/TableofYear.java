@@ -1,22 +1,32 @@
 package com.example.riji;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.riji.Adapters.YearListAdapter;
+import com.example.riji.BulletPoint_related.BulletPoint;
+import com.example.riji.BulletPoint_related.BulletPointViewModel;
 import com.example.riji.HandlerThreads.WorkerThreadTableOfYears;
 import com.example.riji.Year_related.Year;
+import com.example.riji.Year_related.YearViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +39,9 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
     float x1, x2, y1, y2;
     private final List<Year> mYear = new ArrayList<>();
     private YearListAdapter mAdapter;
-    private String mString;
+    private int mInt;
     private WorkerThreadTableOfYears mWorkerThread;
+    private YearViewModel mYViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,8 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
 
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mYViewModel = ViewModelProviders.of(this).get(YearViewModel.class);
 
         final Button addYear = findViewById(R.id.addYear);
         addYear.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +133,8 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
     /*public void generateNewYear(View v)
     {
         //the number button
+        mInt = year.
+        mYViewModel.insert(new Year());
         Button newButton = new Button(this);
         Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
         newButton.setTypeface(dosisRegular);
