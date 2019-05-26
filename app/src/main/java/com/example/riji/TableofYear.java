@@ -39,9 +39,8 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
     float x1, x2, y1, y2;
     private final List<Year> mYear = new ArrayList<>();
     private YearListAdapter mAdapter;
-    private int mInt;
     private WorkerThreadTableOfYears mWorkerThread;
-    private YearViewModel mYViewModel;
+    YearViewModel mYViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,13 +127,14 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
 
     }
 
-
-
-    /*public void generateNewYear(View v)
+    public void generateNewYear(View v)
     {
+        Button yearButton = findViewById(R.id.firstyear);
+        String mYear = yearButton.getText().toString();
+        int year = Integer.parseInt(mYear);
         //the number button
-        mInt = year.
-        mYViewModel.insert(new Year());
+        mYViewModel.insert(new Year(year));
+
         Button newButton = new Button(this);
         Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
         newButton.setTypeface(dosisRegular);
@@ -155,5 +155,49 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
         newImage.setPadding(60, 0,60, 0 );
         ll.addView(newButton, lp); ll.addView(newImage, ls);
 
-    }*/
+    }
+
+    public void imageButton(int i)
+    {
+        ImageButton newImage = new ImageButton(this);
+        int remainder = i%12;
+        switch (remainder){
+            case 0:
+                newImage.setBackgroundResource(R.mipmap.monkey);
+                break;
+            case 1:
+                newImage.setBackgroundResource(R.mipmap.chicken);
+                break;
+            case 2:
+                newImage.setBackgroundResource(R.mipmap.doggy);
+                break;
+            case 3:
+                newImage.setBackgroundResource(R.mipmap.piggy);
+                break;
+            case 4:
+                newImage.setBackgroundResource(R.mipmap.mousy);
+                break;
+            case 5:
+                newImage.setBackgroundResource(R.mipmap.ox);
+                break;
+            case 6:
+                newImage.setBackgroundResource(R.mipmap.tiger);
+                break;
+            case 7:
+                newImage.setBackgroundResource(R.mipmap.bunny);
+                break;
+            case 8:
+                newImage.setBackgroundResource(R.mipmap.dragon);
+                break;
+            case 9:
+                newImage.setBackgroundResource(R.mipmap.snake);
+                break;
+            case 10:
+                newImage.setBackgroundResource(R.mipmap.horsy);
+                break;
+            case 11:
+                newImage.setBackgroundResource(R.mipmap.sheep);
+                break;
+        }
+    }
 }
