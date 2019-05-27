@@ -159,7 +159,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/dosis"
             android:text="Today"
-            android:onClick="today"
+            android:onClick="monthToday"
             android:textSize="18sp" />
 
         <SearchView

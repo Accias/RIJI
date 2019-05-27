@@ -107,7 +107,12 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if (x1 > x2) {
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", year);
+                    bund.putInt("month", 1);
+
                     Intent i = new Intent(YearActivity.this, MonthActivity.class);
+                    i.putExtras(bund);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();

@@ -69,9 +69,9 @@
         android:layout_above="@id/botton_bar"
         android:fontFamily="@font/dosis"
         android:text="+ Year"
+
         android:textSize="25sp">
     </Button>
-        <!--android:onClick="generateNewYear"/>-->
 
     <LinearLayout
 

@@ -66,14 +66,14 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
         final Button addYear = findViewById(R.id.addYear);
         addYear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               /* ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
+               ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
                         TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
                 threadPoolExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         Database.newYear(rijiDatabase);
                     }
-                });*/
+                });
             }
         });
 
@@ -105,7 +105,12 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
                 if (x1 > x2) {
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", 2019);
+                    bund.putInt("month", 1);
+
                     Intent i = new Intent(TableofYear.this, YearActivity.class);
+                    i.putExtras(bund);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
@@ -129,7 +134,7 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
 
     public void generateNewYear(View v)
     {
-        Button yearButton = findViewById(R.id.firstyear);
+        Button yearButton = findViewById(R.id.year1);
         String mYear = yearButton.getText().toString();
         int year = Integer.parseInt(mYear);
         //the number button
@@ -138,22 +143,23 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
         Button newButton = new Button(this);
         Typeface dosisRegular = ResourcesCompat.getFont(this, R.font.dosis);
         newButton.setTypeface(dosisRegular);
-        newButton.setText("2020");
+        newButton.setText(year+1);
         newButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         newButton.setTextSize(60);
-        LinearLayout ll = findViewById(R.id.two);
-        ll.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-        ll.setOrientation(LinearLayout.HORIZONTAL);
+
+        imageButton(year+1);
+       // ll.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        //ll.setOrientation(LinearLayout.HORIZONTAL);
         //findViewById(R.id.two);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        LinearLayout.LayoutParams ls = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //LinearLayout.LayoutParams ls = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
 
         //the image button
-        ImageButton newImage = new ImageButton(this);
-        newImage.setBackgroundResource(R.mipmap.mousy);
-        newImage.setPadding(60, 0,60, 0 );
-        ll.addView(newButton, lp); ll.addView(newImage, ls);
+        //ImageButton newImage = new ImageButton(this);
+        //newImage.setBackgroundResource(R.mipmap.mousy);
+        //newImage.setPadding(60, 0,60, 0 );
+        //ll.addView(newButton, lp); ll.addView(newImage, ls);
 
     }
 

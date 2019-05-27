@@ -11,20 +11,20 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/firstyear"
-            android:layout_width="wrap_content"
+            android:id="@+id/year1"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
             android:paddingHorizontal="60dp"
-            android:paddingTop="10dp"
             android:text="2019"
             android:textSize="60sp" />
 
         <ImageButton
+            android:id="@+id/zodiac"
             android:layout_width="111dp"
             android:layout_height="98dp"
-            android:layout_toRightOf="@id/firstyear"
+            android:layout_toRightOf="@id/year1"
             android:background="@mipmap/piggy"
             android:contentDescription="piggy" />
     </RelativeLayout>

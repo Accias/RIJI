@@ -196,7 +196,14 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     //when user presses today button
     public void today(View view) {
-        startActivity(new Intent(MainActivity.this, MonthActivity.class));
+        Bundle bund = new Bundle();
+        bund.putInt("year", year);
+        bund.putInt("month", month);
+        bund.putInt("day", day);
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.putExtras(bund);
+
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
@@ -244,6 +251,21 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     j.putExtras(bund);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    finish();
+                }
+                if(x1 > x2 & day<=30)
+                {
+                    //insert year and month data to be transfered to MonthActivity class
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", year);
+                    bund.putInt("month", month);
+                    bund.putInt("day",day+1);
+
+                    //switch activities
+                    Intent j = new Intent(MainActivity.this, MainActivity.class);
+                    j.putExtras(bund);
+                    startActivity(j);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 break;

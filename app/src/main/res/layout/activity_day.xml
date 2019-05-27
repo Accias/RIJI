@@ -75,7 +75,7 @@
         android:layout_above="@id/botton_bar"
         android:fontFamily="@font/dosis"
         android:text="+ Bullet Point"
-        android:textSize="25sp" />
+        android:textSize="25sp"/>
 
     <LinearLayout
 
@@ -93,7 +93,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/dosis"
             android:text="Today"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="today"/>
 
         <SearchView
             android:layout_width="match_parent"

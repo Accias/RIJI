@@ -127,7 +127,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
             j.putExtras(bund);
             mYearActivity.startActivity(j);
             if (mYearActivity instanceof YearActivity) {
-                ((Activity) mYearActivity).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                ((Activity) mYearActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 ((Activity) mYearActivity).finish();
             }
         }
