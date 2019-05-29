@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.Day_related.Day;
 import com.example.riji.MonthActivity;
 import com.example.riji.Month_related.Month;
 import com.example.riji.R;
@@ -48,6 +50,22 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     public void onBindViewHolder(@NonNull MonthViewHolder holder, int position) {
         int mCurrent = mMonth.get(position).getMonth();
         holder.buttonView.setText(months(mCurrent));
+
+        /*holder.saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String note = holder.editText.getText().toString();
+                int position = holder.getLayoutPosition();
+                Day day1 = mDays.get(position);
+                if (!note.equals("") && !note.equals(day1.getNote())) {
+                    day1.setNote(note);
+                    mDays.set(position, day1);
+                    mDayRepository.updateDay(day1);
+                    Toast toast = Toast.makeText(mMonthActivity, "Saved.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });*/
     }
 
     public String months(int day) {
@@ -101,12 +119,15 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     class MonthViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final Button buttonView;
         final MonthListAdapter mAdapter;
+        final Button saveButton;
+        ;
 
         MonthViewHolder(View itemView, MonthListAdapter adapter) {
             super(itemView);
             this.mAdapter = adapter;
             buttonView = itemView.findViewById(R.id.buttonMonth);
             buttonView.setOnClickListener(this);
+            saveButton = itemView.findViewById(R.id.saveMonth);
         }
 
         @Override

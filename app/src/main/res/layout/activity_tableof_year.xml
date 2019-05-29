@@ -51,10 +51,21 @@
         android:orientation="horizontal">
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="50dp"
+        android:id="@+id/left"
+        android:layout_alignParentStart="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toy"
+        android:layout_above="@id/addYear"
+        android:orientation="horizontal">
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_toLeftOf="@id/right"
-        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/left"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toy"
         android:layout_above="@id/addYear"

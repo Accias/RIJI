@@ -24,6 +24,7 @@
                 android:text="JANUARY"
                 android:textSize="20sp" />
             <Button
+                android:id="@+id/saveMonth"
                 android:layout_width="50sp"
                 android:layout_height="30sp"
                 android:layout_alignParentEnd="true"

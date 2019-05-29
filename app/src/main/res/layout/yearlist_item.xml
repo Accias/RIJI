@@ -12,11 +12,12 @@
 
         <Button
             android:id="@+id/year1"
-            android:layout_width="250dp"
+            android:layout_width="180dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:fontFamily="@font/dosis"
-            android:paddingHorizontal="60dp"
+            android:paddingHorizontal="10dp"
             android:text="2019"
             android:textSize="60sp" />
 

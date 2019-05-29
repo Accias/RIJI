@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/lobster_two"
         android:text="@string/date"
-        android:textSize="36sp" />
+        android:textSize="33sp" />
 
     <LinearLayout
         android:layout_width="50dp"

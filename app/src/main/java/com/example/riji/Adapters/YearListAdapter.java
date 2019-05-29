@@ -50,6 +50,48 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
     public void onBindViewHolder(@NonNull YearViewHolder holder, int position) {
         String mCurrent =Integer.toString(mYear.get(position).getYear());
         holder.buttonView.setText(mCurrent);
+        int year = mYear.get(position).getYear();
+
+        //the number button
+        int remainder = year%12;
+        switch (remainder){
+            case 0:
+                holder.zodiac.setBackgroundResource(R.mipmap.monkey);
+                break;
+            case 1:
+                holder.zodiac.setBackgroundResource(R.mipmap.chicken);
+                break;
+            case 2:
+                holder.zodiac.setBackgroundResource(R.mipmap.doggy);
+                break;
+            case 3:
+                holder.zodiac.setBackgroundResource(R.mipmap.piggy);
+                break;
+            case 4:
+                holder.zodiac.setBackgroundResource(R.mipmap.mousy);
+                break;
+            case 5:
+                holder.zodiac.setBackgroundResource(R.mipmap.ox);
+                break;
+            case 6:
+                holder.zodiac.setBackgroundResource(R.mipmap.tiger);
+                break;
+            case 7:
+                holder.zodiac.setBackgroundResource(R.mipmap.bunny);
+                break;
+            case 8:
+                holder.zodiac.setBackgroundResource(R.mipmap.dragon);
+                break;
+            case 9:
+                holder.zodiac.setBackgroundResource(R.mipmap.snake);
+                break;
+            case 10:
+                holder.zodiac.setBackgroundResource(R.mipmap.horsy);
+                break;
+            case 11:
+                holder.zodiac.setBackgroundResource(R.mipmap.sheep);
+                break;
+        }
     }
 
     @Override
@@ -68,50 +110,6 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
             buttonView = itemView.findViewById(R.id.year1);
             zodiac = itemView.findViewById(R.id.zodiac);
             buttonView.setOnClickListener(this);
-
-            String mYear = buttonView.getText().toString();
-            int year = Integer.parseInt(mYear);
-
-            //the number button
-            int remainder = year%12;
-            switch (remainder){
-                case 0:
-                    zodiac.setBackgroundResource(R.mipmap.monkey);
-                    break;
-                case 1:
-                    zodiac.setBackgroundResource(R.mipmap.chicken);
-                    break;
-                case 2:
-                    zodiac.setBackgroundResource(R.mipmap.doggy);
-                    break;
-                case 3:
-                    zodiac.setBackgroundResource(R.mipmap.piggy);
-                    break;
-                case 4:
-                    zodiac.setBackgroundResource(R.mipmap.mousy);
-                    break;
-                case 5:
-                    zodiac.setBackgroundResource(R.mipmap.ox);
-                    break;
-                case 6:
-                    zodiac.setBackgroundResource(R.mipmap.tiger);
-                    break;
-                case 7:
-                    zodiac.setBackgroundResource(R.mipmap.bunny);
-                    break;
-                case 8:
-                    zodiac.setBackgroundResource(R.mipmap.dragon);
-                    break;
-                case 9:
-                    zodiac.setBackgroundResource(R.mipmap.snake);
-                    break;
-                case 10:
-                    zodiac.setBackgroundResource(R.mipmap.horsy);
-                    break;
-                case 11:
-                    zodiac.setBackgroundResource(R.mipmap.sheep);
-                    break;
-            }
         }
 
         public void onClick(View v) {

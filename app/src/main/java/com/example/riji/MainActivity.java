@@ -206,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         bund.putInt("day", day);
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.putExtras(bund);
-
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
@@ -224,14 +223,12 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 bund.putInt("month", month);
                 Intent intent = new Intent(MainActivity.this, MonthActivity.class);
                 intent.putExtras(bund);
-
                 //use an intent to allow the classes to interchange
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
         });
-
     }
 
     //when user swipes
@@ -244,37 +241,76 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case MotionEvent.ACTION_UP:
                 x2 = touchevent.getX();
                 y2 = touchevent.getY();
+                //when user is swiping from left to right
                 if (x1 < x2) {
                     //insert year and month data to be transfered to MonthActivity class
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
-                    //switch activities
-                    Intent j = new Intent(MainActivity.this, MonthActivity.class);
-                    j.putExtras(bund);
-                    startActivity(j);
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                    finish();
+                    //when it is the first day of the month, swiping right will bring the user back to the month class
+                    if( day==1) {
+                        //switch activities
+                        Intent j = new Intent(MainActivity.this, MonthActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        //ensure the animation between classes make sense
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        finish();
+                    }
+                    //when it is any other day, swiping right will bring the user back to the previous day
+                    else{
+                        bund.putInt("day", day-1);
+                        Intent j = new Intent(MainActivity.this, MainActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        finish();
+                    }
                 }
-                if(x1 > x2 & day<=30)
-                {
+                //when user is swiping right to left
+                 if(x1 > x2) {
                     //insert year and month data to be transfered to MonthActivity class
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
                     bund.putInt("day",day+1);
 
-
-                    //switch activities
-                    Intent j = new Intent(MainActivity.this, MainActivity.class);
-                    j.putExtras(bund);
-                    startActivity(j);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                }
-                break;
-        }
-        return false;
+                    //get the month in which the user's day activity is on
+                    int num = day1.getMonth();
+                    //for the months where they have 31 days
+                    if (num==1 & num ==3 & num == 5 & num ==7 & num ==8 & num ==10 & num ==12 & day<=30) {
+                        Intent j = new Intent(MainActivity.this, MainActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
+                    //for the months where they have 30 days
+                    if( num == 4 & num == 6 & num == 9 & num == 11 & day<=29) {
+                        Intent j = new Intent(MainActivity.this, MainActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
+                    //the usual years where there are 28 days in Feburary
+                    if (num==2 & day<=27 & day1.getYear()%4!=0) {
+                        Intent j = new Intent(MainActivity.this, MainActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
+                    //every four years, there are 29 days in Feburary
+                    if (num==2 & day<=28 & day1.getYear()%4==0) {
+                        Intent j = new Intent(MainActivity.this, MainActivity.class);
+                        j.putExtras(bund);
+                        startActivity(j);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
+                }break;
+        }return false;
     }
 
 
@@ -462,8 +498,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
             }
-        });
-        dialog.show();
+        });dialog.show();
     }
 }
 
