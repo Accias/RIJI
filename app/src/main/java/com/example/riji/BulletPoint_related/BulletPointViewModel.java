@@ -36,4 +36,5 @@ public class BulletPointViewModel extends AndroidViewModel {
     public void insert(BulletPoint bp) {
         mRepository.insertBulletPoint(bp);
     }
+
 }

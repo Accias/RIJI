@@ -46,6 +46,12 @@ public class MyWorkerThread extends HandlerThread {
                 .sendToTarget();
     }
 
+    public void queueSearch(String term){
+       Message message= mWorkerHandler.obtainMessage();
+       message.obj=term;
+                message.sendToTarget();
+    }
+
     public void prepareHandlerBP() {
         mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
             @Override
@@ -91,6 +97,27 @@ public class MyWorkerThread extends HandlerThread {
         });
     }
 
+    public void prepareHandlerSearch() {
+        mWorkerHandler = new Handler(getLooper(), new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                try {
+                    TimeUnit.MICROSECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+               String term=(String)msg.obj;
+                handleSearchRequest(term);
+                try {
+                    msg.recycle(); //it can work in some situations
+                } catch (IllegalStateException e) {
+                    mWorkerHandler.removeMessages(msg.what); //if recycle doesnt work we do it manually
+                }
+                return true;
+            }
+        });
+    }
+
     private void handleDayRequest(final int year, final int month, final int day) {
 
         final Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
@@ -112,11 +139,23 @@ public class MyWorkerThread extends HandlerThread {
             }
         });
     }
+    private void handleSearchRequest(final String term) {
+
+        final List<BulletPoint> bullets=mBPDao.search(term);
+        mResponseHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mCallback.onSearchFound(bullets);
+            }
+        });
+    }
 
     public interface Callback {
         void onDayFound(Day day, long day_id);
 
         void onBPFound(LiveData<List<BulletPoint>> bullets);
+
+        void onSearchFound(List<BulletPoint> bullets);
     }
 
 

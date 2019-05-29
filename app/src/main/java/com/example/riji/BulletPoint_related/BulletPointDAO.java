@@ -38,4 +38,7 @@ public interface BulletPointDAO {
     @Query("SELECT * FROM bulletpoints WHERE day_id=:day_id ORDER BY id")
     List<BulletPoint> findBulletPointsForDayNoLive(final int day_id);
 
+    @Query("SELECT * FROM bulletpoints WHERE note LIKE:term ORDER BY id")
+    List<BulletPoint> search(final String term);
+
 }

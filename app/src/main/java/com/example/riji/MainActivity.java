@@ -161,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 dialog.show();
             }
         });
+
+        mWorkerThread.prepareHandlerSearch();
+        mWorkerThread.queueSearch("%hello%");
+
     }
 
     //when activity is destroyed, quit handlerthread
@@ -245,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
-
                     //switch activities
                     Intent j = new Intent(MainActivity.this, MonthActivity.class);
                     j.putExtras(bund);
@@ -260,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     bund.putInt("year", year);
                     bund.putInt("month", month);
                     bund.putInt("day",day+1);
+
 
                     //switch activities
                     Intent j = new Intent(MainActivity.this, MainActivity.class);
@@ -410,6 +414,14 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 mAdapter.setBulletPoints(bulletPoints);
             }
         });
+    }
+
+    @Override
+    public void onSearchFound(List<BulletPoint> bullets) {
+        if(bullets!=null){
+            Toast toast = Toast.makeText(MainActivity.this, "Found!", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     //delete bulletpoint

@@ -30,8 +30,10 @@ public class BulletPointRepository {
         return mAllBulletPoints;
     }
 
-    LiveData<List<BulletPoint>> getSpecificDayBulletPoints(int day) {
-        return mBulletPointDao.findBulletPointsForDay(day);
+
+
+    List<BulletPoint> searchBulletPoints(String term){
+        return mBulletPointDao.search(term);
     }
 
     void insertBulletPoint(BulletPoint bullet) {
