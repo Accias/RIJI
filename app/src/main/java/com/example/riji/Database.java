@@ -94,7 +94,7 @@ public abstract class Database extends RoomDatabase {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
             //wipe previous data in the database
-            mBPDao.deleteAll();
+            //mBPDao.deleteAll();
             // mDayDao.deleteAll();
             // mMonthDao.deleteAll();
             // mYearDao.deleteAll();
@@ -104,16 +104,15 @@ public abstract class Database extends RoomDatabase {
                 genYear(params[0], year);
             }
 
-
-            long id = mDayDao.getDayId(year, month, day);
-            Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
+          //  long id = mDayDao.getDayId(year, month, day);
+           // Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
             // day1.setNote("hello world");
-            mDayDao.updateDay(day1);
+            //mDayDao.updateDay(day1);
             //insert test bulletpoints
-            BulletPoint bp = new BulletPoint(0, "Hello", id);
-            mBPDao.insertBulletPoint(bp);
-            bp = new BulletPoint(0, "World", id);
-            mBPDao.insertBulletPoint(bp);
+           // BulletPoint bp = new BulletPoint(0, "Hello", id);
+           // mBPDao.insertBulletPoint(bp);
+           // bp = new BulletPoint(0, "World", id);
+            //mBPDao.insertBulletPoint(bp);
 
             return null;
         }

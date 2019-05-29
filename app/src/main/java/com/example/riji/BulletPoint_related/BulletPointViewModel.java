@@ -29,10 +29,6 @@ public class BulletPointViewModel extends AndroidViewModel {
         return mAllBulletPoints;
     }
 
-    public LiveData<List<BulletPoint>> getSpecificDayBulletPoints(int day) {
-        return mRepository.getSpecificDayBulletPoints(day);
-    }
-
     public void insert(BulletPoint bp) {
         mRepository.insertBulletPoint(bp);
     }
