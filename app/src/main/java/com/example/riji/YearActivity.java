@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,12 +65,16 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
             year = bund.getInt("year");
         }
 
+        TextView theMonth = findViewById(R.id.two019);
+
+        String ye = Integer.toString(year);
+        theMonth.setText(ye);
+
         mWorkerThread = new WorkerThreadYear(new Handler(), this, this);
         mWorkerThread.start();
         mWorkerThread.prepareHandlerMonths();
         mWorkerThread.queueMonths(year);
-
-    }
+      }
 
     public void yearToday(View view) {
         startActivity(new Intent(YearActivity.this, MainActivity.class));
