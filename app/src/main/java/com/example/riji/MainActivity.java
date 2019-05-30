@@ -200,12 +200,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     //when user presses today button
     public void today(View view) {
-        Bundle bund = new Bundle();
-        bund.putInt("year", year);
-        bund.putInt("month", month);
-        bund.putInt("day", day);
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        intent.putExtras(bund);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
@@ -273,12 +268,12 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
                     bund.putInt("month", month);
-                    bund.putInt("day",day+1);
 
                     //get the month in which the user's day activity is on
                     int num = day1.getMonth();
                     //for the months where they have 31 days
-                    if (num==1 & num ==3 & num == 5 & num ==7 & num ==8 & num ==10 & num ==12 & day<=30) {
+                    if (num==1 & day<=30| num ==3 & day<=30| num == 5 & day<=30| num ==7 & day<=30| num ==8 & day<=30 | num ==10 & day<=30| num ==12 & day<=30) {
+                        bund.putInt("day",day+1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -286,7 +281,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         finish();
                     }
                     //for the months where they have 30 days
-                    if( num == 4 & num == 6 & num == 9 & num == 11 & day<=29) {
+                    if( num == 4 & day<=29| num == 6 & day<=29| num == 9 & day<=29| num == 11 & day<=29) {
+                        bund.putInt("day",day+1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -295,14 +291,16 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     }
                     //the usual years where there are 28 days in Feburary
                     if (num==2 & day<=27 & day1.getYear()%4!=0) {
+                        bund.putInt("day",day+1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                    //every four years, there are 29 days in Feburary
+                    //every four years, there are 29 days in February
                     if (num==2 & day<=28 & day1.getYear()%4==0) {
+                        bund.putInt("day",day+1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
