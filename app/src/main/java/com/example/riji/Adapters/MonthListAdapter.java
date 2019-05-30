@@ -1,6 +1,7 @@
 package com.example.riji.Adapters;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.riji.Day_related.Day;
 import com.example.riji.MonthActivity;
 import com.example.riji.Month_related.Month;
+import com.example.riji.Month_related.MonthRepository;
 import com.example.riji.R;
 import com.example.riji.YearActivity;
 
@@ -25,11 +27,13 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     private final LayoutInflater mInflater;
     private List<Month> mMonth;
     private Context mYearActivity;
+    private MonthRepository mMonthRepository;
 
-    public MonthListAdapter(Context context, List<Month> monthlist) {
+    public MonthListAdapter(Context context, List<Month> monthlist, Application application) {
         mInflater = LayoutInflater.from(context);
         this.mMonth = monthlist;
         mYearActivity = context;
+        mMonthRepository = new MonthRepository(application);
     }
 
     @NonNull
@@ -47,25 +51,26 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonthViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MonthViewHolder holder, int position) {
         int mCurrent = mMonth.get(position).getMonth();
         holder.buttonView.setText(months(mCurrent));
+        holder.editText.setText(mMonth.get(position).getNote());
 
-        /*holder.saveButton.setOnClickListener(new View.OnClickListener() {
+        holder.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String note = holder.editText.getText().toString();
                 int position = holder.getLayoutPosition();
-                Day day1 = mDays.get(position);
-                if (!note.equals("") && !note.equals(day1.getNote())) {
-                    day1.setNote(note);
-                    mDays.set(position, day1);
-                    mDayRepository.updateDay(day1);
-                    Toast toast = Toast.makeText(mMonthActivity, "Saved.", Toast.LENGTH_SHORT);
+                Month month1 = mMonth.get(position);
+                if (!note.equals("") && !note.equals(month1.getNote())) {
+                    month1.setNote(note);
+                    mMonth.set(position, month1);
+                    mMonthRepository.updateMonth(month1);
+                    Toast toast = Toast.makeText(mYearActivity, "Saved.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
-        });*/
+        });
     }
 
     public String months(int day) {
@@ -120,7 +125,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
         final Button buttonView;
         final MonthListAdapter mAdapter;
         final Button saveButton;
-        ;
+        final EditText editText;
 
         MonthViewHolder(View itemView, MonthListAdapter adapter) {
             super(itemView);
@@ -128,6 +133,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
             buttonView = itemView.findViewById(R.id.buttonMonth);
             buttonView.setOnClickListener(this);
             saveButton = itemView.findViewById(R.id.saveMonth);
+            editText = itemView.findViewById(R.id.monthText);
         }
 
         @Override
@@ -135,7 +141,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
 
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-            // Use that to access the affected item in mDays.
+            // Use that to access the affected item in mMonth.
             int month1 = mMonth.get(mPosition).getMonth();
             int year1 = mMonth.get(mPosition).getYear();
             //insert year and month data to be transfered to MonthActivity class

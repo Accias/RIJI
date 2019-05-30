@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.riji.MonthActivity;
 import com.example.riji.R;
 import com.example.riji.YearActivity;
 import com.example.riji.Year_related.Year;
@@ -21,8 +20,8 @@ import com.example.riji.Year_related.Year;
 import java.util.List;
 
 public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearViewHolder> {
-    private List<Year> mYear;
     private final LayoutInflater mInflater;
+    private List<Year> mYear;
     private Context mTableActivity;
 
     public YearListAdapter(Context context,
@@ -48,13 +47,13 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
 
     @Override
     public void onBindViewHolder(@NonNull YearViewHolder holder, int position) {
-        String mCurrent =Integer.toString(mYear.get(position).getYear());
+        String mCurrent = Integer.toString(mYear.get(position).getYear());
         holder.buttonView.setText(mCurrent);
         int year = mYear.get(position).getYear();
 
         //the number button
-        int remainder = year%12;
-        switch (remainder){
+        int remainder = year % 12;
+        switch (remainder) {
             case 0:
                 holder.zodiac.setBackgroundResource(R.mipmap.monkey);
                 break;

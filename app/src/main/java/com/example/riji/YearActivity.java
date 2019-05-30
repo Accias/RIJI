@@ -51,7 +51,7 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
 
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new MonthListAdapter(this, mMonth);
+        mAdapter = new MonthListAdapter(this, mMonth, this.getApplication());
 
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
@@ -74,7 +74,7 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         mWorkerThread.start();
         mWorkerThread.prepareHandlerMonths();
         mWorkerThread.queueMonths(year);
-      }
+    }
 
     public void yearToday(View view) {
         startActivity(new Intent(YearActivity.this, MainActivity.class));

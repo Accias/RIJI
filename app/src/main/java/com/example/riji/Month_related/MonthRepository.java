@@ -13,7 +13,7 @@ public class MonthRepository {
     private MonthDAO mMonthDao;
     private LiveData<List<Month>> mAllMonths;
 
-    MonthRepository(Application application) {
+    public MonthRepository(Application application) {
         Database db = Database.getDatabase(application);
         mMonthDao = db.getMonthDAO();
         mAllMonths = mMonthDao.getAllMonths();
@@ -23,6 +23,9 @@ public class MonthRepository {
         return mAllMonths;
     }
 
+    public void updateMonth(Month month) {
+        new MonthRepository.updateAsyncTask(mMonthDao).execute(month);
+    }
 
     void insertMonth(Month month) {
         new MonthRepository.insertAsyncTask(mMonthDao).execute(month);
@@ -39,6 +42,21 @@ public class MonthRepository {
         @Override
         protected Void doInBackground(final Month... params) {
             mAsyncTaskDao.insertMonth(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<Month, Void, Void> {
+
+        private MonthDAO mAsyncTaskDao;
+
+        updateAsyncTask(MonthDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Month... params) {
+            mAsyncTaskDao.updateMonth(params[0]);
             return null;
         }
     }

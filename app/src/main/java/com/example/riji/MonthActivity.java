@@ -29,14 +29,7 @@ import java.util.TimeZone;
 public class MonthActivity extends AppCompatActivity implements WorkerThreadMonth.Callback, DayListAdapter.onNoteListener {
 
     private static final String DEBUG_TAG = "Gestures";
-    private GestureDetectorCompat mDetector;
-
     private final List<Day> mDays = new ArrayList<>();
-    private RecyclerView mRecyclerView;
-    private DayListAdapter mAdapter;
-    private Month month1;
-    private long month_id;
-
     //get current time
     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
     //getTime() returns the current date in default time zone
@@ -44,11 +37,13 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
     //Note: +1 the month for current month
     int month = calendar.get(Calendar.MONTH) + 1;
     int year = calendar.get(Calendar.YEAR);
-
-
-    private WorkerThreadMonth mWorkerThread;
-
     float x1, x2, y1, y2;
+    private GestureDetectorCompat mDetector;
+    private RecyclerView mRecyclerView;
+    private DayListAdapter mAdapter;
+    private Month month1;
+    private long month_id;
+    private WorkerThreadMonth mWorkerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +62,13 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
 
         Bundle bund = getIntent().getExtras();
         //get the current year and month
-
         if (bund != null) {
             year = bund.getInt("year");
             month = bund.getInt("month");
         }
+        Button backButton = findViewById(R.id.Twenty19);
+        backButton.setText(Integer.toString(year));
+
 
         TextView theMonth = findViewById(R.id.JAN);
         switch (month) {
@@ -125,7 +122,12 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MonthActivity.this, YearActivity.class));
+                //insert year and month data to be transfered to MonthActivity class
+                Bundle bund = new Bundle();
+                bund.putInt("year", year);
+                Intent j = new Intent(MonthActivity.this, YearActivity.class);
+                j.putExtras(bund);
+                startActivity(j);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
@@ -161,7 +163,11 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                     finish();
                 }
                 if (x1 < x2) {
+                    //insert year and month data to be transfered to MonthActivity class
+                    Bundle bund = new Bundle();
+                    bund.putInt("year", year);
                     Intent j = new Intent(MonthActivity.this, YearActivity.class);
+                    j.putExtras(bund);
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();

@@ -39,16 +39,8 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements MyWorkerThread.Callback, WordListAdapter.onNoteListener {
     private final List<BulletPoint> mBulletPoints = new ArrayList<>();
-    private WordListAdapter mAdapter;
-    private String mString;
-    private BulletPointViewModel mBPViewModel;
     long id;
     Day day1;
-    //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
-    //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-    //Handler thread for database queries
-    private MyWorkerThread mWorkerThread;
-
     //get current time
     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
     //getTime() returns the current date in default time zone
@@ -56,11 +48,17 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     //Note: +1 the month for current month
     int month = calendar.get(Calendar.MONTH) + 1;
     int year = calendar.get(Calendar.YEAR);
-
+    float x1, x2, y1, y2;
+    private WordListAdapter mAdapter;
+    private String mString;
+    private BulletPointViewModel mBPViewModel;
+    //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
+    //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+    //Handler thread for database queries
+    private MyWorkerThread mWorkerThread;
     //set up dialogue
     private TextView symbol;
     private int bulletType = 0;
-    float x1, x2, y1, y2;
 
     public MainActivity() {
         mString = "";
@@ -243,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     bund.putInt("year", year);
                     bund.putInt("month", month);
                     //when it is the first day of the month, swiping right will bring the user back to the month class
-                    if( day==1) {
+                    if (day == 1) {
                         //switch activities
                         Intent j = new Intent(MainActivity.this, MonthActivity.class);
                         j.putExtras(bund);
@@ -253,8 +251,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         finish();
                     }
                     //when it is any other day, swiping right will bring the user back to the previous day
-                    else{
-                        bund.putInt("day", day-1);
+                    else {
+                        bund.putInt("day", day - 1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -263,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     }
                 }
                 //when user is swiping right to left
-                 if(x1 > x2) {
+                if (x1 > x2) {
                     //insert year and month data to be transfered to MonthActivity class
                     Bundle bund = new Bundle();
                     bund.putInt("year", year);
@@ -272,8 +270,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                     //get the month in which the user's day activity is on
                     int num = day1.getMonth();
                     //for the months where they have 31 days
-                    if (num==1 & day<=30| num ==3 & day<=30| num == 5 & day<=30| num ==7 & day<=30| num ==8 & day<=30 | num ==10 & day<=30| num ==12 & day<=30) {
-                        bund.putInt("day",day+1);
+                    if (num == 1 & day <= 30 | num == 3 & day <= 30 | num == 5 & day <= 30 | num == 7 & day <= 30 | num == 8 & day <= 30 | num == 10 & day <= 30 | num == 12 & day <= 30) {
+                        bund.putInt("day", day + 1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -281,8 +279,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         finish();
                     }
                     //for the months where they have 30 days
-                    if( num == 4 & day<=29| num == 6 & day<=29| num == 9 & day<=29| num == 11 & day<=29) {
-                        bund.putInt("day",day+1);
+                    if (num == 4 & day <= 29 | num == 6 & day <= 29 | num == 9 & day <= 29 | num == 11 & day <= 29) {
+                        bund.putInt("day", day + 1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -290,8 +288,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         finish();
                     }
                     //the usual years where there are 28 days in Feburary
-                    if (num==2 & day<=27 & day1.getYear()%4!=0) {
-                        bund.putInt("day",day+1);
+                    if (num == 2 & day <= 27 & day1.getYear() % 4 != 0) {
+                        bund.putInt("day", day + 1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
@@ -299,16 +297,18 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         finish();
                     }
                     //every four years, there are 29 days in February
-                    if (num==2 & day<=28 & day1.getYear()%4==0) {
-                        bund.putInt("day",day+1);
+                    if (num == 2 & day <= 28 & day1.getYear() % 4 == 0) {
+                        bund.putInt("day", day + 1);
                         Intent j = new Intent(MainActivity.this, MainActivity.class);
                         j.putExtras(bund);
                         startActivity(j);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                }break;
-        }return false;
+                }
+                break;
+        }
+        return false;
     }
 
 
@@ -452,8 +452,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
 
     @Override
     public void onSearchFound(List<BulletPoint> bullets) {
-        if(bullets!=null){
-            Toast toast = Toast.makeText(MainActivity.this, "Found!", Toast.LENGTH_LONG);
+        if (bullets != null) {
+            Toast toast = Toast.makeText(MainActivity.this, "Found!", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -496,7 +496,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
             }
-        });dialog.show();
+        });
+        dialog.show();
     }
 }
 
