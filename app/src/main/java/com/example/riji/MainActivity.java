@@ -156,8 +156,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                     }
-                });
-                dialog.show();
+                });dialog.show();
             }
         });
 
@@ -182,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 return false;
             }
         });
-
     }
 
     //when activity is destroyed, quit handlerthread
@@ -325,10 +323,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                }
-                break;
-        }
-        return false;
+                }break;
+        }return false;
     }
 
 
@@ -410,8 +406,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case 7:
                 name = "Saturday";
                 break;
-        }
-        return name;
+        }return name;
     }
 
     //switch backButton string
@@ -454,7 +449,6 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case 12:
                 back.setText("DEC");
                 break;
-
         }
     }
 
@@ -516,8 +510,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
             }
-        });
-        dialog.show();
+        });dialog.show();
     }
 }
 

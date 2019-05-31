@@ -70,7 +70,6 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         Button backButton = findViewById(R.id.Twenty19);
         backButton.setText(Integer.toString(year));
 
-
         TextView theMonth = findViewById(R.id.JAN);
         switch (month) {
             case 1:
@@ -109,7 +108,6 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
             case 12:
                 theMonth.setText("December");
                 break;
-
         }
 
         mWorkerThread = new WorkerThreadMonth(new Handler(), this, this);
@@ -194,10 +192,8 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
                     startActivity(j);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     finish();
-                }
-                break;
-        }
-        return false;
+                }break;
+        }return false;
     }
 
     @Override

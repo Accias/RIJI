@@ -9,11 +9,14 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.Adapters.DayListAdapter;
 import com.example.riji.Adapters.SearchListAdapter;
+import com.example.riji.Adapters.WordListAdapter;
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.HandlerThreads.WorkerThreadSearch;
@@ -25,7 +28,6 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     private RecyclerView mRecyclerView;
     private SearchListAdapter mAdapter;
     private List<BulletPoint> mSearch = new ArrayList<>();
-    private final List<Day> mDays = new ArrayList<>();
     private String query;
     private WorkerThreadSearch mWorkerThread;
     int counter;
@@ -44,6 +46,10 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecor);
+
 
         //get the current year and month from the bundle passed by the intent
         Bundle bund = getIntent().getExtras();
