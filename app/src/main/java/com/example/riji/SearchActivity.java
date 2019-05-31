@@ -67,7 +67,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     }
 
     public void back() {
-        Button backButton = findViewById(R.id.Twenty19);
+        Button backButton = findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,14 +83,14 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         counter--;
         if(counter==0){
             mAdapter.setDays(mDays);
+            mAdapter.setBulletPoints(mSearch);
         }
     }
 
     @Override
     public void onSearchFound(List<BulletPoint> bullets) {
-        int counter = bullets.size();
+        counter = bullets.size();
         mSearch=bullets;
-        mAdapter.setBulletPoints(bullets);
 
         for (int i = 0; i < bullets.size(); i++) {
             mWorkerThread.prepareHandlerDay();
