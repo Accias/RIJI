@@ -16,6 +16,7 @@ import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.MainActivity;
 import com.example.riji.R;
+import com.example.riji.SearchActivity;
 
 import java.util.List;
 
@@ -23,14 +24,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
     private final LayoutInflater mInflater;
     private List<BulletPoint> mBulletPoints;
     private List<Day> mDays;
-    private onNoteListener monNoteListener;
     private Context mSearchActivity;
 
     public SearchListAdapter(Context context,
-                             List<BulletPoint> bulletList, onNoteListener onNoteListener) {
+                             List<BulletPoint> bulletList) {
         mInflater = LayoutInflater.from(context);
         this.mBulletPoints = bulletList;
-        this.monNoteListener = onNoteListener;
         mSearchActivity = context;
     }
 
@@ -41,7 +40,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         //new xml for search results
         View mItemView = mInflater.inflate(R.layout.wordlist_item,
                 parent, false);
-        return new ResultViewHolder(mItemView, this, monNoteListener);
+        return new ResultViewHolder(mItemView, this);
     }
 
     public void setBulletPoints(List<BulletPoint> bulletPoints) {
@@ -72,11 +71,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
 
         onNoteListener onNoteListener;
 
-        ResultViewHolder(View itemView, SearchListAdapter adapter, onNoteListener onNoteListener) {
+        ResultViewHolder(View itemView, SearchListAdapter adapter) {
             super(itemView);
             this.mAdapter = adapter;
             wordItemView = itemView.findViewById(R.id.word);
-            this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
         }
 

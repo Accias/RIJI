@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity implements WorkerThreadSearch.Callback, SearchListAdapter.onNoteListener {
+public class SearchActivity extends AppCompatActivity implements WorkerThreadSearch.Callback{
     private RecyclerView mRecyclerView;
     private SearchListAdapter mAdapter;
     private final List<BulletPoint> mSearch = new ArrayList<>();
@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new SearchListAdapter(this, mSearch, this);
+        mAdapter = new SearchListAdapter(this, mSearch);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
@@ -64,14 +64,9 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
             @Override
             public void onClick(View view) {
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
-                ((Activity) mSearchActivity).finish();
+                finish();
             }
         });
-    }
-
-    @Override
-    public void onNoteClick(int position) {
-
     }
 
     @Override
