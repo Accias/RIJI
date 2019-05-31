@@ -41,5 +41,6 @@ public interface DayDAO {
     @Query("SELECT id FROM days WHERE year=:year AND month=:month AND day=:day")
     int getDayId(final int year, final int month, final int day);
 
-
+    @Query("SELECT * FROM days WHERE id= :id")
+    Day findDayById(final int id);
 }
