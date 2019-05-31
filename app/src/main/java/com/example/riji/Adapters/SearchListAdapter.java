@@ -1,5 +1,4 @@
 package com.example.riji.Adapters;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,16 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.MainActivity;
 import com.example.riji.R;
 import com.example.riji.SearchActivity;
-
 import java.util.List;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.ResultViewHolder> {
@@ -103,8 +99,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
             j.putExtras(bund);
             mSearchActivity.startActivity(j);
             if (mSearchActivity instanceof SearchActivity) {
-                ((Activity) mSearchActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                ((Activity) mSearchActivity).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
             }
         }
     }

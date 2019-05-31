@@ -1,26 +1,17 @@
 package com.example.riji;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.riji.Adapters.DayListAdapter;
 import com.example.riji.Adapters.SearchListAdapter;
-import com.example.riji.Adapters.WordListAdapter;
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.HandlerThreads.WorkerThreadSearch;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +19,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     private RecyclerView mRecyclerView;
     private SearchListAdapter mAdapter;
     private List<BulletPoint> mSearch = new ArrayList<>();
+    private List<Day> mDays = new ArrayList<>();
     private String query;
     private WorkerThreadSearch mWorkerThread;
     int counter;
@@ -50,7 +42,6 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecor);
 
-
         //get the current year and month from the bundle passed by the intent
         Bundle bund = getIntent().getExtras();
         //only set the variables if the bundle is not null, to prevent errors on startup when no bundle is passed.
@@ -62,8 +53,6 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
             mWorkerThread.prepareHandlerSearch();
             mWorkerThread.queueSearch(query);
         }
-
-
     }
 
     public void searchToday(View view) {
@@ -77,7 +66,6 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                 finish();
             }
         });
@@ -97,7 +85,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     public void onSearchFound(List<BulletPoint> bullets) {
         counter = bullets.size();
         mSearch=bullets;
-
+        mAdapter.setBulletPoints(bullets);
         for (int i = 0; i < bullets.size(); i++) {
             mWorkerThread.prepareHandlerDay();
             mWorkerThread.queueDay((int) bullets.get(i).getDay_id());
