@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -160,8 +161,27 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             }
         });
 
-        mWorkerThread.prepareHandlerSearch();
-        mWorkerThread.queueSearch("%hello%");
+        SearchView sv = findViewById(R.id.search_bar);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Bundle bund = new Bundle();
+                bund.putString("term","%"+query+"%");
+
+                Intent i = new Intent(MainActivity.this, SearchActivity.class);
+                i.putExtras(bund);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
     }
 

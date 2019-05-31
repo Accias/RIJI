@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".MonthActivity">
 
     <LinearLayout
 
@@ -163,6 +163,7 @@
             android:textSize="18sp" />
 
         <SearchView
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
