@@ -14,4 +14,5 @@
     <string name="circle_events">○ (EVENTS)</string>
     <string name="line_notes">- (NOTES)</string>
     <string name="squiggle_tasks">• (TASKS)</string>
+    <string name="searchitem">SearchItem</string>
 </resources>
