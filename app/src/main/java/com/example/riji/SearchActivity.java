@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new SearchListAdapter(this, mSearch);
+        mAdapter = new SearchListAdapter(this, mSearch,mDays);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
