@@ -27,10 +27,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
     private Context mSearchActivity;
 
     public SearchListAdapter(Context context,
-                             List<BulletPoint> bulletList) {
+                             List<BulletPoint> bulletList, List<Day> days) {
         mInflater = LayoutInflater.from(context);
         this.mBulletPoints = bulletList;
         mSearchActivity = context;
+        mDays = days;
     }
 
     @NonNull
