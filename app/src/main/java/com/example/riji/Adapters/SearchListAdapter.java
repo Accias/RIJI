@@ -39,7 +39,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
     public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                int viewType) {
         //new xml for search results
-        View mItemView = mInflater.inflate(R.layout.searchlist_item,
+        View mItemView = mInflater.inflate(R.layout.wordlist_item,
                 parent, false);
         return new ResultViewHolder(mItemView, this, monNoteListener);
     }
@@ -99,7 +99,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
             mSearchActivity.startActivity(j);
             if (mSearchActivity instanceof SearchActivity) {
                 ((Activity) mSearchActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                ((Activity) mSearchActivity).finish();
+
             }
         }
     }
