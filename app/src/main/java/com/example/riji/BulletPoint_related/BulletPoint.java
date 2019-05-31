@@ -45,6 +45,8 @@ public class BulletPoint {
         return id;
     }
 
+    public long getDay_id(){return day_id;}
+
     public int getBulletType() {
         return bulletType;
     }

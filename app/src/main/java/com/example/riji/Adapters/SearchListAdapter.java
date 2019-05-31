@@ -48,6 +48,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         notifyDataSetChanged();
     }
 
+    public void setDays(List<Day> days) {
+        mDays = days;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
         Day day = mDays.get(position);
