@@ -171,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 Intent i = new Intent(MainActivity.this, SearchActivity.class);
                 i.putExtras(bund);
                 startActivity(i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                 return true;
             }
 
