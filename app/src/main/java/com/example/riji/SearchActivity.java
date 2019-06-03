@@ -1,5 +1,4 @@
 package com.example.riji;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,12 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.riji.Adapters.SearchListAdapter;
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.HandlerThreads.WorkerThreadSearch;
-
 import java.util.ArrayList;
 import java.util.List;
 

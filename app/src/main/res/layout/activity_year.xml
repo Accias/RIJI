@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
         <Button
             android:id="@+id/TableofYear"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/white"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"
             android:fontFamily="@font/dosis"
             android:text=" Table of Year"
             android:textSize="@dimen/to_month_textsize" />
@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:gravity=""
         android:orientation="horizontal">
         <Button
@@ -82,7 +82,8 @@
             android:fontFamily="@font/dosis"
             android:text="Today"
             android:onClick="yearToday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:background="@color/colorPrimary"/>
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"

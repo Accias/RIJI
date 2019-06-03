@@ -14,7 +14,7 @@
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPrimary">
 
         <Button
             android:id="@+id/Twenty19"
@@ -25,7 +25,7 @@
             android:text=" 2019"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:backgroundTint="@color/colorAccent"/>
+            android:backgroundTint="@color/colorPrimary"/>
     </LinearLayout>
 
     <TextView
@@ -68,82 +68,6 @@
         android:layout_below="@id/JAN"
         android:fontFamily="@font/dosis"/>
 
-<!--    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/JAN"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:text="1."
-                android:background="@color/colorAccent"/>
-            <EditText
-                android:id="@+id/Day1Sum"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif"
-                android:hint="Reminder Event"
-                android:inputType="textAutoCorrect"
-                android:textColor="@android:color/background_dark" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:text="2."
-                android:background="@color/colorPrimaryLight"/>
-            <EditText
-                android:id="@+id/Day2Sum"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif"
-                android:hint="Reminder Event"
-                android:inputType="textAutoCorrect"
-                android:textColor="@android:color/background_dark" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-          android:id="@+id/addBullet"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_above="@id/botton_bar"
-          android:fontFamily="@font/dosis"
-          android:text="+ Bullet Point"
-          android:textSize="" />
-
-          <LinearLayout
-          android:id="@+id/list_view"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/tuesday1_2"
-          android:layout_above="@id/botton_bar"
-          android:orientation="vertical">
-
-          <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"></com.google.android.material.textfield.TextInputLayout>
-      </LinearLayout>
-  -->
-
-  <!--  <TextView
-        android:id="@+id/detect_swipe_direction_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textAllCaps="false"
-        android:text="Swipe on the screen to see my text changed."/>
--->
     <LinearLayout
 
         android:id="@+id/bottom_bar"
@@ -151,7 +75,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:gravity=""
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
 
         <Button
@@ -160,7 +85,8 @@
             android:fontFamily="@font/dosis"
             android:text="Today"
             android:onClick="monthToday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:background="@color/colorPrimary"/>
 
         <SearchView
             android:id="@+id/search_bar"

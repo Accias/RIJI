@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,17 +17,17 @@
             android:id="@+id/date"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="1."
-            android:background="@color/colorAccent"/>
+            android:background="@color/colorPrimaryLight"/>
         <EditText
             android:id="@+id/Day1Sum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/date"
-            android:layout_toLeftOf="@id/save"
+            android:layout_toEndOf="@id/date"
+            android:layout_toStartOf="@id/save"
             android:fontFamily="sans-serif"
-            android:hint="      Reminder Event"
+            android:autofillHints="      Reminder Event"
             android:textColorHint="@color/colorPrimary"
             android:inputType="textAutoCorrect"
             android:textColor="@android:color/background_dark" />
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="Save"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimaryLight"
             android:fontFamily="@font/dosis"/>
 
         </RelativeLayout>

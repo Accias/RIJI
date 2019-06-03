@@ -41,21 +41,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="sendEvent"
-            android:text="@string/circle_events"/>
+            android:text="@string/circle_events"
+            android:background="@color/colorPrimaryLight"/>
 
         <Button
             android:id="@+id/notes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="sendNote"
-            android:text="@string/line_notes"/>
+            android:text="@string/line_notes"
+            android:background="@color/colorPrimaryLight"/>
 
         <Button
             android:id="@+id/tasks"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="sendTask"
-            android:text="@string/squiggle_tasks"/>
+            android:text="@string/squiggle_tasks"
+            android:background="@color/colorPrimaryLight"/>
     </LinearLayout>
 
 

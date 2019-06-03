@@ -8,28 +8,6 @@
     android:backgroundTint="@android:color/white"
     tools:context=".TableofYear">
 
-  <!--  <LinearLayout
-
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:background="@color/colorAccent">
-
-        <Button
-            android:id="@+id/jan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:fontFamily="@font/dosis"
-            android:text=" <JAN"
-            android:layout_gravity="center"
-            android:textSize="30dp"
-            android:backgroundTint="@color/colorAccent"/>
-        />
-    </LinearLayout>
--->
     <TextView
         android:id="@+id/toy"
         android:layout_width="wrap_content"
@@ -63,15 +41,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_toLeftOf="@id/right"
-        android:layout_toRightOf="@+id/left"
+        android:layout_toStartOf="@id/right"
+        android:layout_toEndOf="@+id/left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toy"
         android:layout_above="@id/addYear"
         android:fontFamily="@font/dosis"
         />
-
 
     <Button
         android:id="@+id/addYear"
@@ -80,8 +57,8 @@
         android:layout_above="@id/botton_bar"
         android:fontFamily="@font/dosis"
         android:text="+ Year"
-
-        android:textSize="25sp">
+        android:textSize="25sp"
+        android:background="@color/colorPrimaryLight">
     </Button>
 
     <LinearLayout
@@ -92,6 +69,7 @@
         android:layout_alignParentBottom="true"
         android:gravity=""
         android:orientation="horizontal"
+        android:background="@color/colorPrimary"
         tools:ignore="ExtraText">
 
 
@@ -101,7 +79,8 @@
             android:fontFamily="@font/dosis"
             android:text="Today"
             android:onClick="tableToday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:background="@color/colorPrimary"/>
 
         <SearchView
             android:id="@+id/search_bar"

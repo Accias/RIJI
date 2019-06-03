@@ -16,7 +16,7 @@
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryLight"
         android:text="1." />
 
     <EditText
@@ -42,7 +42,7 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryLight"
         android:fontFamily="@font/dosis"
         android:text="Save" />
 
