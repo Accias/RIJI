@@ -87,7 +87,6 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
                 i.putExtras(bund);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
                 return true;
             }
 

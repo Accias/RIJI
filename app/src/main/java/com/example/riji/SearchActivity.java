@@ -17,7 +17,7 @@ import com.example.riji.HandlerThreads.WorkerThreadSearch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity implements WorkerThreadSearch.Callback{
+public class SearchActivity extends AppCompatActivity implements WorkerThreadSearch.Callback {
     private RecyclerView mRecyclerView;
     private SearchListAdapter mAdapter;
     private List<BulletPoint> mSearch = new ArrayList<>();
@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new SearchListAdapter(this, mSearch,mDays);
+        mAdapter = new SearchListAdapter(this, mSearch, mDays);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
@@ -89,6 +89,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
                 finish();
             }
         });
@@ -97,8 +98,11 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     @Override
     public void onDayFound(Day day, long day_id) {
         mDays.add(day);
-        counter--;
-        if(counter==0){
+        counter++;
+        if (counter < mSearch.size()) {
+            mWorkerThread.prepareHandlerDay();
+            mWorkerThread.queueDay((int) mSearch.get(counter).getDay_id());
+        } else if (counter == mSearch.size()) {
             mAdapter.setDays(mDays);
             mAdapter.setBulletPoints(mSearch);
         }
@@ -106,12 +110,14 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
 
     @Override
     public void onSearchFound(List<BulletPoint> bullets) {
-        counter = bullets.size();
-        mSearch=bullets;
-        mAdapter.setBulletPoints(bullets);
-        for (int i = 0; i < bullets.size(); i++) {
+        counter = 0;
+        mSearch = bullets;
+
+        if (bullets != null) {
             mWorkerThread.prepareHandlerDay();
-            mWorkerThread.queueDay((int) bullets.get(i).getDay_id());
+            mWorkerThread.queueDay((int) bullets.get(counter).getDay_id());
+        }else{
+
         }
     }
 }

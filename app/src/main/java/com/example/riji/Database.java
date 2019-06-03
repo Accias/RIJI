@@ -28,7 +28,7 @@ import java.util.TimeZone;
  */
 
 @androidx.room.Database(entities = {BulletPoint.class, Day.class, Month.class, Year.class},
-        version = 1)
+        version = 2)
 public abstract class Database extends RoomDatabase {
     //Only one instance of the database can be initialized at a time.
     private static volatile Database INSTANCE;

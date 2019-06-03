@@ -50,6 +50,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         notifyDataSetChanged();
     }
 
+    public void setNull(){
+
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {

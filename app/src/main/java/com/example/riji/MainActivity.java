@@ -156,7 +156,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                     }
-                });dialog.show();
+                });
+                dialog.show();
             }
         });
 
