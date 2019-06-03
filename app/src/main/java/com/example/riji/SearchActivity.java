@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +55,27 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
             mWorkerThread.prepareHandlerSearch();
             mWorkerThread.queueSearch(query);
         }
+
+        SearchView sv = findViewById(R.id.searchItem);
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Bundle bund = new Bundle();
+                bund.putString("term","%"+query+"%");
+
+                Intent i = new Intent(SearchActivity.this, SearchActivity.class);
+                i.putExtras(bund);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     public void searchToday(View view) {
