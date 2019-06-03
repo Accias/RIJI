@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Bundle bund = new Bundle();
-                bund.putString("term","%"+query+"%");
+                bund.putString("term", "%" + query + "%");
 
                 Intent i = new Intent(MainActivity.this, SearchActivity.class);
                 i.putExtras(bund);
@@ -323,8 +323,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                }break;
-        }return false;
+                }
+                break;
+        }
+        return false;
     }
 
 
@@ -378,6 +380,11 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             //query the bulletpoints linked to the day class
             mWorkerThread.prepareHandlerBP();
             mWorkerThread.queueBP(id);
+        } else {
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            finish();
         }
     }
 
@@ -406,7 +413,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case 7:
                 name = "Saturday";
                 break;
-        }return name;
+        }
+        return name;
     }
 
     //switch backButton string
@@ -490,7 +498,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mAdapter.deleteBP(position, mBPViewModel.getApplication());
-                Toast toast = Toast.makeText(MainActivity.this, "deleted", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(MainActivity.this, "Deleted", Toast.LENGTH_SHORT);
                 toast.show();
                 dialog.cancel();
             }
@@ -510,7 +518,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.black));
             }
-        });dialog.show();
+        });
+        dialog.show();
     }
 }
 

@@ -1,19 +1,23 @@
 package com.example.riji;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.riji.Adapters.SearchListAdapter;
 import com.example.riji.BulletPoint_related.BulletPoint;
 import com.example.riji.Day_related.Day;
 import com.example.riji.HandlerThreads.WorkerThreadSearch;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Bundle bund = new Bundle();
-                bund.putString("term","%"+query+"%");
+                bund.putString("term", "%" + query + "%");
 
                 Intent i = new Intent(SearchActivity.this, SearchActivity.class);
                 i.putExtras(bund);
@@ -113,11 +117,12 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         counter = 0;
         mSearch = bullets;
 
-        if (bullets != null) {
+        if (bullets.size() != 0) {
             mWorkerThread.prepareHandlerDay();
             mWorkerThread.queueDay((int) bullets.get(counter).getDay_id());
-        }else{
-
+        } else {
+            Toast toast = Toast.makeText(SearchActivity.this, "No results found.", Toast.LENGTH_LONG);
+            toast.show();
         }
     }
 }
