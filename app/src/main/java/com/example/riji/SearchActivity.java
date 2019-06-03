@@ -19,11 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements WorkerThreadSearch.Callback {
-    private RecyclerView mRecyclerView;
     private SearchListAdapter mAdapter;
     private List<BulletPoint> mSearch = new ArrayList<>();
     private List<Day> mDays = new ArrayList<>();
-    private String query;
     private WorkerThreadSearch mWorkerThread;
     int counter;
 
@@ -34,7 +32,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         back();
 
         // Get a handle to the RecyclerView.
-        mRecyclerView = findViewById(R.id.recyclerview);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
         mAdapter = new SearchListAdapter(this, mSearch, mDays);
         // Connect the adapter with the RecyclerView.
@@ -49,7 +47,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         Bundle bund = getIntent().getExtras();
         //only set the variables if the bundle is not null, to prevent errors on startup when no bundle is passed.
         if (bund != null) {
-            query = bund.getString("term");
+            String query = bund.getString("term");
             //start querying Day
             mWorkerThread = new WorkerThreadSearch(new Handler(), this, this);
             mWorkerThread.start();

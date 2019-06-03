@@ -9,8 +9,6 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.riji.Database;
-import com.example.riji.Month_related.Month;
-import com.example.riji.Month_related.MonthDAO;
 import com.example.riji.Year_related.Year;
 import com.example.riji.Year_related.YearDAO;
 

@@ -36,10 +36,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
     int year = calendar.get(Calendar.YEAR);
     float x1, x2, y1, y2;
     private GestureDetectorCompat mDetector;
-    private RecyclerView mRecyclerView;
     private DayListAdapter mAdapter;
-    private Month month1;
-    private long month_id;
     private WorkerThreadMonth mWorkerThread;
 
     @Override
@@ -49,7 +46,7 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
         monthBackYear();
 
         // Get a handle to the RecyclerView.
-        mRecyclerView = findViewById(R.id.recyclerview);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
         // Create an adapter and supply the data to be displayed.
         mAdapter = new DayListAdapter(this, mDays, this.getApplication(), this);
         // Connect the adapter with the RecyclerView.
@@ -211,8 +208,6 @@ public class MonthActivity extends AppCompatActivity implements WorkerThreadMont
 
     @Override
     public void onMonthFound(Month month, long month_id) {
-        month1 = month;
-        this.month_id = month_id;
         mWorkerThread.prepareHandlerDay();
         mWorkerThread.queueDay(year, this.month);
     }

@@ -20,7 +20,6 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     private final LayoutInflater mInflater;
     private List<BulletPoint> mBulletPoints;
     private onNoteListener monNoteListener;
-    private BulletPointRepository mBPRepository;
 
     public WordListAdapter(Context context,
                            List<BulletPoint> bulletList, onNoteListener onNoteListener) {
@@ -55,7 +54,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     }
 
     public void deleteBP(int position, Application application) {
-        mBPRepository = new BulletPointRepository(application);
+        BulletPointRepository mBPRepository = new BulletPointRepository(application);
         mBPRepository.deleteBulletPoint(mBulletPoints.get(position));
     }
 

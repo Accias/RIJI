@@ -88,7 +88,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         //change on long click to on click
         @Override
         public void onClick(View v) {
-            onNoteListener.onNoteClick(getAdapterPosition());
             int mPosition = getLayoutPosition();
             // Use that to access the affected item in mDays.
             Day day1 = mDays.get(mPosition);

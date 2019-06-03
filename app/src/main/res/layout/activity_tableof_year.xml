@@ -4,7 +4,6 @@
     android:id="@+id/tableYear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:backgroundTint="@android:color/white"
     tools:context=".TableofYear">
 

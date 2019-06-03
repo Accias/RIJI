@@ -33,7 +33,6 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
     float x1, x2, y1, y2;
     YearViewModel mYViewModel;
     private YearListAdapter mAdapter;
-    private WorkerThreadTableOfYears mWorkerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
             }
         });
 
-        mWorkerThread = new WorkerThreadTableOfYears(new Handler(), this, this);
+        WorkerThreadTableOfYears mWorkerThread = new WorkerThreadTableOfYears(new Handler(), this, this);
         mWorkerThread.start();
         mWorkerThread.prepareHandlerYears();
         mWorkerThread.queueYears();
