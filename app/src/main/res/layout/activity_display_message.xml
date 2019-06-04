@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
@@ -23,7 +23,6 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
             android:hint="Bullet Point"
             android:inputType="textAutoCorrect"
@@ -31,9 +30,10 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/lay"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <Button
@@ -48,6 +48,7 @@
             android:id="@+id/notes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_toRightOf="@id/events"
             android:onClick="sendNote"
             android:text="@string/line_notes"
             android:background="@color/colorPrimaryLight"/>
@@ -56,10 +57,11 @@
             android:id="@+id/tasks"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_toRightOf="@id/notes"
             android:onClick="sendTask"
             android:text="@string/squiggle_tasks"
             android:background="@color/colorPrimaryLight"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

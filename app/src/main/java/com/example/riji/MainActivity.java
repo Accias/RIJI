@@ -266,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         finish();
                     }
+
                     //when it is any other day, swiping right will bring the user back to the previous day
                     else {
                         bund.putInt("day", day - 1);
