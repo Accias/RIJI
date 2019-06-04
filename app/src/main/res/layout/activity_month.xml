@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@android:color/white"
+    android:background="@color/white"
     tools:context=".MonthActivity">
 
     <LinearLayout
@@ -24,7 +24,8 @@
             android:text=" 2019"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:backgroundTint="@color/colorPrimary"/>
+            android:backgroundTint="@color/colorPrimaryLight"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
     <TextView
@@ -85,7 +86,8 @@
             android:text="Today"
             android:onClick="monthToday"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <SearchView
             android:id="@+id/search_bar"

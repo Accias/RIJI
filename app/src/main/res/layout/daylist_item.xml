@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@android:color/white"
-    android:backgroundTint="@android:color/white"
+    android:background="@color/white"
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
@@ -44,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:background="@color/colorPrimaryLight"
         android:fontFamily="@font/dosis"
-        android:text="Save" />
+        android:text="Save"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/tableYear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@android:color/white"
+    android:background="@color/white"
     tools:context=".TableofYear">
 
     <TextView
@@ -79,7 +79,8 @@
             android:text="Today"
             android:onClick="tableToday"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <SearchView
             android:id="@+id/search_bar"

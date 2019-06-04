@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
     private WordListAdapter mAdapter;
     private String mString;
     private BulletPointViewModel mBPViewModel;
-    //private final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2, 0,
-    //        TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-    //Handler thread for database queries
+   
     private MyWorkerThread mWorkerThread;
     //set up dialogue
     private TextView symbol;

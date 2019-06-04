@@ -5,7 +5,7 @@
     android:id="@+id/year"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@android:color/white"
+    android:background="@color/white"
     tools:context=".YearActivity">
 
     <LinearLayout
@@ -19,12 +19,13 @@
             android:id="@+id/TableofYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:background="@android:color/white"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:layout_gravity="center"
             android:fontFamily="@font/dosis"
             android:text=" Table of Year"
-            android:textSize="@dimen/to_month_textsize" />
+            android:textSize="@dimen/to_month_textsize"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
     <TextView
@@ -82,7 +83,8 @@
             android:text="Today"
             android:onClick="yearToday"
             android:textSize="18sp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            style="?android:attr/borderlessButtonStyle"/>
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"

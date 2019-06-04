@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <LinearLayout
 
@@ -20,10 +21,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/white"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryLight"
             android:fontFamily="@font/dosis"
             android:text="JAN"
-            android:textSize="@dimen/to_month_textsize" />
+            android:textSize="@dimen/to_month_textsize"
+            style="?android:attr/borderlessButtonStyle"
+            />
     </LinearLayout>
 
     <TextView
@@ -95,7 +98,8 @@
             android:textSize="18sp"
             android:onClick="today"
             android:background="@color/colorPrimary"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <SearchView
             android:id="@+id/search_bar"
