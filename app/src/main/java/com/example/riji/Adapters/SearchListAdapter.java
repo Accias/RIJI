@@ -54,7 +54,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         notifyDataSetChanged();
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
         Day day = mDays.get(position);
@@ -68,15 +67,9 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Re
         return mBulletPoints.size();
     }
 
-    public interface onNoteListener {
-        void onNoteClick(int position);
-    }
-
     class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView wordItemView;
         final SearchListAdapter mAdapter;
-
-        onNoteListener onNoteListener;
 
         ResultViewHolder(View itemView, SearchListAdapter adapter) {
             super(itemView);

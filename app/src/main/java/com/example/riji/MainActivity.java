@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
 
         // Create an adapter and supply the data to be displayed.
-        mAdapter = new WordListAdapter(this, mBulletPoints, this);
+        mAdapter = new WordListAdapter(this, mBulletPoints, this,Database.getDatabase(this));
 
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecor);
