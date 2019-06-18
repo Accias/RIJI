@@ -1,6 +1,7 @@
 package com.example.riji.Adapters;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,22 +14,28 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.riji.BulletPoint_related.BulletPointRepository;
+import com.example.riji.Database;
 import com.example.riji.R;
 import com.example.riji.YearActivity;
 import com.example.riji.Year_related.Year;
 
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearViewHolder> {
     private final LayoutInflater mInflater;
     private List<Year> mYear;
     private Context mTableActivity;
+    private YearListAdapter.OnNoteListener monNoteListener;
 
-    public YearListAdapter(Context context,
-                           List<Year> yearlist) {
+    public YearListAdapter(Context context, List<Year> yearlist, OnNoteListener onNoteListener) {
         mInflater = LayoutInflater.from(context);
         this.mYear = yearlist;
         mTableActivity = context;
+        monNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -37,7 +44,7 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
                                              int viewType) {
         View mItemView = mInflater.inflate(R.layout.yearlist_item,
                 parent, false);
-        return new YearListAdapter.YearViewHolder(mItemView, this);
+        return new YearListAdapter.YearViewHolder(mItemView, this, monNoteListener);
     }
 
     public void setYears(List<Year> year) {
@@ -93,22 +100,41 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
         }
     }
 
+    public interface OnNoteListener {
+        void onNoteClick(int position);
+    }
+
+    public void deleteYear(final int position, final Database database) {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0,
+                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.getYearDAO().deleteYear(mYear.get(position));
+            }
+        });
+    }
+
+
     @Override
     public int getItemCount() {
         return mYear.size();
     }
 
-    class YearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class YearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         final Button buttonView;
         final YearListAdapter mAdapter;
         final ImageButton zodiac;
+        YearListAdapter.OnNoteListener onNoteListener;
 
-        YearViewHolder(View itemView, YearListAdapter adapter) {
+        YearViewHolder(View itemView, YearListAdapter adapter, YearListAdapter.OnNoteListener onNoteListener) {
             super(itemView);
             this.mAdapter = adapter;
             buttonView = itemView.findViewById(R.id.year1);
             zodiac = itemView.findViewById(R.id.zodiac);
             buttonView.setOnClickListener(this);
+            buttonView.setOnLongClickListener(this);
+            this.onNoteListener = onNoteListener;
         }
 
         public void onClick(View v) {
@@ -129,6 +155,12 @@ public class YearListAdapter extends RecyclerView.Adapter<YearListAdapter.YearVi
                 ((Activity) mTableActivity).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 ((Activity) mTableActivity).finish();
             }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+            return false;
         }
     }
 

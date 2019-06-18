@@ -28,7 +28,7 @@ import java.util.TimeZone;
  */
 
 @androidx.room.Database(entities = {BulletPoint.class, Day.class, Month.class, Year.class},
-        version = 2)
+        version = 3)
 public abstract class Database extends RoomDatabase {
     //Only one instance of the database can be initialized at a time.
     private static volatile Database INSTANCE;
@@ -117,16 +117,10 @@ public abstract class Database extends RoomDatabase {
     //insert test data into the database
     private static class PopulateDbAsync extends AsyncTask<Database, Void, Void> {
 
-        private final BulletPointDAO mBPDao;
         private final DayDAO mDayDao;
-        private final MonthDAO mMonthDao;
-        private final YearDAO mYearDao;
 
         PopulateDbAsync(Database db) {
-            mBPDao = db.getBulletPointDAO();
             mDayDao = db.getDayDAO();
-            mMonthDao = db.getMonthDAO();
-            mYearDao = db.getYearDAO();
         }
 
         //database tasks must be done on a separate thread so they don't clog up the main thread and freeze the UI.
@@ -134,32 +128,12 @@ public abstract class Database extends RoomDatabase {
             //get current date
             Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
             //getTime() returns the current date in default time zone
-            int day = calendar.get(Calendar.DATE);
-            //Note: +1 the month for current month
-            int month = calendar.get(Calendar.MONTH) + 1;
             int year = calendar.get(Calendar.YEAR);
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-            //wipe previous data in the database
-            //mBPDao.deleteAll();
-            // mDayDao.deleteAll();
-            // mMonthDao.deleteAll();
-            // mYearDao.deleteAll();
 
             //initialize new Day class based on current date if there isn't one
             if (mDayDao.findSpecificDayNoLive(year, 1, 1) == null) {
                 genYear(params[0], year);
             }
-
-            //  long id = mDayDao.getDayId(year, month, day);
-            // Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
-            // day1.setNote("hello world");
-            //mDayDao.updateDay(day1);
-            //insert test bulletpoints
-            // BulletPoint bp = new BulletPoint(0, "Hello", id);
-            // mBPDao.insertBulletPoint(bp);
-            // bp = new BulletPoint(0, "World", id);
-            //mBPDao.insertBulletPoint(bp);
 
             return null;
         }

@@ -8,7 +8,9 @@ import androidx.room.PrimaryKey;
 
 import com.example.riji.Day_related.Day;
 
-@Entity(tableName = "bulletpoints", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "id", childColumns = "day_id")},
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "bulletpoints", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "id", childColumns = "day_id", onDelete = CASCADE)},
         indices = {@Index(value = "day_id")})
 //
 /*

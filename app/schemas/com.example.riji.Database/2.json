@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "43f7f7ed7530405e98b2c98380ae0b81",
+    "identityHash": "61c26af2999475d88df9f1e0d41b87dc",
     "entities": [
       {
         "tableName": "bulletpoints",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bulletType` INTEGER NOT NULL, `note` TEXT, `day_id` INTEGER NOT NULL, FOREIGN KEY(`day_id`) REFERENCES `days`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bulletType` INTEGER NOT NULL, `note` TEXT, `day_id` INTEGER NOT NULL, FOREIGN KEY(`day_id`) REFERENCES `days`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -52,7 +52,7 @@
         "foreignKeys": [
           {
             "table": "days",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "day_id"
@@ -65,7 +65,7 @@
       },
       {
         "tableName": "days",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `note` TEXT, `month_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`month_id`) REFERENCES `months`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `weekDate` INTEGER NOT NULL, `note` TEXT, `month_id` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`month_id`) REFERENCES `months`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "day",
@@ -129,7 +129,7 @@
         "foreignKeys": [
           {
             "table": "months",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "month_id"
@@ -234,7 +234,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"43f7f7ed7530405e98b2c98380ae0b81\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"61c26af2999475d88df9f1e0d41b87dc\")"
     ]
   }
 }
