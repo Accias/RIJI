@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class DayViewModel extends AndroidViewModel {
     private DayRepository mRepository;
     private LiveData<List<Day>> mAllDays;

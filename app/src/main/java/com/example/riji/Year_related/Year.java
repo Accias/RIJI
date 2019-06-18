@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "years")
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class Year {
 
     @ColumnInfo(name = "year")

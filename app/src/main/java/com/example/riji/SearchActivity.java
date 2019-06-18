@@ -98,10 +98,12 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
     public void onDayFound(Day day, long day_id) {
         mDays.add(day);
         counter++;
+        //when bulletpoint querying not finished yet, keep adding day classes to the list
         if (counter < mSearch.size()) {
             mWorkerThread.prepareHandlerDay();
             mWorkerThread.queueDay((int) mSearch.get(counter).getDay_id());
         } else if (counter == mSearch.size()) {
+            //after all queries are finished, set data to adapter
             mAdapter.setDays(mDays);
             mAdapter.setBulletPoints(mSearch);
         }
@@ -112,6 +114,7 @@ public class SearchActivity extends AppCompatActivity implements WorkerThreadSea
         counter = 0;
         mSearch = bullets;
 
+        //query the day class for each bulletpoint
         if (bullets.size() != 0) {
             mWorkerThread.prepareHandlerDay();
             mWorkerThread.queueDay((int) bullets.get(counter).getDay_id());

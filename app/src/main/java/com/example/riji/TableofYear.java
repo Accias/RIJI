@@ -103,8 +103,8 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
 
     }
 
-    public void tableToday(View view){
-        startActivity(new Intent(TableofYear.this, MainActivity.class));
+    public void tableToday(View view) {
+        startActivity(new Intent(TableofYear.this, TableofYear.class));
         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
         finish();
     }
@@ -162,16 +162,10 @@ public class TableofYear extends AppCompatActivity implements WorkerThreadTableO
         final AlertDialog dialog = builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (position!=0)
-                {mAdapter.deleteYear(position, rijiDatabase);
+                mAdapter.deleteYear(position, rijiDatabase);
                 Toast toast = Toast.makeText(TableofYear.this, "Deleted", Toast.LENGTH_SHORT);
                 toast.show();
-                dialog.cancel();}
-                else
-                {
-                    Toast toast = Toast.makeText(TableofYear.this, "Cannot be deleted", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                dialog.cancel();
             }
         }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override

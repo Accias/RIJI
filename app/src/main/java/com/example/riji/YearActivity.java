@@ -77,6 +77,7 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         mWorkerThread.queueMonths(year);
         SearchView sv = findViewById(R.id.search_bar);
 
+        //search activity
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -171,6 +172,7 @@ public class YearActivity extends AppCompatActivity implements WorkerThreadYear.
         });
     }
 
+    //useless
     @Override
     public void onYearFound(Year year, int year_id) {
         //  year1 = year;

@@ -15,6 +15,11 @@ import com.example.riji.Year_related.YearDAO;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/*
+    Custom handlerthread class for asynchronous database queries and returns.
+    There is one for each activity.Methods are mostly the same, only the HandleRequest methods are different.
+    See My worker thread class for the most documentation.
+ */
 public class WorkerThreadTableOfYears extends HandlerThread {
     private static final String TAG = WorkerThreadTableOfYears.class.getSimpleName();
     private Handler mWorkerHandler;

@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class MonthViewModel extends AndroidViewModel {
     private MonthRepository mRepository;
     private LiveData<List<Month>> mAllMonths;

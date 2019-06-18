@@ -17,7 +17,10 @@ import com.example.riji.Day_related.DayDAO;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//MyWorkerThread.java
+/*
+    Custom handlerthread class for asynchronous database queries and returns.
+    There is one for each activity.
+ */
 public class MyWorkerThread extends HandlerThread {
     private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Handler mWorkerHandler;
@@ -30,10 +33,12 @@ public class MyWorkerThread extends HandlerThread {
         super(TAG);
         mResponseHandler = responseHandler;
         mCallback = callback;
+        //get DAOs
         this.mDayDao = Database.getDatabase(context).getDayDAO();
         this.mBPDao = Database.getDatabase(context).getBulletPointDAO();
     }
 
+    //am not really sure how these methods work yet
     public void queueDay(int year, int month, int day) {
         Log.i(TAG, "year: " + year + " month: " + month + " day: " + day + " added to the day queue");
         mWorkerHandler.obtainMessage(year, month, day)
@@ -49,7 +54,7 @@ public class MyWorkerThread extends HandlerThread {
     public void queueSearch(String term){
        Message message= mWorkerHandler.obtainMessage();
        message.obj=term;
-                message.sendToTarget();
+       message.sendToTarget();
     }
 
     public void prepareHandlerBP() {
@@ -120,36 +125,42 @@ public class MyWorkerThread extends HandlerThread {
 
     private void handleDayRequest(final int year, final int month, final int day) {
 
+        //query
         final Day day1 = mDayDao.findSpecificDayNoLive(year, month, day);
         final long day_id = mDayDao.getDayId(year, month, day);
         mResponseHandler.post(new Runnable() {
             @Override
             public void run() {
+                //return result to activity
                 mCallback.onDayFound(day1, day_id);
             }
         });
     }
 
     private void handleBPRequest(final int day_id) {
+        //query
         final LiveData<List<BulletPoint>> bullets = mBPDao.findBulletPointsForDay(day_id);
         mResponseHandler.post(new Runnable() {
             @Override
             public void run() {
+                //return result to activity
                 mCallback.onBPFound(bullets);
             }
         });
     }
     private void handleSearchRequest(final String term) {
-
+        //query
         final List<BulletPoint> bullets=mBPDao.search(term);
         mResponseHandler.post(new Runnable() {
             @Override
             public void run() {
+                //return result to activity
                 mCallback.onSearchFound(bullets);
             }
         });
     }
 
+    //activity implements interface so the data can be returned
     public interface Callback {
         void onDayFound(Day day, long day_id);
 

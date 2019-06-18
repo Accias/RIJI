@@ -62,6 +62,7 @@ public class MonthListAdapter extends RecyclerView.Adapter<MonthListAdapter.Mont
                 String note = holder.editText.getText().toString();
                 int position = holder.getLayoutPosition();
                 Month month1 = mMonth.get(position);
+                //if text is different from database, then save
                 if (!note.equals("") && !note.equals(month1.getNote())) {
                     month1.setNote(note);
                     mMonth.set(position, month1);

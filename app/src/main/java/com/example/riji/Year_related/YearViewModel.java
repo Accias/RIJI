@@ -10,6 +10,7 @@ import com.example.riji.Year_related.YearRepository;
 
 import java.util.List;
 
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class YearViewModel extends AndroidViewModel {
     private YearRepository mRepository;
     private LiveData<List<Year>> mAllYears;

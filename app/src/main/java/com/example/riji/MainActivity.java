@@ -322,8 +322,10 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                }break;
-        }return false;
+                }
+                break;
+        }
+        return false;
     }
 
 
@@ -410,7 +412,8 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
             case 7:
                 name = "Saturday";
                 break;
-        }return name;
+        }
+        return name;
     }
 
     //switch backButton string
@@ -421,13 +424,13 @@ public class MainActivity extends AppCompatActivity implements MyWorkerThread.Ca
                 back.setText("JAN");
                 break;
             case 2:
-                back.setText("FEB");
+                back.setText("FEV");
                 break;
             case 3:
                 back.setText("MAR");
                 break;
             case 4:
-                back.setText("APR");
+                back.setText("ARI");
                 break;
             case 5:
                 back.setText("MAY");

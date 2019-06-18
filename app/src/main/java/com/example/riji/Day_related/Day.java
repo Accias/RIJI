@@ -10,8 +10,12 @@ import com.example.riji.Month_related.Month;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+
 @Entity(tableName = "days", foreignKeys = {@ForeignKey(entity = Month.class, parentColumns = "id", childColumns = "month_id", onDelete = CASCADE)},
         indices = {@Index(value = "month_id")})
+//one to many relationship with month class using foreign key
+
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class Day {
 
     @ColumnInfo(name = "day")

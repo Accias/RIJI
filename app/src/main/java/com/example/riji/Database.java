@@ -60,12 +60,15 @@ public abstract class Database extends RoomDatabase {
 
     static void newYear(Database db) {
         YearDAO mYearDao = db.getYearDAO();
+        //get the last year in the database
         List<Year> years = mYearDao.getAllYearsNoLive();
         Year lastYear = years.get(years.size() - 1);
+        //use calendar to get next year in case someone changes the time system a few decades from now.
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         calendar.set(lastYear.getYear(), 1, 1);
         calendar.add(Calendar.YEAR, 1);
         int year = calendar.get(Calendar.YEAR);
+        //call genYear method
         genYear(db, year);
     }
 
@@ -74,6 +77,7 @@ public abstract class Database extends RoomDatabase {
      */
     private static void genYear(Database db, int year) {
 
+        //get all DAOs
         BulletPointDAO mBPDao = db.getBulletPointDAO();
         DayDAO mDayDao = db.getDayDAO();
         MonthDAO mMonthDao = db.getMonthDAO();
@@ -84,6 +88,7 @@ public abstract class Database extends RoomDatabase {
         mYearDao.insertYear(year1);
         long yearId = mYearDao.getYearId(year);
 
+        //for loop to generate all days and months
         for (int i = 1; i <= 12; i++) {
             Month month = new Month(i, year, yearId);
             mMonthDao.insertMonth(month);

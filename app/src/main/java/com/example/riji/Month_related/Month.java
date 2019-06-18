@@ -12,6 +12,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "months", foreignKeys = {@ForeignKey(entity = Year.class, parentColumns = "id", childColumns = "year_id", onDelete = CASCADE)},
         indices = {@Index(value = "year_id")})
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class Month {
 
     //month starts from 1(january)

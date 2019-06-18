@@ -9,6 +9,7 @@ import com.example.riji.Database;
 
 import java.util.List;
 
+//since all database classes are very similar, refer to BulletPoint folder for commenting references. Method names should be self explanatory
 public class DayRepository {
     private DayDAO mDayDao;
     private LiveData<List<Day>> mAllDays;

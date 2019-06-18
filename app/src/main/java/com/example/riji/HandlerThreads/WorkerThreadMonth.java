@@ -17,6 +17,11 @@ import com.example.riji.Month_related.MonthDAO;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/*
+    Custom handlerthread class for asynchronous database queries and returns.
+    There is one for each activity.Methods are mostly the same, only the HandleRequest methods are different.
+    See My worker thread class for the most documentation.
+ */
 public class WorkerThreadMonth extends HandlerThread {
     private static final String TAG = MyWorkerThread.class.getSimpleName();
     private Handler mWorkerHandler;
