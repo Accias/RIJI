@@ -27,13 +27,14 @@
         android:fontFamily="sans-serif"
         android:gravity="top|left"
         android:hint="Notes"
+
         android:inputType="textMultiLine"
         android:lines="8"
         android:maxLines="5"
         android:minLines="1"
         android:scrollbars="vertical"
         android:textColor="@android:color/background_dark"
-        android:textColorHint="@color/colorPrimary"
+        android:textColorHint="@color/colorAccent"
         android:textCursorDrawable="@null" />
 
     <Button
